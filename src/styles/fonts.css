@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "VelaSans-SemiBold";
+  src: url("../assets/fonts/VelaSans-SemiBold/VelaSans-SemiBold.otf")
+      format("otf"),
+    url("../assets/fonts/VelaSans-SemiBold/VelaSans-SemiBold.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "VelaSans-Medium";
+  src: url("../assets/fonts/VelaSans-Medium/VelaSans-Medium.otf") format("otf"),
+    url("../assets/fonts/VelaSans-Medium/VelaSans-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "VelaSans-Regular";
+  src: url("../assets/fonts/VelaSans-Regular/VelaSans-Regular.otf")
+      format("otf"),
+    url("../assets/fonts/VelaSans-Regular/VelaSans-Regular.woff") format("woff");
+}

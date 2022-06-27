@@ -1,0 +1,25 @@
+.nav__link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.nav__link:hover {
+  background-color: #f4f7fa;
+}
+
+.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7ecf1;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.count_invisible {
+  visibility: hidden;
+}

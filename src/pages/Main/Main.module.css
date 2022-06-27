@@ -1,0 +1,19 @@
+.filter_container {
+  display: flex;
+  border: solid 1px #e7ecf1;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  font-family: VelaSans-Medium;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.main_conteiner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 382px 382px 382px 382px;
+  grid-column-gap: 3px;
+  grid-row-gap: 16px;
+  margin-bottom: 40px;
+}

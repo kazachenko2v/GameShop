@@ -1,0 +1,15 @@
+.container {
+  border-radius: 30px;
+  padding: 12px;
+}
+
+.img {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+}
+
+.row:not(:last-of-type) {
+  margin-bottom: 8px;
+}

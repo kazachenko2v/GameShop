@@ -1,0 +1,14 @@
+.seacrh_container {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #f4f7fa;
+}
+
+.search_input {
+  border: none;
+  background: #f4f7fa;
+  font-family: VelaSans-Medium;
+}
