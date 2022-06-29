@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "./static/css/main.3a0a513d.css",
-    "main.js": "./static/js/main.0f6e0641.js",
-    "static/media/VelaSans-SemiBold.otf": "./static/media/VelaSans-SemiBold.6872804a6599c78ed00d.otf",
-    "static/media/VelaSans-Regular.otf": "./static/media/VelaSans-Regular.117e8a4c3026c5b404ac.otf",
-    "static/media/VelaSans-Medium.otf": "./static/media/VelaSans-Medium.afb228c904d90fa6ad23.otf",
-    "static/media/VelaSans-SemiBold.woff": "./static/media/VelaSans-SemiBold.42299d95265808ed8ff8.woff",
-    "static/media/VelaSans-Regular.woff": "./static/media/VelaSans-Regular.8a891125566ccc384e8a.woff",
-    "static/media/VelaSans-Medium.woff": "./static/media/VelaSans-Medium.3d7b2c23830563cc7a04.woff",
-    "static/media/close.svg": "./static/media/close.4420b3dbf1589fb0c0218721402255cf.svg",
-    "static/media/checkbox.svg": "./static/media/checkbox.08237ad644592df7a360.svg",
-    "static/media/checkbox__acive.svg": "./static/media/checkbox__acive.f8005d4c1e665ab974c7.svg",
-    "index.html": "./index.html",
-    "main.3a0a513d.css.map": "./static/css/main.3a0a513d.css.map",
-    "main.0f6e0641.js.map": "./static/js/main.0f6e0641.js.map"
+    "main.css": "/static/css/main.80b7681d.css",
+    "main.js": "/static/js/main.80b77648.js",
+    "static/media/VelaSans-SemiBold.otf": "/static/media/VelaSans-SemiBold.6872804a6599c78ed00d.otf",
+    "static/media/VelaSans-Regular.otf": "/static/media/VelaSans-Regular.117e8a4c3026c5b404ac.otf",
+    "static/media/VelaSans-Medium.otf": "/static/media/VelaSans-Medium.afb228c904d90fa6ad23.otf",
+    "static/media/VelaSans-SemiBold.woff": "/static/media/VelaSans-SemiBold.42299d95265808ed8ff8.woff",
+    "static/media/VelaSans-Regular.woff": "/static/media/VelaSans-Regular.8a891125566ccc384e8a.woff",
+    "static/media/VelaSans-Medium.woff": "/static/media/VelaSans-Medium.3d7b2c23830563cc7a04.woff",
+    "static/media/close.svg": "/static/media/close.4420b3dbf1589fb0c0218721402255cf.svg",
+    "static/media/checkbox.svg": "/static/media/checkbox.08237ad644592df7a360.svg",
+    "static/media/checkbox__acive.svg": "/static/media/checkbox__acive.f8005d4c1e665ab974c7.svg",
+    "index.html": "/index.html",
+    "main.80b7681d.css.map": "/static/css/main.80b7681d.css.map",
+    "main.80b77648.js.map": "/static/js/main.80b77648.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a0a513d.css",
-    "static/js/main.0f6e0641.js"
+    "static/css/main.80b7681d.css",
+    "static/js/main.80b77648.js"
   ]
 }
