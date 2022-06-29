@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/GameShop/">
       <Routes>
         <Route path="/" element={<MainLayouts />}>
           <Route path="" element={<Main />} />

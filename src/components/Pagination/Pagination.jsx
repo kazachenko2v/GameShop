@@ -8,9 +8,10 @@ const Pagination = ({ currentPage, gamesCount, status }) => {
   const dispatch = useDispatch();
   const pageCount = Math.ceil(gamesCount / 20);
   const handlePageClick = (e) => {
-    if (!e.nextSelectedPage) {
+    if (e.nextSelectedPage === undefined) {
       return;
     }
+    console.log(e);
     localStorage.setItem("page", e.nextSelectedPage + 1);
     dispatch(setCurrentPage(e.nextSelectedPage + 1));
   };

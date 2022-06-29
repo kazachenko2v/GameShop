@@ -47,7 +47,6 @@ const GamePage = () => {
 
   const toggleFavorite = () => {
     // check if the game is in favorites
-    console.log(typeof id);
     favoriteGames.find((item) => console.log(typeof item.id));
     const isContain = favoriteGames.find((item) => item.id == id);
     if (isContain) {
