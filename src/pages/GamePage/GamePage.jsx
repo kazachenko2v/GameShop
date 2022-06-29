@@ -38,16 +38,18 @@ const GamePage = () => {
       }
     };
     fetching();
-    setIsFavorite(favoriteGames.find((item) => item.id === id));
+    setIsFavorite(favoriteGames.find((item) => item.id == id));
   }, []);
 
   React.useEffect(() => {
-    setIsFavorite(favoriteGames.find((item) => item.id === id));
+    setIsFavorite(favoriteGames.find((item) => item.id == id));
   }, [isFavorite]);
 
   const toggleFavorite = () => {
     // check if the game is in favorites
-    const isContain = favoriteGames.find((item) => item.id === id);
+    console.log(typeof id);
+    favoriteGames.find((item) => console.log(typeof item.id));
+    const isContain = favoriteGames.find((item) => item.id == id);
     if (isContain) {
       setIsFavorite(false);
       dispatch(removeGame(game.id));
@@ -56,7 +58,6 @@ const GamePage = () => {
       setIsFavorite(true);
       dispatch(addGame(game));
       setLocalStorage("favorites", game);
-      // localStorage.setItem("favorites", JSON.stringify(game));
     }
   };
 
