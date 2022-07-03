@@ -1,15 +1,16 @@
+import React from "react";
 import { useDispatch } from "react-redux";
-import { setSearchQuery } from "../../redux/slices/filterSlice";
+import { setSearchQuery } from "../../redux/filter/slice";
 
 import styles from "./Search.module.css";
 
 import _debounce from "lodash.debounce";
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
   const debounce = _debounce((value) => dispatch(setSearchQuery(value)), 300);
 
-  const changeHandler = (value) => {
+  const changeHandler = (value: string) => {
     localStorage.setItem("search", value);
     debounce(value);
   };

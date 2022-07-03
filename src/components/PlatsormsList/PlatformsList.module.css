@@ -24,6 +24,7 @@
 
 .dropdown_menu__acive {
   position: absolute;
+  z-index: 1000;
   display: block;
   padding: 12px;
   background: #ffffff;

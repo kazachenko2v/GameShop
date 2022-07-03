@@ -3,8 +3,13 @@ import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { setFilters } from "../../redux/slices/filterSlice";
-import { fetchGames } from "../../redux/slices/gamesSlice";
+import { useAppDispatch } from "../../redux/store";
+import { setFilters } from "../../redux/filter/slice";
+import { getFilter } from "../../redux/filter/selectors";
+import { IFilterSliceState, TSearchParams } from "../../redux/filter/types";
+
+import { fetchGames } from "../../redux/games/slice";
+import { getGames } from "../../redux/games/selectors";
 
 import GameCard from "../../components/GameCard";
 import GameCardSkeleton from "../../components/GameCardSkeleton";
@@ -20,12 +25,13 @@ import {
 
 import styles from "./Main.module.css";
 
-const Main = () => {
+const Main: React.FC = () => {
   const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { games, gamesCount, status } = useSelector((state) => state.games);
-  const { page, platformsId, search } = useSelector((state) => state.filter);
+  const { results: games, count: gamesCount, status } = useSelector(getGames);
+  const { page, platformsId, search } = useSelector(getFilter);
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
@@ -54,11 +60,17 @@ const Main = () => {
 
   React.useEffect(() => {
     if (window.location.search) {
-      let params = qs.parse(window.location.search.substring(1));
-      params.parent_platforms = params.parent_platforms
-        .split(",")
-        .map((item) => Number(item));
-      dispatch(setFilters(params));
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as TSearchParams;
+      const trueTypeParams: IFilterSliceState = {
+        page: Number(params.page),
+        platformsId: params.parent_platforms
+          .split(",")
+          .map((item: string) => Number(item)),
+        search: params.search ? params.search : "",
+      };
+      dispatch(setFilters(trueTypeParams));
       isSearch.current = true;
     }
   }, []);
@@ -66,7 +78,7 @@ const Main = () => {
   React.useEffect(() => {
     const searchValue = search ? `&search=${search}` : "";
     if (!isSearch.current) {
-      dispatch(
+      appDispatch(
         fetchGames(
           GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT +
             PAGE +
@@ -83,7 +95,7 @@ const Main = () => {
   return (
     <>
       <div className={styles.filter_container}>
-        <PlatformsList />
+        <PlatformsList platformsId={platformsId} />
       </div>
       <div className={styles.main_conteiner}>
         {status === "loading"

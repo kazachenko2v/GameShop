@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./GameCardSkeleton.module.css";
 
-const GameCardSkeleton = () => {
+const GameCardSkeleton: React.FC = () => {
   return (
     <div className={styles.container}>
       <div>

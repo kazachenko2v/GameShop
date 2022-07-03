@@ -3,7 +3,17 @@ import React from "react";
 import cn from "classnames";
 import styles from "./PlatformsList.module.css";
 
-const PlatformsItem = ({
+type PlatformsItemProps = {
+  item: {
+    id: number;
+    name: string;
+  };
+  isActiveMenu: boolean;
+  togglePlatforms: (id: number) => void;
+  platformsId: number[];
+};
+
+const PlatformsItem: React.FC<PlatformsItemProps> = ({
   item,
   isActiveMenu,
   togglePlatforms,

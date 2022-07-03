@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className={styles.container}>
       <Link to={`/`}>

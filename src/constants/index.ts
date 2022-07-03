@@ -14,3 +14,11 @@ export const GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT =
 export const GAMES_LIST_KEY_ID = GAMES_LIST + KEY_ID;
 
 export const DATE = "&dates=2020-09-01,2022-06-01";
+
+export const ALL_PLATFORMS = [
+  { id: 1, name: "PC" },
+  { id: 2, name: "PlayStation" },
+  { id: 3, name: "Xbox" },
+  { id: 4, name: "iOS" },
+  { id: 8, name: "Android" },
+];

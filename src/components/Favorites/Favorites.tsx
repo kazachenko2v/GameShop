@@ -1,10 +1,12 @@
+import React from "react";
 import { useSelector } from "react-redux";
+import { getFavorite } from "../../redux/favorite/selectors";
 
 import styles from "./Favorites.module.css";
 import cn from "classnames";
 
-const Favorites = () => {
-  const count = useSelector((state) => state.favorite.count);
+const Favorites: React.FC = () => {
+  const { count } = useSelector(getFavorite);
 
   return (
     <li className={styles.nav__link}>

@@ -1,13 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
+import { TGamesItem } from "../../redux/games/types";
 
 import styles from "./GameCard.module.css";
 
-const GameCard = ({ item }) => {
-  const initialPlatforms = [1, 2, 3, 4, 8];
-  const dispatch = useDispatch();
+type GameCardProps = {
+  item: TGamesItem;
+};
+
+const GameCard: React.FC<GameCardProps> = ({ item }) => {
+  const initialPlatforms: number[] = [1, 2, 3, 4, 8];
   return (
     <>
       <div className={styles.item_container}>
