@@ -1,33 +1,21 @@
 import React from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addGame, removeGame } from "../../redux/favorite/slice";
 import { getFavorite } from "../../redux/favorite/selectors";
+import { TGamesItem } from "../../redux/games/types";
 
 import {
   setLocalStorage,
   removeItemLocalStorage,
 } from "../../utils/localStorage";
-// import { fetchGameById } from "../../utils/fetchGameById";
+import { fetchGameById } from "../../utils/fetching";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import styles from "./GamePage.module.css";
 import cn from "classnames";
-import { GAMES_LIST, KEY_ID } from "../../constants";
-
-type TDevelopers = {
-  name: string;
-};
-
-interface IGamePage {
-  id: number;
-  background_image: string;
-  name: string;
-  developers: TDevelopers[];
-}
 
 const GamePage: React.FC = () => {
   const navigate = useNavigate();
@@ -36,21 +24,11 @@ const GamePage: React.FC = () => {
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = React.useState(true);
-  const [game, setGame] = React.useState<IGamePage>();
+  const [game, setGame] = React.useState<TGamesItem>();
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   React.useEffect(() => {
-    const fetching = async () => {
-      try {
-        const { data } = await axios.get(GAMES_LIST + "/" + id + KEY_ID);
-        setGame(data);
-      } catch (error) {
-        alert(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetching();
+    fetchGameById(Number(id), setGame, setIsLoading);
     setIsFavorite(
       Boolean(favoriteGamesId.find((gameId) => gameId === Number(id)))
     );

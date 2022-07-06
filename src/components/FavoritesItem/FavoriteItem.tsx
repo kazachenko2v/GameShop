@@ -1,13 +1,12 @@
-import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Close from "../../assets/images/close.svg";
-import { GAMES_LIST, KEY_ID } from "../../constants";
 import { removeGame } from "../../redux/favorite/slice";
 import { TGamesItem } from "../../redux/games/types";
 import { removeItemLocalStorage } from "../../utils/localStorage";
+import { fetchGameById } from "../../utils/fetching";
 
 import styles from "./FavoriteItem.module.css";
 
@@ -18,20 +17,9 @@ type FavoriteItemProps = {
 const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
   const dispatch = useDispatch();
   const [game, setGame] = React.useState<TGamesItem>();
-  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const fetching = async () => {
-      try {
-        const { data } = await axios.get(GAMES_LIST + "/" + id + KEY_ID);
-        setGame(data);
-      } catch (error) {
-        alert(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetching();
+    fetchGameById(id, setGame);
   }, []);
 
   const removeButton = (id: number) => {

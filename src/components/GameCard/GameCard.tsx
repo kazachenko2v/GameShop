@@ -2,6 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { TGamesItem } from "../../redux/games/types";
+import { ALL_PLATFORMS_ID } from "../../constants";
 
 import styles from "./GameCard.module.css";
 
@@ -10,11 +11,10 @@ type GameCardProps = {
 };
 
 const GameCard: React.FC<GameCardProps> = ({ item }) => {
-  const initialPlatforms: number[] = [1, 2, 3, 4, 8];
   return (
     <>
       <div className={styles.item_container}>
-        <Link to={`/${item.id}`}>
+        <Link to={"/" + item.id}>
           <img
             className={styles.img}
             src={item.background_image}
@@ -25,7 +25,7 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
           <p className={styles.platform_container}>
             {item.parent_platforms.map(
               (platform) =>
-                initialPlatforms.includes(platform.platform.id) && (
+                ALL_PLATFORMS_ID.includes(platform.platform.id) && (
                   <span
                     className={styles.platform_item}
                     key={platform.platform.id}

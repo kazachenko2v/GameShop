@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  gap: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px 8px 12px;
+  border-radius: 8px;
+  font-family: VelaSans-Medium;
+  font-size: 12px;
+  line-height: 117%;
+  color: #91969b;
+  user-select: none;
+}
+
+.item:hover {
+  background-color: #f4f7fa;
+  transition: background-color 0.1s ease;
+}
+
+.item button {
+  display: flex;
+  align-items: center;
+}
+
+.sort__item {
+  background-color: #f4f7fa;
+}

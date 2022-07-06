@@ -11,16 +11,17 @@ import { IFilterSliceState, TSearchParams } from "../../redux/filter/types";
 import { fetchGames } from "../../redux/games/slice";
 import { getGames } from "../../redux/games/selectors";
 
+import PlatformsList from "../../components/PlatsormsList";
+import SortPanel from "../../components/SortPanel";
 import GameCard from "../../components/GameCard";
 import GameCardSkeleton from "../../components/GameCardSkeleton";
-import PlatformsList from "../../components/PlatsormsList";
 import Pagination from "../../components/Pagination";
 
 import {
-  GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT,
+  GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20,
   PAGE,
   PARENT_PLATFORMS,
-  PAGE_SIZE_COUNT,
+  PAGE_SIZE_COUNT_20,
 } from "../../constants";
 
 import styles from "./Main.module.css";
@@ -80,7 +81,7 @@ const Main: React.FC = () => {
     if (!isSearch.current) {
       appDispatch(
         fetchGames(
-          GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT +
+          GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20 +
             PAGE +
             page +
             PARENT_PLATFORMS +
@@ -97,9 +98,10 @@ const Main: React.FC = () => {
       <div className={styles.filter_container}>
         <PlatformsList platformsId={platformsId} />
       </div>
+      <SortPanel search={search} platformsId={platformsId} />
       <div className={styles.main_conteiner}>
         {status === "loading"
-          ? [...new Array(PAGE_SIZE_COUNT)].map((_, index) => (
+          ? [...new Array(PAGE_SIZE_COUNT_20)].map((_, index) => (
               <GameCardSkeleton key={index} />
             ))
           : games.map((item) => <GameCard key={item.id} item={item} />)}

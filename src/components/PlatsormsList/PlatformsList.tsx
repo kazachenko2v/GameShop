@@ -9,10 +9,6 @@ import { ALL_PLATFORMS } from "../../constants";
 import styles from "./PlatformsList.module.css";
 import cn from "classnames";
 
-type PopupClick = MouseEvent & {
-  path: Node[];
-};
-
 type PaginationProps = {
   platformsId: TPlatformsId;
 };
@@ -41,10 +37,10 @@ const PlatsormsList: React.FC<PaginationProps> = ({ platformsId }) => {
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const _event = event as PopupClick;
       if (
+        // when you click outside of the dropdown menu
         dropDownRef.current &&
-        !_event.composedPath().includes(dropDownRef.current)
+        !event.composedPath().includes(dropDownRef.current)
       ) {
         const sortedSelectedPlatformsRef = selectedPlatformsRef.current?.sort(
           (a, b) => a - b
@@ -73,7 +69,7 @@ const PlatsormsList: React.FC<PaginationProps> = ({ platformsId }) => {
   }, []);
 
   return (
-    <div ref={dropDownRef}>
+    <div ref={dropDownRef} className={styles.container}>
       <button
         className={cn(styles.dropdown_button, {
           [styles.dropdown_button__not_acive]: !isActive,
@@ -84,9 +80,9 @@ const PlatsormsList: React.FC<PaginationProps> = ({ platformsId }) => {
         Platforms
       </button>
       <div
-        className={cn({
-          [styles.dropdown_menu]: !isActive,
-          [styles.dropdown_menu__acive]: isActive,
+        className={cn(styles.dropdown__menu, {
+          [styles.dropdown__menu_deactive]: !isActive,
+          [styles.dropdown__menu_active]: isActive,
         })}
       >
         {ALL_PLATFORMS.map((item) => (

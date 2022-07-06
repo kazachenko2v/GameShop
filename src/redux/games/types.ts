@@ -3,6 +3,7 @@ export type TGamesItem = {
   background_image: string;
   name: string;
   parent_platforms: [{ platform: { id: number; name: string } }];
+  developers: [{ name: string }];
 };
 
 export enum Status {

@@ -1,5 +1,7 @@
 export const localStorageGetItem = (key: string) => {
-  return JSON.parse(localStorage.getItem(key) || "");
+  if (key in localStorage) {
+    return JSON.parse(localStorage.getItem(key) || "");
+  }
 };
 
 export const setLocalStorage = (
