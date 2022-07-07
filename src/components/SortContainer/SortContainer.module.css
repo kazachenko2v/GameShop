@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  border: solid 1px #e7ecf1;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-family: VelaSans-Medium;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.item:not(:last-of-type) {
+  border-right: solid 1px #e7ecf1;
+}

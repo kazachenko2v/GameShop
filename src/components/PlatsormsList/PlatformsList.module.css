@@ -1,8 +1,10 @@
 .container {
   position: relative;
+  padding: 8px 16px;
 }
 
-.dropdown_button {
+.dropdown__button {
+  display: flex;
   padding: 8px 8px 8px 12px;
   border: none;
   border-radius: 8px;
@@ -12,17 +14,31 @@
   line-height: 100%;
 }
 
-.dropdown_button__not_acive {
+.dropdown__button_not_acive {
   background-color: #fff;
 }
 
-.dropdown_button__not_acive:hover {
+.dropdown__button_not_acive:hover {
   background-color: #f4f7fa;
 }
 
-.dropdown_button__active {
+.dropdown__button_active {
   background-color: #000;
   color: #fff;
+}
+
+.arrow {
+  align-self: center;
+  margin-left: 6px;
+  transition: all 0.3s ease;
+}
+
+.arrow_acive {
+  transform: rotate(180deg);
+}
+
+.arrow_acive path {
+  fill: #fff;
 }
 
 .dropdown__menu {

@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IGamesSliceState, Status, TGamesItem } from "./types";
 
 export const fetchGames = createAsyncThunk<IGamesSliceState, string>(

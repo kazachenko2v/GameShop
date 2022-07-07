@@ -1,4 +1,4 @@
-export const localStorageGetItem = (key: string) => {
+const localStorageGetItem = (key: string) => {
   if (key in localStorage) {
     return JSON.parse(localStorage.getItem(key) || "");
   }
@@ -6,15 +6,10 @@ export const localStorageGetItem = (key: string) => {
 
 export const setLocalStorage = (
   key: string,
-  value: number | string | number[]
+  value: number | string | string[]
 ) => {
   let data = localStorageGetItem(key);
-  if (!data) {
-    const newArr = [value];
-    localStorage.setItem("favorites", JSON.stringify(newArr));
-  } else {
-    localStorage.setItem("favorites", JSON.stringify([...data, value]));
-  }
+  localStorage.setItem(key, JSON.stringify(value));
 };
 
 export const getLocalStorage = (key: string) => {
@@ -25,6 +20,15 @@ export const getLocalStorage = (key: string) => {
     return;
   }
   return localStorageGetItem(key);
+};
+
+export const addItemLocalStorage = (key: string, value: number) => {
+  let data = getLocalStorage(key);
+  if (!data) {
+    localStorage.setItem(key, JSON.stringify([value]));
+  } else {
+    localStorage.setItem(key, JSON.stringify([...data, value]));
+  }
 };
 
 export const removeItemLocalStorage = (key: string, value: number) => {

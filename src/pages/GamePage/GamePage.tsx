@@ -6,7 +6,7 @@ import { getFavorite } from "../../redux/favorite/selectors";
 import { TGamesItem } from "../../redux/games/types";
 
 import {
-  setLocalStorage,
+  addItemLocalStorage,
   removeItemLocalStorage,
 } from "../../utils/localStorage";
 import { fetchGameById } from "../../utils/fetching";
@@ -51,7 +51,7 @@ const GamePage: React.FC = () => {
       } else {
         setIsFavorite(true);
         dispatch(addGame(game.id));
-        setLocalStorage("favorites", game.id);
+        addItemLocalStorage("favorites", game.id);
       }
     }
   };

@@ -16,6 +16,10 @@ const initialState: IFilterSliceState = {
     window.location.search && getLocalStorage("search")
       ? getLocalStorage("search")
       : "",
+  dates:
+    window.location.search && getLocalStorage("dates")
+      ? getLocalStorage("dates")
+      : [],
 };
 
 export const filterSlice = createSlice({
@@ -31,15 +35,24 @@ export const filterSlice = createSlice({
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
     },
+    setDates: (state, action: PayloadAction<string[]>) => {
+      state.dates = action.payload;
+    },
     setFilters: (state, action: PayloadAction<IFilterSliceState>) => {
       state.page = action.payload.page;
       state.platformsId = action.payload.platformsId;
       state.search = action.payload.search;
+      state.dates = action.payload.dates;
     },
   },
 });
 
-export const { setCurrentPage, setPlatformsId, setFilters, setSearchQuery } =
-  filterSlice.actions;
+export const {
+  setCurrentPage,
+  setPlatformsId,
+  setFilters,
+  setSearchQuery,
+  setDates,
+} = filterSlice.actions;
 
 export default filterSlice.reducer;
