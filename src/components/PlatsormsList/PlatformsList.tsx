@@ -7,7 +7,6 @@ import { getFilter } from "../../redux/filter/selectors";
 import PlatformsItem from "./PlatformsItem";
 import { ALL_PLATFORMS } from "../../constants";
 
-import SortItemArrow from "../../assets/images/sort_item_arrow.svg";
 import styles from "./PlatformsList.module.css";
 import cn from "classnames";
 
@@ -37,7 +36,7 @@ const PlatsormsList: React.FC = () => {
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        // when you click outside of the dropdown menu
+        /* when you click outside of the dropdown menu */
         dropDownRef.current &&
         !event.composedPath().includes(dropDownRef.current)
       ) {
@@ -45,7 +44,7 @@ const PlatsormsList: React.FC = () => {
           (a, b) => a - b
         );
 
-        // compare starting and modified platforms arrays to make a new request or not
+        /* compare starting and modified platforms arrays to make a new request or not */
         const toUpdate = !(
           JSON.stringify(startPlatformsRef.current) ===
           JSON.stringify(sortedSelectedPlatformsRef)

@@ -41,7 +41,7 @@ const GamePage: React.FC = () => {
   }, [isFavorite]);
 
   const toggleFavorite = () => {
-    // check if the game is in favorites
+    /*  check if the game is in favorites */
     const isContain = favoriteGamesId.find((item) => item === Number(id));
     if (game) {
       if (isContain) {

@@ -33,13 +33,13 @@ const Search: React.FC = () => {
   React.useEffect(() => {
     const handleClickOutsideSeacrh = (event: MouseEvent) => {
       if (
-        // when you click outside of the dropdown menu...
+        /* when you click outside of the dropdown menu... */
         (dropDownRef.current &&
           !event.composedPath().includes(dropDownRef.current)) ||
-        // ...or on one of the links...
+        /* ...or on one of the links... */
         (linkRef.current && event.composedPath().includes(linkRef.current))
       ) {
-        // ...its dropdown menu closes
+        /* ...its dropdown menu closes */
         setIsAcite(false);
       } else {
         setIsAcite(true);

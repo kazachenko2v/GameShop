@@ -15,7 +15,7 @@ export const GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20 =
 export const GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_5 =
   GAMES_LIST + KEY_ID + PAGE_SIZE + PAGE_SIZE_COUNT_5;
 
-/// initial state constants
+/*  initial state constants */
 export const ALL_PLATFORMS = [
   { id: 1, name: "PC" },
   { id: 2, name: "PlayStation" },

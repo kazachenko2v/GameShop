@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setLocalStorage } from "../../utils/localStorage";
 import { setDates } from "../../redux/filter/slice";
 
-import "./Calendar.css";
+import "./calendar.css";
 import styles from "./Dates.module.css";
 import cn from "classnames";
 
@@ -23,7 +23,7 @@ const Dates: React.FC = () => {
   React.useEffect(() => {
     const handleClickDateOutside = (event: MouseEvent) => {
       if (
-        // when you click outside of the dropdown menu
+        /* when you click outside of the dropdown menu */
         dropDownRef.current &&
         !event.composedPath().includes(dropDownRef.current)
       ) {
