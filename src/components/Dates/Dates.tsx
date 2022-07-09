@@ -1,8 +1,9 @@
 import React from "react";
-import Calendar from "react-calendar";
-import { useDispatch } from "react-redux";
+import Calendar, { OnChangeDateRangeCallback } from "react-calendar";
+import { useDispatch, useSelector } from "react-redux";
 import { setLocalStorage } from "../../utils/localStorage";
 import { setDates } from "../../redux/filter/slice";
+import { getFilter } from "../../redux/filter/selectors";
 
 import "./calendar.css";
 import styles from "./Dates.module.css";
@@ -10,11 +11,23 @@ import cn from "classnames";
 
 const Dates: React.FC = () => {
   const dispatch = useDispatch();
+  const { dates } = useSelector(getFilter);
   const dropDownRef = React.useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = React.useState<boolean>(false);
+  const value = dates.length ? dates.map((item) => new Date(item)) : null;
 
-  const clickHandler = (e: Date[]) => {
-    const arr = e.map((item: Date) => item?.toISOString().split("T")[0]);
+  const clickHandler = (value: [Date, Date]) => {
+    // const arr = value.map((item: Date) => item.toISOString().split("T")[0]);
+
+    const arr = value.map((item: Date) => {
+      const offset = item.getTimezoneOffset();
+      return new Date(item.getTime() - offset * 60 * 1000)
+        .toISOString()
+        .split("T")[0];
+    });
+
+    console.log(arr);
+
     setLocalStorage("dates", arr);
     dispatch(setDates(arr));
     setIsActive(false);
@@ -67,7 +80,12 @@ const Dates: React.FC = () => {
           [styles.dropdown__menu_active]: isActive,
         })}
       >
-        <Calendar onChange={clickHandler} selectRange={true} />
+        <Calendar
+          value={value as Date | [Date | null, Date | null] | null | undefined}
+          onChange={clickHandler as OnChangeDateRangeCallback}
+          selectRange={true}
+          minDate={new Date(1981, 1, 1)}
+        />
       </div>
     </div>
   );

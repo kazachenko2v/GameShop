@@ -78,20 +78,20 @@
   background-color: #f4f7fa;
 }
 
-.link:hover .checkbox__hover {
-  background-image: url("../../assets/images/checkbox.svg");
-}
-
 .checkbox {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 20px;
   border-radius: 6px;
   background-color: #e7ecf1;
-  background-position: center;
 }
 
 .checkbox__active {
-  background-image: url("../../assets/images/checkbox__acive.svg");
   background-color: #000;
+}
+
+.checkbox__active path {
+  fill: #fff;
 }

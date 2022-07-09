@@ -7,7 +7,6 @@ import {
   setDates,
 } from "../../redux/filter/slice";
 import { TPlatformsId } from "../../redux/filter/types";
-import SortCloseButton from "../../assets/images/sort_close_button.svg";
 import styles from "./SortPanel.module.css";
 import cn from "classnames";
 
@@ -26,22 +25,26 @@ const SortPanel: React.FC<SortPanelProps> = ({
     null
   );
   const dispatch = useDispatch();
+
   const clearPlatforms = () => {
     dispatch(setPlatformsId(ALL_PLATFORMS_ID));
+    localStorage.removeItem("platformsId");
   };
 
   const clearSearch = () => {
     dispatch(setSearchQuery(""));
+    localStorage.removeItem("search");
   };
 
   const clearDates = () => {
     dispatch(setDates([]));
+    localStorage.removeItem("dates");
   };
 
-  const clearall = () => {
-    dispatch(setSearchQuery(""));
-    dispatch(setPlatformsId(ALL_PLATFORMS_ID));
-    dispatch(setDates([]));
+  const clearAll = () => {
+    clearPlatforms();
+    clearSearch();
+    clearDates();
   };
 
   React.useEffect(() => {
@@ -53,7 +56,7 @@ const SortPanel: React.FC<SortPanelProps> = ({
       )
     );
     setPlatformsName(platformsName);
-  }, []);
+  }, [platformsId]);
 
   return search ||
     dates.length ||
@@ -65,7 +68,20 @@ const SortPanel: React.FC<SortPanelProps> = ({
           {platformsName &&
             platformsName.map((name) => <span key={name}>{name}</span>)}
           <button onClick={clearPlatforms}>
-            <img src={SortCloseButton} alt="Remove" />
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7.745 1.24028C7.99902 0.986258 7.99902 0.574402 7.745 0.320377C7.49097 0.066352 7.07912 0.066352 6.82509 0.320377L4.06538 3.08009L1.24028 0.255001C0.986258 0.000975884 0.574402 0.000975463 0.320377 0.255001C0.0663521 0.509026 0.0663527 0.920881 0.320377 1.17491L3.14547 4L0.320377 6.82509C0.0663514 7.07912 0.0663514 7.49097 0.320376 7.745C0.574401 7.99902 0.986258 7.99902 1.24028 7.745L4.06537 4.9199L6.82509 7.67962C7.07912 7.93365 7.49097 7.93365 7.745 7.67962C7.99902 7.4256 7.99902 7.01374 7.745 6.75972L4.98528 4L7.745 1.24028Z"
+                fill="#91969B"
+              />
+            </svg>
           </button>
         </div>
       )}
@@ -74,7 +90,20 @@ const SortPanel: React.FC<SortPanelProps> = ({
           <span>Search:</span>
           <span>{search}</span>
           <button onClick={clearSearch}>
-            <img src={SortCloseButton} alt="Remove" />
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7.745 1.24028C7.99902 0.986258 7.99902 0.574402 7.745 0.320377C7.49097 0.066352 7.07912 0.066352 6.82509 0.320377L4.06538 3.08009L1.24028 0.255001C0.986258 0.000975884 0.574402 0.000975463 0.320377 0.255001C0.0663521 0.509026 0.0663527 0.920881 0.320377 1.17491L3.14547 4L0.320377 6.82509C0.0663514 7.07912 0.0663514 7.49097 0.320376 7.745C0.574401 7.99902 0.986258 7.99902 1.24028 7.745L4.06537 4.9199L6.82509 7.67962C7.07912 7.93365 7.49097 7.93365 7.745 7.67962C7.99902 7.4256 7.99902 7.01374 7.745 6.75972L4.98528 4L7.745 1.24028Z"
+                fill="#91969B"
+              />
+            </svg>
           </button>
         </div>
       )}
@@ -86,12 +115,25 @@ const SortPanel: React.FC<SortPanelProps> = ({
             <span key={item}>{item}</span>
           ))}
           <button onClick={clearDates}>
-            <img src={SortCloseButton} alt="Remove" />
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7.745 1.24028C7.99902 0.986258 7.99902 0.574402 7.745 0.320377C7.49097 0.066352 7.07912 0.066352 6.82509 0.320377L4.06538 3.08009L1.24028 0.255001C0.986258 0.000975884 0.574402 0.000975463 0.320377 0.255001C0.0663521 0.509026 0.0663527 0.920881 0.320377 1.17491L3.14547 4L0.320377 6.82509C0.0663514 7.07912 0.0663514 7.49097 0.320376 7.745C0.574401 7.99902 0.986258 7.99902 1.24028 7.745L4.06537 4.9199L6.82509 7.67962C7.07912 7.93365 7.49097 7.93365 7.745 7.67962C7.99902 7.4256 7.99902 7.01374 7.745 6.75972L4.98528 4L7.745 1.24028Z"
+                fill="#91969B"
+              />
+            </svg>
           </button>
         </div>
       )}
 
-      <button className={styles.item} onClick={clearall}>
+      <button className={styles.item} onClick={clearAll}>
         ClearAll
       </button>
     </div>
