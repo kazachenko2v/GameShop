@@ -1,20 +1,22 @@
 {
   "files": {
-    "main.css": "/GameShop/static/css/main.fac1a464.css",
-    "main.js": "/GameShop/static/js/main.5fd34529.js",
+    "main.css": "/GameShop/static/css/main.3309dbe6.css",
+    "main.js": "/GameShop/static/js/main.5e440e32.js",
     "static/media/VelaSans-SemiBold.otf": "/GameShop/static/media/VelaSans-SemiBold.6872804a6599c78ed00d.otf",
     "static/media/VelaSans-Regular.otf": "/GameShop/static/media/VelaSans-Regular.117e8a4c3026c5b404ac.otf",
     "static/media/VelaSans-Medium.otf": "/GameShop/static/media/VelaSans-Medium.afb228c904d90fa6ad23.otf",
     "static/media/VelaSans-SemiBold.woff": "/GameShop/static/media/VelaSans-SemiBold.42299d95265808ed8ff8.woff",
     "static/media/VelaSans-Regular.woff": "/GameShop/static/media/VelaSans-Regular.8a891125566ccc384e8a.woff",
     "static/media/VelaSans-Medium.woff": "/GameShop/static/media/VelaSans-Medium.3d7b2c23830563cc7a04.woff",
+    "static/media/PS_Store_logo_desktop.png": "/GameShop/static/media/PS_Store_logo_desktop.91664de03d7c1d26c522.png",
+    "static/media/PS_Store_logo_phone.png": "/GameShop/static/media/PS_Store_logo_phone.4bd79f985096ed80411d.png",
     "static/media/close.svg": "/GameShop/static/media/close.4420b3dbf1589fb0c0218721402255cf.svg",
     "index.html": "/GameShop/index.html",
-    "main.fac1a464.css.map": "/GameShop/static/css/main.fac1a464.css.map",
-    "main.5fd34529.js.map": "/GameShop/static/js/main.5fd34529.js.map"
+    "main.3309dbe6.css.map": "/GameShop/static/css/main.3309dbe6.css.map",
+    "main.5e440e32.js.map": "/GameShop/static/js/main.5e440e32.js.map"
   },
   "entrypoints": [
-    "static/css/main.fac1a464.css",
-    "static/js/main.5fd34529.js"
+    "static/css/main.3309dbe6.css",
+    "static/js/main.5e440e32.js"
   ]
 }
