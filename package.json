@@ -14,6 +14,7 @@
     "@types/react-dom": "^18.0.3",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
+    "hamburger-react": "^2.5.0",
     "lodash.debounce": "^4.0.8",
     "qs": "^6.10.3",
     "react": "^18.1.0",
@@ -22,8 +23,10 @@
     "react-loading-skeleton": "^3.1.0",
     "react-paginate": "^8.1.3",
     "react-redux": "^8.0.1",
+    "react-responsive": "^9.0.0-beta.10",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -55,6 +58,7 @@
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7",
     "@types/react-calendar": "^3.5.1",
+    "@types/react-transition-group": "^4.4.4",
     "bootstrap-select-dropdown": "^0.14.6",
     "gh-pages": "^4.0.0",
     "typescript": "^4.6.4"

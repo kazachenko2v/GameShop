@@ -10,11 +10,13 @@ import { IFilterSliceState } from "../../redux/filter/types";
 import { fetchGames } from "../../redux/games/slice";
 import { getGames } from "../../redux/games/selectors";
 
-import SortContainer from "../../components/SortContainer";
-import SortPanel from "../../components/SortPanel";
-import GameCard from "../../components/GameCard";
-import GameCardSkeleton from "../../components/GameCardSkeleton";
-import Pagination from "../../components/Pagination";
+import {
+  SortContainer,
+  SortPanel,
+  GameCard,
+  GameCardSkeleton,
+  Pagination,
+} from "../../components";
 
 import {
   GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20,

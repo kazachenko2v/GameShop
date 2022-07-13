@@ -25,9 +25,6 @@ const Dates: React.FC = () => {
         .toISOString()
         .split("T")[0];
     });
-
-    console.log(arr);
-
     setLocalStorage("dates", arr);
     dispatch(setDates(arr));
     setIsActive(false);
@@ -58,21 +55,9 @@ const Dates: React.FC = () => {
         onClick={() => setIsActive(!isActive)}
       >
         <span>Dates</span>
-        <svg
+        <span
           className={cn(styles.arrow, { [styles.arrow_acive]: isActive })}
-          width="10"
-          height="6"
-          viewBox="0 0 10 6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M0.528758 0.528575C0.268409 0.788925 0.268409 1.21103 0.528758 1.47138L4.52876 5.47138C4.78911 5.73173 5.21122 5.73173 5.47157 5.47138L9.47157 1.47138C9.73192 1.21104 9.73192 0.788925 9.47157 0.528576C9.21122 0.268226 8.78911 0.268226 8.52876 0.528576L5.00016 4.05717L1.47157 0.528575C1.21122 0.268226 0.789108 0.268226 0.528758 0.528575Z"
-            fill="black"
-          />
-        </svg>
+        ></span>
       </button>
       <div
         className={cn(styles.dropdown__menu, {

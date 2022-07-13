@@ -1,6 +1,5 @@
 import React from "react";
-import Dates from "../Dates";
-import PlatformsList from "../PlatsormsList/PlatformsList";
+import { PlatformsList, Dates } from "../";
 
 import styles from "./SortContainer.module.css";
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getFavorite } from "../../redux/favorite/selectors";
 
-import FavoriteItem from "../../components/FavoritesItem";
+import { FavoriteItem } from "../../components";
 import styles from "./Favorites.module.css";
 
 const Favorites: React.FC = () => {

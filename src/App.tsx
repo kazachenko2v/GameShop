@@ -1,7 +1,4 @@
-import Main from "./pages/Main";
-import GamePage from "./pages/GamePage";
-import NotFound from "./pages/NotFound";
-import Favorites from "./pages/Favorites";
+import { Main, GamePage, NotFound, Favorites } from "./pages";
 import MainLayouts from "./layouts/MainLayouts";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";

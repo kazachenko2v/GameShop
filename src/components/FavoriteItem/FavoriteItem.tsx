@@ -2,12 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Close from "../../assets/images/close.svg";
 import { removeGame } from "../../redux/favorite/slice";
 import { TGamesItem } from "../../redux/games/types";
 import { removeItemLocalStorage } from "../../utils/localStorage";
 import { fetchGameById } from "../../utils/fetching";
 
+import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
 
 type FavoriteItemProps = {
