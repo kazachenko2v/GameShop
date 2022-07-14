@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  flex-wrap: wrap;
+
   border: solid 1px #e7ecf1;
   border-radius: 8px;
   margin-bottom: 16px;

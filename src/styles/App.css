@@ -1,5 +1,11 @@
 @import url("./fonts.css");
 
+:root {
+  --padding_big: 32px;
+  --button_big: 16px 24px;
+  --button_medium: 8px 12px;
+}
+
 #root {
   position: relative;
   max-width: 1244px;

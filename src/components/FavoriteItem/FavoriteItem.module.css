@@ -45,7 +45,7 @@
 }
 
 .price {
-  padding: 16px 24px;
+  padding: var(--button_big);
   background-color: #d63d00;
   border-radius: 12px;
   font-family: VelaSans-SemiBold;

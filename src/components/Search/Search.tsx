@@ -87,8 +87,8 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
           <ul ref={linkRef}>
             {games.length ? (
               games.map((game) => (
-                // <Link to={"/" + game.id} key={game.id}>
                 <li
+                  key={game.id}
                   className={styles.dropdown__item}
                   onClick={() => handleClickOnLink(game.id)}
                 >
@@ -99,7 +99,6 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
                   />
                   <span>{game.name}</span>
                 </li>
-                // </Link>
               ))
             ) : (
               <span>NotFound</span>
