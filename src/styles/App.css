@@ -6,6 +6,11 @@
   --button_medium: 8px 12px;
 }
 
+/* html,
+body {
+  overflow: hidden;
+} */
+
 #root {
   position: relative;
   max-width: 1244px;

@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlatformsId } from "../../redux/filter/slice";
 import { TPlatformsId } from "../../redux/filter/types";
 import { getFilter } from "../../redux/filter/selectors";
 
 import PlatformsItem from "./PlatformsItem";
 import { ALL_PLATFORMS } from "../../constants";
+import { updateOrNot } from "../../utils/dropDown";
+import { useClickOutside } from "../../hooks";
 
 import styles from "./PlatformsList.module.css";
 import cn from "classnames";
@@ -13,7 +14,6 @@ import cn from "classnames";
 const PlatsormsList: React.FC = () => {
   const dispatch = useDispatch();
   const { platformsId } = useSelector(getFilter);
-  const dropDownRef = React.useRef<HTMLDivElement>(null);
   const selectedPlatformsRef = React.useRef<TPlatformsId | null>(null);
   const startPlatformsRef = React.useRef<TPlatformsId | null>(null);
   selectedPlatformsRef.current = [...platformsId];
@@ -33,38 +33,14 @@ const PlatsormsList: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        /* when you click outside of the dropdown menu */
-        dropDownRef.current &&
-        !event.composedPath().includes(dropDownRef.current)
-      ) {
-        const sortedSelectedPlatformsRef = selectedPlatformsRef.current?.sort(
-          (a, b) => a - b
-        );
-
-        /* compare starting and modified platforms arrays to make a new request or not */
-        const toUpdate = !(
-          JSON.stringify(startPlatformsRef.current) ===
-          JSON.stringify(sortedSelectedPlatformsRef)
-        );
-
-        if (toUpdate) {
-          if (sortedSelectedPlatformsRef) {
-            dispatch(setPlatformsId(sortedSelectedPlatformsRef));
-          }
-          localStorage.setItem(
-            "platformsId",
-            JSON.stringify(sortedSelectedPlatformsRef)
-          );
-        }
-        setIsActive(false);
-      }
-    };
-    document.body.addEventListener("click", handleClickOutside);
-    return () => document.body.removeEventListener("click", handleClickOutside);
-  }, []);
+  const dropDownRef = useClickOutside(() => {
+    updateOrNot(
+      startPlatformsRef.current!,
+      selectedPlatformsRef.current!,
+      dispatch
+    );
+    setIsActive(false);
+  });
 
   return (
     <div ref={dropDownRef} className={styles.container}>

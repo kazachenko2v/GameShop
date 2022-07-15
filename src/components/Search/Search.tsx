@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setSearchQuery } from "../../redux/filter/slice";
 import { TGamesItem } from "../../redux/games/types";
 
@@ -9,6 +9,7 @@ import _debounce from "lodash.debounce";
 
 import styles from "./Search.module.css";
 import cn from "classnames";
+import { useClickOutside } from "../../hooks";
 
 interface SeacrhProp {
   setIsOpenMenu?: (qwe: boolean) => void;
@@ -22,9 +23,6 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const [games, setGames] = React.useState<TGamesItem[] | null>(null);
   const [isAcite, setIsAcite] = React.useState<boolean>(false);
 
-  const dropDownRef = React.useRef<HTMLDivElement>(null);
-  const linkRef = React.useRef<HTMLUListElement>(null);
-
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     fetchGames(e.target.value, setGames);
@@ -34,41 +32,23 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const clickHandler = (value: string) => {
     localStorage.setItem("search", value);
     dispatch(setSearchQuery(value));
+    setIsOpenMenu && setIsOpenMenu(false);
   };
 
-  const handleClickOnLink = React.useCallback(
-    (id: number) => {
-      navigate(`/${id}`, { replace: true });
-      setIsOpenMenu && setIsOpenMenu(false);
-    },
-    [navigate]
-  );
+  const handleClickOnLink = (id: number) => {
+    navigate(`/${id}`, { replace: true });
+    setIsAcite(false);
+    setIsOpenMenu && setIsOpenMenu(false);
+  };
 
-  React.useEffect(() => {
-    const handleClickOutsideSeacrh = (event: MouseEvent): void => {
-      if (
-        /* when you click outside of the dropdown menu... */
-        (dropDownRef.current &&
-          !dropDownRef.current.contains(event.target as Node)) ||
-        /* ...or on one of the links... */
-        (linkRef.current && linkRef.current.contains(event.target as Node))
-      ) {
-        /* ...its dropdown menu closes */
-        setIsAcite(false);
-      } else {
-        setIsAcite(true);
-      }
-    };
-    document.body.addEventListener("click", handleClickOutsideSeacrh);
-    return () =>
-      document.body.removeEventListener("click", handleClickOutsideSeacrh);
-  }, []);
+  const dropDownRef = useClickOutside(() => setIsAcite(false));
 
   return (
     <div ref={dropDownRef} className={styles.container}>
       <label className={styles.seacrh_container}>
         <input
           onChange={debounce}
+          onFocus={() => setIsAcite(true)}
           className={styles.search_input}
           type="text"
         />
@@ -84,7 +64,7 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
             [styles.dropdown_deacive]: !isAcite,
           })}
         >
-          <ul ref={linkRef}>
+          <ul>
             {games.length ? (
               games.map((game) => (
                 <li

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLocalStorage } from "../../utils/localStorage";
 import { setDates } from "../../redux/filter/slice";
 import { getFilter } from "../../redux/filter/selectors";
+import { useClickOutside } from "../../hooks";
 
 import "./calendar.css";
 import styles from "./Dates.module.css";
@@ -12,13 +13,10 @@ import cn from "classnames";
 const Dates: React.FC = () => {
   const dispatch = useDispatch();
   const { dates } = useSelector(getFilter);
-  const dropDownRef = React.useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = React.useState<boolean>(false);
   const value = dates.length ? dates.map((item) => new Date(item)) : null;
 
   const clickHandler = (value: [Date, Date]) => {
-    // const arr = value.map((item: Date) => item.toISOString().split("T")[0]);
-
     const arr = value.map((item: Date) => {
       const offset = item.getTimezoneOffset();
       return new Date(item.getTime() - offset * 60 * 1000)
@@ -30,20 +28,7 @@ const Dates: React.FC = () => {
     setIsActive(false);
   };
 
-  React.useEffect(() => {
-    const handleClickDateOutside = (event: MouseEvent) => {
-      if (
-        /* when you click outside of the dropdown menu */
-        dropDownRef.current &&
-        !event.composedPath().includes(dropDownRef.current)
-      ) {
-        setIsActive(false);
-      }
-    };
-    document.body.addEventListener("click", handleClickDateOutside);
-    return () =>
-      document.body.removeEventListener("click", handleClickDateOutside);
-  }, []);
+  const dropDownRef = useClickOutside(() => setIsActive(false));
 
   return (
     <div ref={dropDownRef} className={styles.container}>

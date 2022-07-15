@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { CSSTransition } from "react-transition-group";
 import { Squash as Hamburger } from "hamburger-react";
@@ -10,24 +10,19 @@ import img_logo_tablet from "../../assets/images/PS_Store_logo_tablet.png";
 import img_logo_phone from "../../assets/images/PS_Store_logo_phone.png";
 
 import styles from "./Header.module.css";
-import cn from "classnames";
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
-  const linkRef = useRef<HTMLUListElement>(null);
+  const linkRef = React.useRef<HTMLUListElement>(null);
   const isTablet = useMediaQuery({ maxWidth: 912 });
   const isPhone = useMediaQuery({ maxWidth: 414 });
 
-  React.useEffect(() => {
-    const clickHeaderMenuHanlder = (e: MouseEvent) => {
-      if (linkRef.current && e.composedPath().includes(linkRef.current)) {
-        setIsOpenMenu(false);
-      }
-    };
-    document.body.addEventListener("click", clickHeaderMenuHanlder);
-    return () =>
-      document.body.removeEventListener("click", clickHeaderMenuHanlder);
-  }, []);
+  const handleClickOnLink = (page: string) => {
+    setIsOpenMenu(false);
+    navigate(`/${page}`, { replace: true });
+  };
 
   return (
     <div className={styles.container}>
@@ -70,9 +65,9 @@ const Header: React.FC = () => {
             <div className={styles.menu}>
               <nav className={styles.navigation}>
                 <ul ref={linkRef}>
-                  <Link to={"/favorites"}>
+                  <li onClick={() => handleClickOnLink("favorites")}>
                     <Favorites />
-                  </Link>
+                  </li>
                 </ul>
               </nav>
               <Search setIsOpenMenu={setIsOpenMenu} />
@@ -83,9 +78,9 @@ const Header: React.FC = () => {
         <div className={styles.menu}>
           <nav className={styles.navigation}>
             <ul>
-              <Link to={"/favorites"}>
+              <li onClick={() => handleClickOnLink("favorites")}>
                 <Favorites />
-              </Link>
+              </li>
             </ul>
           </nav>
           <Search />
