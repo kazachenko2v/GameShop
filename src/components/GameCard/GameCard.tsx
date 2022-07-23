@@ -6,11 +6,9 @@ import { ALL_PLATFORMS_ID } from "../../constants";
 
 import styles from "./GameCard.module.css";
 
-type GameCardProps = {
+const GameCard: React.FC<{
   item: TGamesItem;
-};
-
-const GameCard: React.FC<GameCardProps> = ({ item }) => {
+}> = ({ item }) => {
   return (
     <>
       <div className={styles.item_container}>

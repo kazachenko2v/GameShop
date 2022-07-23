@@ -6,13 +6,10 @@ import { removeGame } from "../../redux/favorite/slice";
 import { TGamesItem } from "../../redux/games/types";
 import { removeItemLocalStorage } from "../../utils/localStorage";
 import { fetchGameById } from "../../utils/fetching";
+import { FavoriteItemProps } from "../types";
 
 import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
-
-type FavoriteItemProps = {
-  id: number;
-};
 
 const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
   const dispatch = useDispatch();

@@ -1,14 +1,9 @@
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
 import { setCurrentPage } from "../../redux/filter/slice";
+import { PaginationProps } from "../types";
 
 import styles from "./Pagination.module.css";
-
-type PaginationProps = {
-  currentPage: number;
-  gamesCount: number;
-  status: string;
-};
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,

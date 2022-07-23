@@ -4,40 +4,74 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLocalStorage } from "../../utils/localStorage";
 import { setDates } from "../../redux/filter/slice";
 import { getFilter } from "../../redux/filter/selectors";
+
 import { useClickOutside } from "../../hooks";
+import {
+  CalendarContext,
+  ICalendarContextInterface,
+} from "../../context/CalendarContext";
+import { arraysComparing } from "../../utils/dropDown";
+import { dateToString } from "../../utils/stringToDate";
 
 import "./calendar.css";
 import styles from "./Dates.module.css";
 import cn from "classnames";
 
-const Dates: React.FC = () => {
+const Dates: React.FC<{
+  isTablet: boolean;
+}> = ({ isTablet }) => {
   const dispatch = useDispatch();
   const { dates } = useSelector(getFilter);
+  const { calendar } = React.useContext(
+    CalendarContext
+  ) as ICalendarContextInterface;
   const [isActive, setIsActive] = React.useState<boolean>(false);
-  const value = dates.length ? dates.map((item) => new Date(item)) : null;
 
-  const clickHandler = (value: [Date, Date]) => {
-    const arr = value.map((item: Date) => {
-      const offset = item.getTimezoneOffset();
-      return new Date(item.getTime() - offset * 60 * 1000)
-        .toISOString()
-        .split("T")[0];
-    });
-    setLocalStorage("dates", arr);
-    dispatch(setDates(arr));
-    setIsActive(false);
+  const selectedDates = React.useRef<string[] | null>(null);
+  const startDates = React.useRef<string[] | null>(null);
+
+  startDates.current = [...dates];
+
+  selectedDates.current = calendar.value
+    ? dateToString(calendar.value)
+    : [...dates];
+
+  const buttonOnClickHandler = () => {
+    if (isActive) {
+      compareArrays();
+      setIsActive(false);
+    } else {
+      setIsActive(true);
+    }
   };
 
-  const dropDownRef = useClickOutside(() => setIsActive(false));
+  const compareArrays = () => {
+    const toUpdate = arraysComparing(
+      startDates.current!,
+      selectedDates.current!
+    );
+    if (toUpdate) {
+      !isTablet && dispatch(setDates(toUpdate));
+      setLocalStorage("dates", toUpdate);
+    }
+  };
+
+  const clickHandler = (value: [Date, Date]) => {
+    calendar.setValue(value);
+  };
+  const dropDownRef = useClickOutside(() => {
+    compareArrays();
+    setIsActive(false);
+  });
 
   return (
     <div ref={dropDownRef} className={styles.container}>
       <button
-        className={cn(styles.dropdown_button, {
-          [styles.dropdown_button__not_acive]: !isActive,
-          [styles.dropdown_button__active]: isActive,
+        className={cn(styles.dropdown__button, {
+          [styles.dropdown__button_not_acive]: !isActive,
+          [styles.dropdown__button_active]: isActive,
         })}
-        onClick={() => setIsActive(!isActive)}
+        onClick={buttonOnClickHandler}
       >
         <span>Dates</span>
         <span
@@ -51,7 +85,13 @@ const Dates: React.FC = () => {
         })}
       >
         <Calendar
-          value={value as Date | [Date | null, Date | null] | null | undefined}
+          value={
+            calendar.value as
+              | Date
+              | [Date | null, Date | null]
+              | null
+              | undefined
+          }
           onChange={clickHandler as OnChangeDateRangeCallback}
           selectRange={true}
           minDate={new Date(1981, 1, 1)}

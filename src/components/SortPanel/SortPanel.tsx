@@ -1,33 +1,33 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { ALL_PLATFORMS, ALL_PLATFORMS_ID } from "../../constants";
+import { ALL_PLATFORMS } from "../../constants";
 import {
   setPlatformsId,
   setSearchQuery,
   setDates,
 } from "../../redux/filter/slice";
-import { TPlatformsId } from "../../redux/filter/types";
+import { SortProps } from "../types";
+
+import {
+  CalendarContext,
+  ICalendarContextInterface,
+} from "../../context/CalendarContext";
+
 import styles from "./SortPanel.module.css";
 import cn from "classnames";
 
-type SortPanelProps = {
-  search: string;
-  platformsId: TPlatformsId;
-  dates: string[];
-};
-
-const SortPanel: React.FC<SortPanelProps> = ({
-  search,
-  platformsId,
-  dates,
-}) => {
+const SortPanel: React.FC<SortProps> = ({ search, platformsId, dates }) => {
+  const { calendar, pl } = React.useContext(
+    CalendarContext
+  ) as ICalendarContextInterface;
+  const dispatch = useDispatch();
   const [platformsName, setPlatformsName] = React.useState<string[] | null>(
     null
   );
-  const dispatch = useDispatch();
 
   const clearPlatforms = () => {
-    dispatch(setPlatformsId(ALL_PLATFORMS_ID));
+    pl.setPl([]);
+    dispatch(setPlatformsId([]));
     localStorage.removeItem("platformsId");
   };
 
@@ -37,6 +37,7 @@ const SortPanel: React.FC<SortPanelProps> = ({
   };
 
   const clearDates = () => {
+    calendar.setValue(null);
     dispatch(setDates([]));
     localStorage.removeItem("dates");
   };
@@ -58,50 +59,50 @@ const SortPanel: React.FC<SortPanelProps> = ({
     setPlatformsName(platformsName);
   }, [platformsId]);
 
-  return search ||
-    dates.length ||
-    !(JSON.stringify(platformsId) === JSON.stringify(ALL_PLATFORMS_ID)) ? (
+  return (
     <div className={styles.container}>
-      {!(JSON.stringify(platformsId) === JSON.stringify(ALL_PLATFORMS_ID)) && (
-        <div className={cn(styles.item, styles.sort__item)}>
+      {platformsId.length > 0 && (
+        <div
+          className={cn(styles.item, styles.sort__item)}
+          onClick={clearPlatforms}
+        >
           <span>Platforms:</span>
           {platformsName &&
             platformsName.map((name) => <span key={name}>{name}</span>)}
-          <button
-            className={styles.button_remove}
-            onClick={clearPlatforms}
-          ></button>
+          <button className={styles.button_remove}></button>
         </div>
       )}
       {search && (
-        <div className={cn(styles.item, styles.sort__item)}>
+        <div
+          className={cn(styles.item, styles.sort__item)}
+          onClick={clearSearch}
+        >
           <span>Search:</span>
           <span>{search}</span>
-          <button
-            className={styles.button_remove}
-            onClick={clearSearch}
-          ></button>
+          <button className={styles.button_remove}></button>
         </div>
       )}
 
       {dates.length > 0 && (
-        <div className={cn(styles.item, styles.sort__item)}>
+        <div
+          className={cn(styles.item, styles.sort__item)}
+          onClick={clearDates}
+        >
           <span>Dates:</span>
           {dates.map((item) => (
             <span key={item}>{item}</span>
           ))}
-          <button
-            className={styles.button_remove}
-            onClick={clearDates}
-          ></button>
+          <button className={styles.button_remove}></button>
         </div>
       )}
 
-      <button className={styles.item} onClick={clearAll}>
-        ClearAll
-      </button>
+      {(platformsId.length > 0 || search || dates.length > 0) && (
+        <button className={styles.item} onClick={clearAll}>
+          ClearAll
+        </button>
+      )}
     </div>
-  ) : null;
+  );
 };
 
 export default SortPanel;

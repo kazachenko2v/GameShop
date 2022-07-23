@@ -19,7 +19,7 @@
 .search_input {
   border: none;
   background: #f4f7fa;
-  font-family: VelaSans-Medium;
+  font-family: inherit;
 }
 
 .button {

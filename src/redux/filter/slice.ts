@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getLocalStorage } from "../../utils/localStorage";
 import { IFilterSliceState } from "./types";
-import { ALL_PLATFORMS_ID, START_PAGE } from "../../constants";
+import { START_PAGE } from "../../constants";
 
 const initialState: IFilterSliceState = {
   page:
@@ -11,7 +11,7 @@ const initialState: IFilterSliceState = {
   platformsId:
     window.location.search && getLocalStorage("platformsId")
       ? getLocalStorage("platformsId")
-      : ALL_PLATFORMS_ID,
+      : [],
   search:
     window.location.search && getLocalStorage("search")
       ? getLocalStorage("search")

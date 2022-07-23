@@ -1,25 +1,15 @@
-import { Dispatch, AnyAction } from "@reduxjs/toolkit";
-import { setPlatformsId } from "../../redux/filter/slice";
-import { TPlatformsId } from "../../redux/filter/types";
-import { setLocalStorage } from "../localStorage";
-
-export const updateOrNot = (
-  startPlatformsRef: TPlatformsId,
-  selectedPlatformsRef: TPlatformsId,
-  dispatch: Dispatch<AnyAction>
-) => {
-  const sortedSelectedPlatformsRef = selectedPlatformsRef.sort((a, b) => a - b);
-
+export const arraysComparing = (
+  startPlatformsRef: any[],
+  selectedPlatformsRef: any[]
+): any[] | undefined => {
   /* compare starting and modified platforms arrays to make a new request or not */
   const toUpdate = !(
-    JSON.stringify(startPlatformsRef) ===
-    JSON.stringify(sortedSelectedPlatformsRef)
+    JSON.stringify(startPlatformsRef) === JSON.stringify(selectedPlatformsRef)
   );
 
   if (toUpdate) {
-    if (sortedSelectedPlatformsRef) {
-      dispatch(setPlatformsId(sortedSelectedPlatformsRef!));
-      setLocalStorage("platformsId", sortedSelectedPlatformsRef);
-    }
+    return selectedPlatformsRef;
+  } else {
+    return;
   }
 };

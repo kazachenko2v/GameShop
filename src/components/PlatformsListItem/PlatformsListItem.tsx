@@ -1,19 +1,9 @@
 import React from "react";
+import { PlatformsLIstItemProps } from "../types";
 
-import cn from "classnames";
-import styles from "./PlatformsList.module.css";
+import styles from "./PlatformsListItem.module.css";
 
-type PlatformsItemProps = {
-  item: {
-    id: number;
-    name: string;
-  };
-  isActiveMenu: boolean;
-  togglePlatforms: (id: number) => void;
-  platformsId: number[];
-};
-
-const PlatformsItem: React.FC<PlatformsItemProps> = ({
+const PlatformsListItem: React.FC<PlatformsLIstItemProps> = ({
   item,
   isActiveMenu,
   togglePlatforms,
@@ -44,4 +34,4 @@ const PlatformsItem: React.FC<PlatformsItemProps> = ({
   );
 };
 
-export default PlatformsItem;
+export default PlatformsListItem;

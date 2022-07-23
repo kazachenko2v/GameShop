@@ -9,6 +9,7 @@ import { getFilter } from "../../redux/filter/selectors";
 import { IFilterSliceState } from "../../redux/filter/types";
 import { fetchGames } from "../../redux/games/slice";
 import { getGames } from "../../redux/games/selectors";
+import CalendarContextProvider from "../../context/CalendarContextProvider";
 
 import {
   SortContainer,
@@ -21,8 +22,8 @@ import {
 import {
   GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20,
   PAGE,
-  PARENT_PLATFORMS,
   PAGE_SIZE_COUNT_20,
+  ALL_PLATFORMS_ID,
 } from "../../constants";
 import styles from "./Main.module.css";
 
@@ -50,7 +51,8 @@ const Main: React.FC = () => {
           filter: (prefix, value) => {
             if (
               (prefix === "search" && value === "") ||
-              (prefix === "dates" && value === "")
+              (prefix === "dates" && value === "") ||
+              (prefix === "parent_platforms" && value === "")
             ) {
               return;
             }
@@ -72,8 +74,10 @@ const Main: React.FC = () => {
       const trueTypeParams: IFilterSliceState = {
         page: Number(params.page),
         platformsId: params.parent_platforms
-          .split(",")
-          .map((item: string) => Number(item)),
+          ? params.parent_platforms
+              .split(",")
+              .map((item: string) => Number(item))
+          : [],
         search: params.search ? params.search : "",
         dates: params.dates ? params.dates.split(",") : [],
       };
@@ -86,14 +90,16 @@ const Main: React.FC = () => {
   React.useEffect(() => {
     const searchValue = search ? `&search=${search}` : "";
     const datesValue = dates.length ? `&dates=${dates.join(",")}` : "";
+    const platformsValue = platformsId.length
+      ? `&parent_platforms=${platformsId.join(",")}`
+      : `&parent_platforms=${ALL_PLATFORMS_ID.join(",")}`;
     if (!isSearch.current) {
       appDispatch(
         fetchGames(
           GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20 +
             PAGE +
             page +
-            PARENT_PLATFORMS +
-            platformsId +
+            platformsValue +
             searchValue +
             datesValue
         )
@@ -104,8 +110,14 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <SortContainer />
-      <SortPanel search={search} platformsId={platformsId} dates={dates} />
+      <CalendarContextProvider>
+        <SortContainer
+          search={search}
+          platformsId={platformsId}
+          dates={dates}
+        />
+        <SortPanel search={search} platformsId={platformsId} dates={dates} />
+      </CalendarContextProvider>
       <div className={styles.conteiner}>
         {status === "loading"
           ? [...new Array(PAGE_SIZE_COUNT_20)].map((_, index) => (

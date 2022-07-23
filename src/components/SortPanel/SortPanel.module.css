@@ -15,6 +15,7 @@
   line-height: 117%;
   color: #91969b;
   user-select: none;
+  cursor: pointer;
 }
 
 .item:hover {
