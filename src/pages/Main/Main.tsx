@@ -112,6 +112,7 @@ const Main: React.FC = () => {
     <>
       <CalendarContextProvider>
         <SortContainer
+          page={page}
           search={search}
           platformsId={platformsId}
           dates={dates}

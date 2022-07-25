@@ -1,7 +1,7 @@
 export type MenuMobileProps = {
+  children: React.ReactNode;
   isOpenMenu: boolean;
-  setIsOpenMenu: (arg: boolean) => void;
-  handleClickOnLink: (arg: string) => void;
+  setIsOpenMenu: (isActive: boolean) => void;
 };
 
 export type FavoriteItemProps = {
@@ -25,12 +25,7 @@ export type PlatformsLIstItemProps = {
 };
 
 export type SortProps = {
-  search: string;
-  platformsId: number[];
-  dates: string[];
-};
-
-export type SortProps = {
+  page?: number;
   search: string;
   platformsId: number[];
   dates: string[];

@@ -12,10 +12,11 @@ import cn from "classnames";
 import { useClickOutside } from "../../hooks";
 
 interface SeacrhProp {
-  setIsOpenMenu?: (qwe: boolean) => void;
+  isTablet: boolean;
+  setIsOpenMenu: (isActive: boolean) => void;
 }
 
-const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
+const Search: React.FC<SeacrhProp> = ({ isTablet, setIsOpenMenu }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,13 +33,13 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const clickHandler = (value: string) => {
     localStorage.setItem("search", value);
     dispatch(setSearchQuery(value));
-    setIsOpenMenu && setIsOpenMenu(false);
+    isTablet && setIsOpenMenu(false);
   };
 
   const handleClickOnLink = (id: number) => {
     navigate(`/${id}`, { replace: true });
     setIsAcite(false);
-    setIsOpenMenu && setIsOpenMenu(false);
+    isTablet && setIsOpenMenu(false);
   };
 
   const dropDownRef = useClickOutside(() => setIsAcite(false));

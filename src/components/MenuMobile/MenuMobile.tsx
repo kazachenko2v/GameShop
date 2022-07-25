@@ -1,15 +1,22 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
-import { Favorites, Search } from "../";
 import { MenuMobileProps } from "../types";
 
 import styles from "./MenuMobile.module.css";
 
 const MenuMobile: React.FC<MenuMobileProps> = ({
+  children,
   isOpenMenu,
   setIsOpenMenu,
-  handleClickOnLink,
 }) => {
+  React.useEffect(() => {
+    if (isOpenMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+  }, [isOpenMenu]);
+
   return (
     <>
       <CSSTransition
@@ -35,17 +42,9 @@ const MenuMobile: React.FC<MenuMobileProps> = ({
           exitActive: styles.menu_exit,
           exitDone: styles.menu_exit_active,
         }}
+        mountOnEnter
       >
-        <div className={styles.menu}>
-          <nav className={styles.navigation}>
-            <ul>
-              <li onClick={() => handleClickOnLink("favorites")}>
-                <Favorites />
-              </li>
-            </ul>
-          </nav>
-          <Search setIsOpenMenu={setIsOpenMenu} />
-        </div>
+        <>{children}</>
       </CSSTransition>
     </>
   );

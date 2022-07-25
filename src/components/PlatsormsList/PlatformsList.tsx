@@ -37,7 +37,6 @@ const PlatsormsList: React.FC<{
       startPlatformsRef.current!,
       sortedSelectedPlatformsRef
     );
-    console.log(toUpdate);
     if (toUpdate) {
       !isTablet ? dispatch(setPlatformsId(toUpdate)) : pl.setPl(toUpdate);
       setLocalStorage("platformsId", toUpdate);
@@ -93,7 +92,7 @@ const PlatsormsList: React.FC<{
             item={item}
             isActiveMenu={isActive}
             togglePlatforms={togglePlatforms}
-            platformsId={platformsId}
+            platformsId={pl.pl}
           />
         ))}
       </div>
