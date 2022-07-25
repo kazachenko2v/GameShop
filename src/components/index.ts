@@ -1,10 +1,13 @@
 export { default as Dates } from "./Dates/Dates";
+export { default as DropDown } from "./DropDown/DropDown";
 export { default as FavoriteItem } from "./FavoriteItem/FavoriteItem";
 export { default as Favorites } from "./Favorites/Favorites";
 export { default as GameCard } from "./GameCard/GameCard";
 export { default as GameCardSkeleton } from "./GameCardSkeleton/GameCardSkeleton";
+export { default as GenresList } from "./GenresList/GenresList";
 export { default as Header } from "./Header/Header";
-export { default as MenuMobile } from "./MenuMobile/MenuMobile";
+export { default as HeaderMenu } from "./HeaderMenu/HeaderMenu";
+export { default as MobileDropDownMenu } from "./MobileDropDownMenu/MobileDropDownMenu";
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as PlatformsListItem } from "./PlatformsListItem/PlatformsListItem";
 export { default as PlatformsList } from "./PlatsormsList/PlatformsList";

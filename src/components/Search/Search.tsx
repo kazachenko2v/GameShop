@@ -1,24 +1,23 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import { setSearchQuery } from "../../redux/filter/slice";
 import { TGamesItem } from "../../redux/games/types";
 
+import { useClickOutside } from "../../hooks";
 import { fetchGames } from "../../utils/fetching";
 import _debounce from "lodash.debounce";
 
 import styles from "./Search.module.css";
 import cn from "classnames";
-import { useClickOutside } from "../../hooks";
 
-interface SeacrhProp {
-  isTablet: boolean;
-  setIsOpenMenu: (isActive: boolean) => void;
-}
+import { SeacrhProp } from "../types";
 
-const Search: React.FC<SeacrhProp> = ({ isTablet, setIsOpenMenu }) => {
+const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({ maxWidth: 912 });
 
   const [value, setValue] = React.useState<string>("");
   const [games, setGames] = React.useState<TGamesItem[] | null>(null);

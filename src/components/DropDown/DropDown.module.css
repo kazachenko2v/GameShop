@@ -42,14 +42,16 @@
 }
 
 .dropdown__menu {
+  display: none;
   position: absolute;
   z-index: 1000;
+  height: 200px;
+  overflow-y: scroll;
   background: #ffffff;
   padding: 12px;
   margin-top: 10px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
   border-radius: 8px;
-  display: none;
 }
 
 .dropdown__menu_active {
@@ -63,7 +65,7 @@
 
   .dropdown__button {
     justify-content: space-between;
-    padding: var(--button_medium);
+    padding: 20px 20px;
     width: 100%;
     border-radius: 0;
     transition: all 0.1s ease-in;

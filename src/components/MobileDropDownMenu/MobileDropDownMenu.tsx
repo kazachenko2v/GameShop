@@ -1,10 +1,10 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
-import { MenuMobileProps } from "../types";
+import { MobileDropDownMenuProps } from "../types";
 
-import styles from "./MenuMobile.module.css";
+import styles from "./MobileDropDownMenu.module.css";
 
-const MenuMobile: React.FC<MenuMobileProps> = ({
+const MobileDropDownMenu: React.FC<MobileDropDownMenuProps> = ({
   children,
   isOpenMenu,
   setIsOpenMenu,
@@ -50,4 +50,4 @@ const MenuMobile: React.FC<MenuMobileProps> = ({
   );
 };
 
-export default MenuMobile;
+export default MobileDropDownMenu;

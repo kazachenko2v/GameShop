@@ -9,7 +9,7 @@ import { getFilter } from "../../redux/filter/selectors";
 import { IFilterSliceState } from "../../redux/filter/types";
 import { fetchGames } from "../../redux/games/slice";
 import { getGames } from "../../redux/games/selectors";
-import CalendarContextProvider from "../../context/CalendarContextProvider";
+import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
 import {
   SortContainer,
@@ -33,7 +33,7 @@ const Main: React.FC = () => {
   const navigate = useNavigate();
 
   const { results: games, count: gamesCount, status } = useSelector(getGames);
-  const { page, platformsId, search, dates } = useSelector(getFilter);
+  const { page, platformsId, genresId, search, dates } = useSelector(getFilter);
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
@@ -43,6 +43,7 @@ const Main: React.FC = () => {
         {
           page,
           parent_platforms: platformsId,
+          genres: genresId,
           search,
           dates,
         },
@@ -52,7 +53,8 @@ const Main: React.FC = () => {
             if (
               (prefix === "search" && value === "") ||
               (prefix === "dates" && value === "") ||
-              (prefix === "parent_platforms" && value === "")
+              (prefix === "parent_platforms" && value === "") ||
+              (prefix === "genres" && value === "")
             ) {
               return;
             }
@@ -63,7 +65,7 @@ const Main: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [page, platformsId, search, dates]);
+  }, [page, platformsId, genresId, search, dates]);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -77,6 +79,9 @@ const Main: React.FC = () => {
           ? params.parent_platforms
               .split(",")
               .map((item: string) => Number(item))
+          : [],
+        genresId: params.genres
+          ? params.genres.split(",").map((item: string) => Number(item))
           : [],
         search: params.search ? params.search : "",
         dates: params.dates ? params.dates.split(",") : [],
@@ -93,6 +98,7 @@ const Main: React.FC = () => {
     const platformsValue = platformsId.length
       ? `&parent_platforms=${platformsId.join(",")}`
       : `&parent_platforms=${ALL_PLATFORMS_ID.join(",")}`;
+    const genresValue = genresId.length ? `&genres=${genresId.join(",")}` : "";
     if (!isSearch.current) {
       appDispatch(
         fetchGames(
@@ -100,13 +106,14 @@ const Main: React.FC = () => {
             PAGE +
             page +
             platformsValue +
+            genresValue +
             searchValue +
             datesValue
         )
       );
     }
     isSearch.current = false;
-  }, [page, platformsId, search, dates]);
+  }, [page, platformsId, genresId, search, dates]);
 
   return (
     <>
@@ -115,9 +122,15 @@ const Main: React.FC = () => {
           page={page}
           search={search}
           platformsId={platformsId}
+          genresId={genresId}
           dates={dates}
         />
-        <SortPanel search={search} platformsId={platformsId} dates={dates} />
+        <SortPanel
+          search={search}
+          platformsId={platformsId}
+          genresId={genresId}
+          dates={dates}
+        />
       </CalendarContextProvider>
       <div className={styles.conteiner}>
         {status === "loading"

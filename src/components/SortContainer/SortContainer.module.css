@@ -20,6 +20,10 @@
 /*////////////////////////////////////// */
 
 @media (max-width: 912px) {
+  .container {
+    border: none;
+  }
+
   .menu {
     display: flex;
     flex-direction: column;
@@ -28,19 +32,42 @@
     top: 0;
     right: 0;
     width: 300px;
-    height: 100vw;
+    height: 100vh;
     background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
-  .list__mobile {
+  .list_mobile {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1 1 100%;
   }
 
   .item {
     width: 100%;
     border: none;
+  }
+
+  .buttons__container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px 0;
+  }
+
+  .button {
+    background-color: #000;
+    padding: 10px 20px;
+    color: #fff;
+    font-family: inherit;
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 414px) {
+  .menu {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.75);
   }
 }

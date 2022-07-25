@@ -5,26 +5,25 @@ import { setLocalStorage } from "../../utils/localStorage";
 import { setDates } from "../../redux/filter/slice";
 import { getFilter } from "../../redux/filter/selectors";
 
+import { DropDown } from "../";
 import { useClickOutside } from "../../hooks";
 import {
-  CalendarContext,
-  ICalendarContextInterface,
-} from "../../context/CalendarContext";
+  FilterContext,
+  IFilterContextInterface,
+} from "../../contexts/FilterContext/FilterContext";
 import { arraysComparing } from "../../utils/dropDown";
 import { dateToString } from "../../utils/stringToDate";
 
 import "./calendar.css";
-import styles from "./Dates.module.css";
-import cn from "classnames";
 
 const Dates: React.FC<{
   isTablet: boolean;
 }> = ({ isTablet }) => {
   const dispatch = useDispatch();
   const { dates } = useSelector(getFilter);
-  const { calendar } = React.useContext(
-    CalendarContext
-  ) as ICalendarContextInterface;
+  const { calendar, setValue } = React.useContext(
+    FilterContext
+  ) as IFilterContextInterface;
   const [isActive, setIsActive] = React.useState<boolean>(false);
 
   const selectedDates = React.useRef<string[] | null>(null);
@@ -57,7 +56,9 @@ const Dates: React.FC<{
   };
 
   const clickHandler = (value: [Date, Date]) => {
-    calendar.setValue(value);
+    setValue((prevState) => {
+      return { ...prevState, calendar: value };
+    });
   };
   const dropDownRef = useClickOutside(() => {
     compareArrays();
@@ -65,39 +66,21 @@ const Dates: React.FC<{
   });
 
   return (
-    <div ref={dropDownRef} className={styles.container}>
-      <button
-        className={cn(styles.dropdown__button, {
-          [styles.dropdown__button_not_acive]: !isActive,
-          [styles.dropdown__button_active]: isActive,
-        })}
-        onClick={buttonOnClickHandler}
-      >
-        <span>Dates</span>
-        <span
-          className={cn(styles.arrow, { [styles.arrow_acive]: isActive })}
-        ></span>
-      </button>
-      <div
-        className={cn(styles.dropdown__menu, {
-          [styles.dropdown__menu_deactive]: !isActive,
-          [styles.dropdown__menu_active]: isActive,
-        })}
-      >
-        <Calendar
-          value={
-            calendar.value as
-              | Date
-              | [Date | null, Date | null]
-              | null
-              | undefined
-          }
-          onChange={clickHandler as OnChangeDateRangeCallback}
-          selectRange={true}
-          minDate={new Date(1981, 1, 1)}
-        />
-      </div>
-    </div>
+    <DropDown
+      value={"Dates"}
+      isActive={isActive}
+      dropDownRef={dropDownRef}
+      buttonOnClickHandler={buttonOnClickHandler}
+    >
+      <Calendar
+        value={
+          calendar.value as Date | [Date | null, Date | null] | null | undefined
+        }
+        onChange={clickHandler as OnChangeDateRangeCallback}
+        selectRange={true}
+        minDate={new Date(1981, 1, 1)}
+      />
+    </DropDown>
   );
 };
 

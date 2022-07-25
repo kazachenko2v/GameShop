@@ -1,8 +1,9 @@
 export interface IFilterSliceState {
   page: number;
-  platformsId: TPlatformsId;
+  platformsId: TListId;
+  genresId: TListId;
   search: string;
   dates: string[];
 }
 
-export type TPlatformsId = number[];
+export type TListId = number[];
