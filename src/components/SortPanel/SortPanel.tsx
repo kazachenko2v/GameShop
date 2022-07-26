@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ALL_PLATFORMS } from "../../constants";
 import {
   setPlatformsId,
@@ -7,6 +7,7 @@ import {
   setDates,
   setGenresId,
 } from "../../redux/filter/slice";
+import { getGenres } from "../../redux/genres/selectors";
 import { SortProps } from "../types";
 
 import {
@@ -23,16 +24,16 @@ const SortPanel: React.FC<SortProps> = ({
   genresId,
   dates,
 }) => {
+  const dispatch = useDispatch();
+  const { results: allGenres } = useSelector(getGenres);
   const { setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
-  const dispatch = useDispatch();
   const [platformsName, setPlatformsName] = React.useState<string[] | null>(
     null
   );
   const [genresName, setGenresName] = React.useState<string[] | null>(null);
 
-  console.log(genresId);
   const clearPlatforms = () => {
     setValue((prevState) => {
       return { ...prevState, platforms: [] };
@@ -78,14 +79,15 @@ const SortPanel: React.FC<SortProps> = ({
         pl.id === id ? platformsName.push(pl.name) : null
       )
     );
+    genresId.forEach((id) =>
+      allGenres.forEach((pl) =>
+        pl.id === id ? genresName.push(pl.name) : null
+      )
+    );
 
-    // genresId.forEach((id) =>
-    //   ALL_PLATFORMS.forEach((pl) =>
-    //     pl.id === id ? platformsName.push(pl.name) : null
-    //   )
-    // );
     setPlatformsName(platformsName);
-  }, [platformsId]);
+    setGenresName(genresName);
+  }, [platformsId, genresId]);
 
   return (
     <div className={styles.container}>
@@ -106,9 +108,8 @@ const SortPanel: React.FC<SortProps> = ({
           onClick={clearGenres}
         >
           <span>Genres:</span>
-          {genresId.map((name) => (
-            <span key={name}>{name}</span>
-          ))}
+          {genresName &&
+            genresName.map((name) => <span key={name}>{name}</span>)}
           <button className={styles.button_remove}></button>
         </div>
       )}

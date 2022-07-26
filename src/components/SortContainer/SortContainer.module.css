@@ -9,6 +9,10 @@
   line-height: 125%;
 }
 
+.button_main {
+  font-family: inherit;
+}
+
 .icon {
   height: 40px;
 }

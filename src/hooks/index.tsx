@@ -24,7 +24,7 @@ export const useClickOutside = (
 };
 
 export const useActiveFiltersCount = (
-  arr: [string, number[], string[]]
+  arr: [string, number[], number[], string[]]
 ): number[] | undefined[] => {
   const [filtersCount, setFiltersCount] = React.useState<
     number[] | undefined[]

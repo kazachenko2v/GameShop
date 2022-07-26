@@ -15,7 +15,7 @@ import {
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
 
-const PlatsormsList: React.FC<{
+const PlatformsList: React.FC<{
   isTablet: boolean;
 }> = ({ isTablet }) => {
   const dispatch = useDispatch();
@@ -83,17 +83,20 @@ const PlatsormsList: React.FC<{
       dropDownRef={dropDownRef}
       buttonOnClickHandler={buttonOnClickHandler}
     >
-      {ALL_PLATFORMS.map((item) => (
-        <PlatformsListItem
-          key={item.id}
-          item={item}
-          isActiveMenu={isActive}
-          togglePlatforms={togglePlatforms}
-          platformsId={platforms.value}
-        />
-      ))}
+      <ul>
+        {ALL_PLATFORMS.map((item) => (
+          <li key={item.id}>
+            <PlatformsListItem
+              item={item}
+              isActiveMenu={isActive}
+              togglePlatforms={togglePlatforms}
+              platformsId={platforms.value}
+            />
+          </li>
+        ))}
+      </ul>
     </DropDown>
   );
 };
 
-export default PlatsormsList;
+export default PlatformsList;

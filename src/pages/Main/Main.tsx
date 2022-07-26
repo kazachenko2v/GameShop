@@ -8,6 +8,7 @@ import { setFilters } from "../../redux/filter/slice";
 import { getFilter } from "../../redux/filter/selectors";
 import { IFilterSliceState } from "../../redux/filter/types";
 import { fetchGames } from "../../redux/games/slice";
+import { fetchGenres } from "../../redux/genres/slice";
 import { getGames } from "../../redux/games/selectors";
 import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
@@ -20,10 +21,12 @@ import {
 } from "../../components";
 
 import {
+  PROTOCOL_DOMAIN,
   GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20,
   PAGE,
   PAGE_SIZE_COUNT_20,
   ALL_PLATFORMS_ID,
+  KEY_ID,
 } from "../../constants";
 import styles from "./Main.module.css";
 
@@ -111,6 +114,7 @@ const Main: React.FC = () => {
             datesValue
         )
       );
+      appDispatch(fetchGenres(PROTOCOL_DOMAIN + "genres" + KEY_ID));
     }
     isSearch.current = false;
   }, [page, platformsId, genresId, search, dates]);

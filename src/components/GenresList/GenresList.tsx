@@ -2,26 +2,27 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TListId } from "../../redux/filter/types";
 import { setGenresId } from "../../redux/filter/slice";
+import { getFilter } from "../../redux/filter/selectors";
 
 import { DropDown, PlatformsListItem } from "../";
 import { arraysComparing } from "../../utils/dropDown";
 import { setLocalStorage } from "../../utils/localStorage";
+
 import { useClickOutside } from "../../hooks";
 
 import {
   FilterContext,
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
-import { fetchSomething } from "../../utils/fetching";
-import { getFilter } from "../../redux/filter/selectors";
+import { getGenres } from "../../redux/genres/selectors";
 
 const GenresList: React.FC<{
   isTablet: boolean;
 }> = ({ isTablet }) => {
   const dispatch = useDispatch();
   const { genresId } = useSelector(getFilter);
+  const { results: allGenres, status } = useSelector(getGenres);
   const [isActive, setIsActive] = React.useState<boolean>(false);
-  const [genres, setGenres] = React.useState<any>([]);
   const { selectedGenres, setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
@@ -29,11 +30,6 @@ const GenresList: React.FC<{
   const startPlatformsRef = React.useRef<TListId | null>(null);
   selectedPlatformsRef.current = [...selectedGenres.value];
   startPlatformsRef.current = [...genresId];
-
-  React.useEffect(() => {
-    fetchSomething("genres", setGenres);
-    dispatch(setGenresId(genres));
-  }, []);
 
   const sortAndCompareArrays = () => {
     const sortedSelectedPlatformsRef = selectedPlatformsRef.current!.sort(
@@ -94,16 +90,22 @@ const GenresList: React.FC<{
       dropDownRef={dropDownRef}
       buttonOnClickHandler={buttonOnClickHandler}
     >
-      {genres.length &&
-        genres.map((item: any) => (
-          <PlatformsListItem
-            key={item.id}
-            item={item}
-            isActiveMenu={isActive}
-            togglePlatforms={togglePlatforms}
-            platformsId={selectedGenres.value}
-          />
-        ))}
+      <ul>
+        {status === "loading" ? (
+          <span>No genres, sorry</span>
+        ) : (
+          allGenres.map((item: any) => (
+            <li key={item.id}>
+              <PlatformsListItem
+                item={item}
+                isActiveMenu={isActive}
+                togglePlatforms={togglePlatforms}
+                platformsId={selectedGenres.value}
+              />
+            </li>
+          ))
+        )}
+      </ul>
     </DropDown>
   );
 };

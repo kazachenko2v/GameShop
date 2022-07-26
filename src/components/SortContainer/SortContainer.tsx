@@ -69,16 +69,21 @@ const SortContainer: React.FC<IFilterSliceState> = ({
   const activeFiltersCount = useActiveFiltersCount([
     search,
     platformsId,
+    genresId,
     dates,
   ]);
-
   return isTablet ? (
     <div className={styles.container}>
-      <div onClick={() => setIsOpenMenu(!isOpenMenu)}>
-        <button>Filters</button>
+      <button
+        className={styles.button_main}
+        onClick={() => setIsOpenMenu(!isOpenMenu)}
+      >
         <img className={styles.icon} src={Filter} alt="Filter" />
-        <span>{activeFiltersCount.length}</span>
-      </div>
+        <span>
+          Filters{" "}
+          {activeFiltersCount.length > 0 ? activeFiltersCount.length : ""}
+        </span>
+      </button>
       <MobileDropDownMenu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}>
         <div className={styles.menu}>
           <ul className={styles.list_mobile}>
