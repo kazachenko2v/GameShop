@@ -14,3 +14,4 @@ export { default as PlatformsList } from "./PlatsormsList/PlatformsList";
 export { default as Search } from "./Search/Search";
 export { default as SortContainer } from "./SortContainer/SortContainer";
 export { default as SortPanel } from "./SortPanel/SortPanel";
+export { default as TagsList } from "./TagsList/TagsList";

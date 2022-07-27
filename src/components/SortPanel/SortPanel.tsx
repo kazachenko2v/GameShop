@@ -6,8 +6,10 @@ import {
   setSearchQuery,
   setDates,
   setGenresId,
+  setTagsId,
 } from "../../redux/filter/slice";
 import { getGenres } from "../../redux/genres/selectors";
+import { useGetTagsQuery } from "../../redux/filtes.api";
 import { SortProps } from "../types";
 
 import {
@@ -22,10 +24,12 @@ const SortPanel: React.FC<SortProps> = ({
   search,
   platformsId,
   genresId,
+  tagsId,
   dates,
 }) => {
   const dispatch = useDispatch();
-  const { results: allGenres } = useSelector(getGenres);
+  const { results: allGenres, status } = useSelector(getGenres);
+  const { data: allTags, isSuccess } = useGetTagsQuery();
   const { setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
@@ -33,6 +37,7 @@ const SortPanel: React.FC<SortProps> = ({
     null
   );
   const [genresName, setGenresName] = React.useState<string[] | null>(null);
+  const [tagsName, setTagsName] = React.useState<string[] | null>(null);
 
   const clearPlatforms = () => {
     setValue((prevState) => {
@@ -48,6 +53,14 @@ const SortPanel: React.FC<SortProps> = ({
     });
     dispatch(setGenresId([]));
     localStorage.removeItem("genresId");
+  };
+
+  const clearTags = () => {
+    setValue((prevState) => {
+      return { ...prevState, selectedTags: [] };
+    });
+    dispatch(setTagsId([]));
+    localStorage.removeItem("tagsId");
   };
 
   const clearSearch = () => {
@@ -66,6 +79,7 @@ const SortPanel: React.FC<SortProps> = ({
   const clearAll = () => {
     clearPlatforms();
     clearGenres();
+    clearTags();
     clearSearch();
     clearDates();
   };
@@ -73,21 +87,30 @@ const SortPanel: React.FC<SortProps> = ({
   React.useEffect(() => {
     let platformsName: string[] = [];
     let genresName: string[] = [];
+    let tagsName: string[] = [];
 
     platformsId.forEach((id) =>
-      ALL_PLATFORMS.forEach((pl) =>
-        pl.id === id ? platformsName.push(pl.name) : null
+      ALL_PLATFORMS.forEach((item) =>
+        item.id === id ? platformsName.push(item.name) : null
       )
     );
     genresId.forEach((id) =>
-      allGenres.forEach((pl) =>
-        pl.id === id ? genresName.push(pl.name) : null
+      allGenres.forEach((item) =>
+        item.id === id ? genresName.push(item.name) : null
       )
+    );
+    tagsId.forEach(
+      (id) =>
+        isSuccess &&
+        allTags.forEach((item) =>
+          item.id === id ? tagsName.push(item.name) : null
+        )
     );
 
     setPlatformsName(platformsName);
     setGenresName(genresName);
-  }, [platformsId, genresId]);
+    setTagsName(tagsName);
+  }, [platformsId, genresId, tagsId]);
 
   return (
     <div className={styles.container}>
@@ -113,6 +136,13 @@ const SortPanel: React.FC<SortProps> = ({
           <button className={styles.button_remove}></button>
         </div>
       )}
+      {tagsId.length > 0 && (
+        <div className={cn(styles.item, styles.sort__item)} onClick={clearTags}>
+          <span>Tags:</span>
+          {tagsName && tagsName.map((name) => <span key={name}>{name}</span>)}
+          <button className={styles.button_remove}></button>
+        </div>
+      )}
       {search && (
         <div
           className={cn(styles.item, styles.sort__item)}
@@ -123,7 +153,6 @@ const SortPanel: React.FC<SortProps> = ({
           <button className={styles.button_remove}></button>
         </div>
       )}
-
       {dates.length > 0 && (
         <div
           className={cn(styles.item, styles.sort__item)}
@@ -139,6 +168,7 @@ const SortPanel: React.FC<SortProps> = ({
 
       {(platformsId.length > 0 ||
         genresId.length > 0 ||
+        tagsId.length > 0 ||
         search ||
         dates.length > 0) && (
         <button className={styles.item} onClick={clearAll}>

@@ -21,7 +21,7 @@ import {
 } from "../../components";
 
 import {
-  PROTOCOL_DOMAIN,
+  API,
   GAMES_LIST_KEY_ID_PAGE_SIZE_PAGE_SIZE_COUNT_20,
   PAGE,
   PAGE_SIZE_COUNT_20,
@@ -36,7 +36,8 @@ const Main: React.FC = () => {
   const navigate = useNavigate();
 
   const { results: games, count: gamesCount, status } = useSelector(getGames);
-  const { page, platformsId, genresId, search, dates } = useSelector(getFilter);
+  const { page, platformsId, genresId, tagsId, search, dates } =
+    useSelector(getFilter);
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
@@ -47,6 +48,7 @@ const Main: React.FC = () => {
           page,
           parent_platforms: platformsId,
           genres: genresId,
+          tags: tagsId,
           search,
           dates,
         },
@@ -57,7 +59,8 @@ const Main: React.FC = () => {
               (prefix === "search" && value === "") ||
               (prefix === "dates" && value === "") ||
               (prefix === "parent_platforms" && value === "") ||
-              (prefix === "genres" && value === "")
+              (prefix === "genres" && value === "") ||
+              (prefix === "tags" && value === "")
             ) {
               return;
             }
@@ -68,7 +71,7 @@ const Main: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [page, platformsId, genresId, search, dates]);
+  }, [page, platformsId, genresId, tagsId, search, dates]);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -86,6 +89,9 @@ const Main: React.FC = () => {
         genresId: params.genres
           ? params.genres.split(",").map((item: string) => Number(item))
           : [],
+        tagsId: params.tags
+          ? params.tags.split(",").map((item: string) => Number(item))
+          : [],
         search: params.search ? params.search : "",
         dates: params.dates ? params.dates.split(",") : [],
       };
@@ -102,6 +108,7 @@ const Main: React.FC = () => {
       ? `&parent_platforms=${platformsId.join(",")}`
       : `&parent_platforms=${ALL_PLATFORMS_ID.join(",")}`;
     const genresValue = genresId.length ? `&genres=${genresId.join(",")}` : "";
+    const tagsValue = tagsId.length ? `&tags=${tagsId.join(",")}` : "";
     if (!isSearch.current) {
       appDispatch(
         fetchGames(
@@ -110,14 +117,15 @@ const Main: React.FC = () => {
             page +
             platformsValue +
             genresValue +
+            tagsValue +
             searchValue +
             datesValue
         )
       );
-      appDispatch(fetchGenres(PROTOCOL_DOMAIN + "genres" + KEY_ID));
+      appDispatch(fetchGenres(API + "genres" + KEY_ID));
     }
     isSearch.current = false;
-  }, [page, platformsId, genresId, search, dates]);
+  }, [page, platformsId, genresId, tagsId, search, dates]);
 
   return (
     <>
@@ -127,12 +135,14 @@ const Main: React.FC = () => {
           search={search}
           platformsId={platformsId}
           genresId={genresId}
+          tagsId={tagsId}
           dates={dates}
         />
         <SortPanel
           search={search}
           platformsId={platformsId}
           genresId={genresId}
+          tagsId={tagsId}
           dates={dates}
         />
       </CalendarContextProvider>

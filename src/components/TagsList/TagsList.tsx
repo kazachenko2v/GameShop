@@ -1,34 +1,32 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TListId } from "../../redux/filter/types";
-import { setGenresId } from "../../redux/filter/slice";
-import { getFilter } from "../../redux/filter/selectors";
-
-import { DropDown, PlatformsListItem } from "../";
-import { arraysComparing } from "../../utils/dropDown";
-import { setLocalStorage } from "../../utils/localStorage";
-
-import { useClickOutside } from "../../hooks";
-
 import {
   FilterContext,
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
-import { getGenres } from "../../redux/genres/selectors";
+import { useClickOutside } from "../../hooks";
+import { getFilter } from "../../redux/filter/selectors";
+import { setTagsId } from "../../redux/filter/slice";
+import { TListId } from "../../redux/filter/types";
+import { useGetTagsQuery } from "../../redux/filtes.api";
+import { arraysComparing } from "../../utils/dropDown";
+import { setLocalStorage } from "../../utils/localStorage";
+import DropDown from "../DropDown/DropDown";
+import PlatformsListItem from "../PlatformsListItem/PlatformsListItem";
 
-const GenresList: React.FC<{
+const TagsList: React.FC<{
   isTablet: boolean;
 }> = ({ isTablet }) => {
   const dispatch = useDispatch();
   const { genresId } = useSelector(getFilter);
-  const { results: allGenres, status } = useSelector(getGenres);
+  const { isLoading, isError, data: allTags, isSuccess } = useGetTagsQuery();
   const [isActive, setIsActive] = React.useState<boolean>(false);
-  const { selectedGenres, setValue } = React.useContext(
+  const { selectedTags, setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
   const selectedPlatformsRef = React.useRef<TListId | null>(null);
   const startPlatformsRef = React.useRef<TListId | null>(null);
-  selectedPlatformsRef.current = [...selectedGenres.value];
+  selectedPlatformsRef.current = [...selectedTags.value];
   startPlatformsRef.current = [...genresId];
 
   const sortAndCompareArrays = () => {
@@ -41,11 +39,11 @@ const GenresList: React.FC<{
     );
     if (toUpdate) {
       !isTablet
-        ? dispatch(setGenresId(toUpdate))
+        ? dispatch(setTagsId(toUpdate))
         : setValue((prevState) => {
-            return { ...prevState, selectedGenres: toUpdate };
+            return { ...prevState, selectedTags: toUpdate };
           });
-      setLocalStorage("genresId", toUpdate);
+      setLocalStorage("tagsId", toUpdate);
     }
   };
 
@@ -59,20 +57,18 @@ const GenresList: React.FC<{
   };
 
   const togglePlatforms = (id: number) => {
-    if (selectedGenres.value.includes(id)) {
-      const newArr: any = [...selectedGenres.value].filter(
-        (item) => item !== id
-      );
+    if (selectedTags.value.includes(id)) {
+      const newArr: any = [...selectedTags.value].filter((item) => item !== id);
       setValue((prevState) => {
-        return { ...prevState, selectedGenres: newArr };
+        return { ...prevState, selectedTags: newArr };
       });
-    } else if (!selectedGenres.value.includes(id)) {
+    } else if (!selectedTags.value.includes(id)) {
       const newArr: any = [];
       newArr.push(id);
       setValue((prevState) => {
         return {
           ...prevState,
-          selectedGenres: selectedGenres.value.concat(newArr),
+          selectedTags: selectedTags.value.concat(newArr),
         };
       });
     }
@@ -85,22 +81,23 @@ const GenresList: React.FC<{
 
   return (
     <DropDown
-      value={"Genres"}
+      value={"Tags"}
       isActive={isActive}
       dropDownRef={dropDownRef}
       buttonOnClickHandler={buttonOnClickHandler}
     >
       <ul>
-        {status === "loading" ? (
-          <span>No genres, sorry</span>
+        {isLoading ? (
+          <span>Loading...</span>
         ) : (
-          allGenres.map((item) => (
+          isSuccess &&
+          allTags.map((item) => (
             <li key={item.id}>
               <PlatformsListItem
                 item={item}
                 isActiveMenu={isActive}
                 togglePlatforms={togglePlatforms}
-                platformsId={selectedGenres.value}
+                platformsId={selectedTags.value}
               />
             </li>
           ))
@@ -110,4 +107,4 @@ const GenresList: React.FC<{
   );
 };
 
-export default GenresList;
+export default TagsList;

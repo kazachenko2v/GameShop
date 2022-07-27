@@ -29,6 +29,7 @@ export type SortProps = {
   search: string;
   platformsId: number[];
   genresId: number[];
+  tagsId: number[];
   dates: string[];
 };
 

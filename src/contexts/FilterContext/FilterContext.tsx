@@ -4,12 +4,14 @@ export interface IFilterContextInterface {
   calendar: TFilter;
   platforms: TList;
   selectedGenres: TList;
+  selectedTags: TList;
 
   setValue: Dispatch<
     SetStateAction<{
       calendar: Date[] | null;
       platforms: number[];
-      selectedGenres: any;
+      selectedGenres: number[];
+      selectedTags: number[];
     }>
   >;
 }

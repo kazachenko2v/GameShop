@@ -4,6 +4,7 @@ import filterReducer from "./filter/slice";
 import favoriteReducer from "./favorite/slice";
 import gamesReducer from "./games/slice";
 import genresReducer from "./genres/slice";
+import { filtersApi } from "./filtes.api";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     favorite: favoriteReducer,
     games: gamesReducer,
     genres: genresReducer,
+    [filtersApi.reducerPath]: filtersApi.reducer,
   },
 });
 

@@ -3,7 +3,7 @@
   width: 100%;
   height: 724px;
   font-size: clamp(1.5rem, 5vw, 3rem);
-  /*               24px        48px */
+  /*               24px         48px */
 }
 
 .skeleton {

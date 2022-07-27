@@ -39,7 +39,7 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
             </div>
           </Link>
           <div className={styles.bottons__container}>
-            <button className={styles.price}>$49.99</button>
+            <button className={styles.price}>Buy</button>
             <button
               className={styles.remove__button}
               onClick={() => removeButton(game.id)}

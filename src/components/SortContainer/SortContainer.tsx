@@ -10,7 +10,13 @@ import {
 } from "../../contexts/FilterContext/FilterContext";
 import { dateToString } from "../../utils/stringToDate";
 import { useActiveFiltersCount } from "../../hooks";
-import { PlatformsList, Dates, MobileDropDownMenu, GenresList } from "../";
+import {
+  PlatformsList,
+  Dates,
+  MobileDropDownMenu,
+  GenresList,
+  TagsList,
+} from "../";
 import Filter from "../../assets/images/filter.svg";
 
 import styles from "./SortContainer.module.css";
@@ -21,11 +27,11 @@ const SortContainer: React.FC<IFilterSliceState> = ({
   search,
   platformsId,
   genresId,
+  tagsId,
   dates,
 }) => {
-  const { calendar, selectedGenres, platforms, setValue } = React.useContext(
-    FilterContext
-  ) as IFilterContextInterface;
+  const { calendar, selectedGenres, selectedTags, platforms, setValue } =
+    React.useContext(FilterContext) as IFilterContextInterface;
   const dispatch = useDispatch();
   const isTablet = useMediaQuery({ maxWidth: 912 });
 
@@ -38,6 +44,7 @@ const SortContainer: React.FC<IFilterSliceState> = ({
         page: page,
         platformsId: platforms.value,
         genresId: selectedGenres.value,
+        tagsId: selectedTags.value,
         search: search,
         dates: calendar.value ? dateToString(calendar.value) : [],
       })
@@ -60,6 +67,7 @@ const SortContainer: React.FC<IFilterSliceState> = ({
         page: page,
         platformsId: [],
         genresId: [],
+        tagsId: [],
         search: "",
         dates: [],
       })
@@ -70,6 +78,7 @@ const SortContainer: React.FC<IFilterSliceState> = ({
     search,
     platformsId,
     genresId,
+    tagsId,
     dates,
   ]);
   return isTablet ? (
@@ -92,6 +101,9 @@ const SortContainer: React.FC<IFilterSliceState> = ({
             </li>
             <li className={styles.item}>
               <GenresList isTablet={isTablet} />
+            </li>
+            <li className={styles.item}>
+              <TagsList isTablet={isTablet} />
             </li>
             <li className={styles.item}>
               <Dates isTablet={isTablet} />
@@ -118,6 +130,9 @@ const SortContainer: React.FC<IFilterSliceState> = ({
       </li>
       <li className={styles.item}>
         <GenresList isTablet={isTablet} />
+      </li>
+      <li className={styles.item}>
+        <TagsList isTablet={isTablet} />
       </li>
       <li className={styles.item}>
         <Dates isTablet={isTablet} />
