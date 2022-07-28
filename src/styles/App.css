@@ -1,18 +1,21 @@
 @import url("./fonts.css");
 
+html {
+  height: -webkit-fill-available;
+}
+
+a,
+button {
+  user-select: none;
+}
+
 :root {
   --padding_big: 32px;
   --button_big: 16px 24px;
   --button_medium: 8px 12px;
 }
 
-/* html,
-body {
-  overflow: hidden;
-} */
-
 #root {
-  position: relative;
   max-width: 1244px;
   margin: 0 auto;
   padding: 35px 0 80px;

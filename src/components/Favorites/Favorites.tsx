@@ -9,14 +9,14 @@ const Favorites: React.FC = () => {
   const { count } = useSelector(getFavorite);
 
   return (
-    <div className={styles.nav__link}>
+    <button className={styles.nav__link}>
       <span>Favorites</span>
       <span
         className={cn(styles.count, { [styles.count_invisible]: count === 0 })}
       >
         {count}
       </span>
-    </div>
+    </button>
   );
 };
 

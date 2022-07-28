@@ -21,17 +21,11 @@ const GameCard: React.FC<{
           <p className={styles.prices}>$ 49.99</p>
           <h3 className={styles.title}>{item.name}</h3>
           <p className={styles.platform_container}>
-            {item.parent_platforms.map(
-              (platform) =>
-                ALL_PLATFORMS_ID.includes(platform.platform.id) && (
-                  <span
-                    className={styles.platform_item}
-                    key={platform.platform.id}
-                  >
-                    {platform.platform.name}
-                  </span>
-                )
-            )}
+            {item.parent_platforms.map((platform) => (
+              <span className={styles.platform_item} key={platform.platform.id}>
+                {platform.platform.name}
+              </span>
+            ))}
           </p>
         </Link>
       </div>

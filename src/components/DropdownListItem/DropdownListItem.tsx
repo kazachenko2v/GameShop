@@ -1,9 +1,9 @@
 import React from "react";
-import { PlatformsLIstItemProps } from "../types";
+import { DropdownListItemProps } from "../types";
 
-import styles from "./PlatformsListItem.module.css";
+import styles from "./DropdownListItem.module.css";
 
-const PlatformsListItem: React.FC<PlatformsLIstItemProps> = ({
+const DropdownListItem: React.FC<DropdownListItemProps> = ({
   item,
   isActiveMenu,
   togglePlatforms,
@@ -34,4 +34,4 @@ const PlatformsListItem: React.FC<PlatformsLIstItemProps> = ({
   );
 };
 
-export default PlatformsListItem;
+export default DropdownListItem;

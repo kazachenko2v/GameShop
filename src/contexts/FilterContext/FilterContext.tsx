@@ -1,27 +1,27 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { TListId } from "../../redux/filter/types";
 
 export interface IFilterContextInterface {
-  calendar: TFilter;
-  platforms: TList;
-  selectedGenres: TList;
-  selectedTags: TList;
-
-  setValue: Dispatch<
-    SetStateAction<{
-      calendar: Date[] | null;
-      platforms: number[];
-      selectedGenres: number[];
-      selectedTags: number[];
-    }>
-  >;
+  calendar: TCalendar;
+  Platforms: TList;
+  Genres: TList;
+  Tags: TList;
+  setValue: Dispatch<SetStateAction<TFilterContext>>;
 }
 
-export type TFilter = {
+export type TFilterContext = {
+  calendar: Date[] | null;
+  Platforms: TListId;
+  Genres: TListId;
+  Tags: TListId;
+};
+
+export type TCalendar = {
   value: Date[] | null;
 };
 
 export type TList = {
-  value: number[];
+  value: TListId;
 };
 
 export const FilterContext =

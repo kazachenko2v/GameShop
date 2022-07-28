@@ -3,7 +3,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import filterReducer from "./filter/slice";
 import favoriteReducer from "./favorite/slice";
 import gamesReducer from "./games/slice";
-import genresReducer from "./genres/slice";
 import { filtersApi } from "./filtes.api";
 
 export const store = configureStore({
@@ -11,9 +10,10 @@ export const store = configureStore({
     filter: filterReducer,
     favorite: favoriteReducer,
     games: gamesReducer,
-    genres: genresReducer,
     [filtersApi.reducerPath]: filtersApi.reducer,
   },
+  middleware: (getDefaultMiddalware) =>
+    getDefaultMiddalware().concat(filtersApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

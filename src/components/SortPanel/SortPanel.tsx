@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ALL_PLATFORMS } from "../../constants";
+import { useDispatch } from "react-redux";
+import { ALL_PLATFORMS, ALL_TAGS, ALL_GENRES } from "../../constants";
 import {
   setPlatformsId,
   setSearchQuery,
@@ -8,8 +8,6 @@ import {
   setGenresId,
   setTagsId,
 } from "../../redux/filter/slice";
-import { getGenres } from "../../redux/genres/selectors";
-import { useGetTagsQuery } from "../../redux/filtes.api";
 import { SortProps } from "../types";
 
 import {
@@ -28,8 +26,6 @@ const SortPanel: React.FC<SortProps> = ({
   dates,
 }) => {
   const dispatch = useDispatch();
-  const { results: allGenres, status } = useSelector(getGenres);
-  const { data: allTags, isSuccess } = useGetTagsQuery();
   const { setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
@@ -41,26 +37,26 @@ const SortPanel: React.FC<SortProps> = ({
 
   const clearPlatforms = () => {
     setValue((prevState) => {
-      return { ...prevState, platforms: [] };
+      return { ...prevState, Platforms: [] };
     });
     dispatch(setPlatformsId([]));
-    localStorage.removeItem("platformsId");
+    localStorage.removeItem("Platforms");
   };
 
   const clearGenres = () => {
     setValue((prevState) => {
-      return { ...prevState, selectedGenres: [] };
+      return { ...prevState, Genres: [] };
     });
     dispatch(setGenresId([]));
-    localStorage.removeItem("genresId");
+    localStorage.removeItem("Genres");
   };
 
   const clearTags = () => {
     setValue((prevState) => {
-      return { ...prevState, selectedTags: [] };
+      return { ...prevState, Tags: [] };
     });
     dispatch(setTagsId([]));
-    localStorage.removeItem("tagsId");
+    localStorage.removeItem("Tags");
   };
 
   const clearSearch = () => {
@@ -95,16 +91,14 @@ const SortPanel: React.FC<SortProps> = ({
       )
     );
     genresId.forEach((id) =>
-      allGenres.forEach((item) =>
+      ALL_GENRES.forEach((item) =>
         item.id === id ? genresName.push(item.name) : null
       )
     );
-    tagsId.forEach(
-      (id) =>
-        isSuccess &&
-        allTags.forEach((item) =>
-          item.id === id ? tagsName.push(item.name) : null
-        )
+    tagsId.forEach((id) =>
+      ALL_TAGS.forEach((item) =>
+        item.id === id ? tagsName.push(item.name) : null
+      )
     );
 
     setPlatformsName(platformsName);

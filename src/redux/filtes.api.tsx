@@ -5,6 +5,10 @@ export const filtersApi = createApi({
   reducerPath: "filtesApi",
   baseQuery: fetchBaseQuery({ baseUrl: API }),
   endpoints: (builder) => ({
+    getGenres: builder.query<Result[], void>({
+      query: () => `genres${KEY_ID}`,
+      transformResponse: (response: RootObject) => response.results,
+    }),
     getTags: builder.query<Result[], void>({
       query: () => `tags${KEY_ID}`,
       transformResponse: (response: RootObject) => response.results,
@@ -12,7 +16,7 @@ export const filtersApi = createApi({
   }),
 });
 
-export const { useGetTagsQuery } = filtersApi;
+export const { useGetTagsQuery, useGetGenresQuery } = filtersApi;
 
 export interface Game {
   id: number;

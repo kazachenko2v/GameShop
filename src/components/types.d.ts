@@ -1,3 +1,7 @@
+import React from "react";
+import { TListId } from "../redux/filter/types";
+import { TFilterContext } from "../contexts/FilterContext";
+
 export type MobileDropDownMenuProps = {
   children: React.ReactNode;
   isOpenMenu: boolean;
@@ -14,22 +18,35 @@ export type PaginationProps = {
   status: string;
 };
 
-export type PlatformsLIstItemProps = {
+export type DropdownListItemProps = {
   item: {
     id: number;
     name: string;
   };
   isActiveMenu: boolean;
   togglePlatforms: (id: number) => void;
-  platformsId: number[];
+  platformsId: TListId;
+};
+
+export type DropdownListProps = {
+  isTablet: boolean;
+  startItems: TListId;
+  selectedItems: TListId;
+  setValue: React.Dispatch<React.SetStateAction<TFilterContext>>;
+  setItemsIdtoState: React.SetStateAction<S>;
+  value: string;
+  allItemConstant: {
+    id: number;
+    name: string;
+  }[];
 };
 
 export type SortProps = {
   page?: number;
   search: string;
-  platformsId: number[];
-  genresId: number[];
-  tagsId: number[];
+  platformsId: TListId;
+  genresId: TListId;
+  tagsId: TListId;
   dates: string[];
 };
 

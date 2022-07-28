@@ -8,7 +8,6 @@ import { setFilters } from "../../redux/filter/slice";
 import { getFilter } from "../../redux/filter/selectors";
 import { IFilterSliceState } from "../../redux/filter/types";
 import { fetchGames } from "../../redux/games/slice";
-import { fetchGenres } from "../../redux/genres/slice";
 import { getGames } from "../../redux/games/selectors";
 import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
@@ -106,7 +105,7 @@ const Main: React.FC = () => {
     const datesValue = dates.length ? `&dates=${dates.join(",")}` : "";
     const platformsValue = platformsId.length
       ? `&parent_platforms=${platformsId.join(",")}`
-      : `&parent_platforms=${ALL_PLATFORMS_ID.join(",")}`;
+      : "";
     const genresValue = genresId.length ? `&genres=${genresId.join(",")}` : "";
     const tagsValue = tagsId.length ? `&tags=${tagsId.join(",")}` : "";
     if (!isSearch.current) {
@@ -122,7 +121,6 @@ const Main: React.FC = () => {
             datesValue
         )
       );
-      appDispatch(fetchGenres(API + "genres" + KEY_ID));
     }
     isSearch.current = false;
   }, [page, platformsId, genresId, tagsId, search, dates]);

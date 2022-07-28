@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getFilter } from "../../redux/filter/selectors";
-import { useGetTagsQuery } from "../../redux/filtes.api";
 import { FilterContext } from "./FilterContext";
 
 interface IFilterContextProvider {
@@ -12,13 +11,12 @@ const FilterContextProvider: React.FC<IFilterContextProvider> = ({
   children,
 }) => {
   const { dates, platformsId, genresId, tagsId } = useSelector(getFilter);
-  // const { data: tagsId, isSuccess } = useGetTagsQuery();
 
   const initValue = {
     calendar: dates.length ? dates.map((item) => new Date(item)) : null,
-    platforms: [...platformsId],
-    selectedGenres: [...genresId],
-    selectedTags: [...tagsId],
+    Platforms: [...platformsId],
+    Genres: [...genresId],
+    Tags: [...tagsId],
   };
 
   const [value, setValue] = React.useState(initValue);
@@ -27,9 +25,9 @@ const FilterContextProvider: React.FC<IFilterContextProvider> = ({
     <FilterContext.Provider
       value={{
         calendar: { value: value.calendar },
-        platforms: { value: value.platforms },
-        selectedGenres: { value: value.selectedGenres },
-        selectedTags: { value: value.selectedTags },
+        Platforms: { value: value.Platforms },
+        Genres: { value: value.Genres },
+        Tags: { value: value.Tags },
         setValue,
       }}
     >
