@@ -6,12 +6,12 @@ import { setDates } from "../../redux/filter/slice";
 import { getFilter } from "../../redux/filter/selectors";
 
 import { DropDown } from "../";
-import { useClickOutside } from "../../hooks";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import {
   FilterContext,
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
-import { arraysComparing } from "../../utils/dropDown";
+import { arraysComparing } from "../../utils/dropdown";
 import { dateToString } from "../../utils/stringToDate";
 
 import "./calendar.css";

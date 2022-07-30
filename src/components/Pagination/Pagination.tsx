@@ -8,7 +8,7 @@ import styles from "./Pagination.module.css";
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   gamesCount,
-  status,
+  isSuccess,
 }) => {
   const dispatch = useDispatch();
   const pageCount = Math.ceil(gamesCount / 20);
@@ -25,7 +25,7 @@ const Pagination: React.FC<PaginationProps> = ({
         nextLabel=">"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
-        pageCount={status === "ready" && pageCount < 500 ? pageCount : 500}
+        pageCount={isSuccess && pageCount < 500 ? pageCount : 500}
         previousLabel="<"
         containerClassName={styles.pagination_container}
         pageClassName={styles.page_link_container}

@@ -1,5 +1,6 @@
 import React from "react";
 import { TListId } from "../redux/filter/types";
+import { IGame } from "../redux/games/types";
 import { TFilterContext } from "../contexts/FilterContext";
 
 export type MobileDropDownMenuProps = {
@@ -12,10 +13,14 @@ export type FavoriteItemProps = {
   id: number;
 };
 
+export type GameCardProps = {
+  item: IGame;
+};
+
 export type PaginationProps = {
   currentPage: number;
   gamesCount: number;
-  status: string;
+  isSuccess: boolean;
 };
 
 export type DropdownListItemProps = {

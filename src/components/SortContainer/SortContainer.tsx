@@ -14,7 +14,7 @@ import {
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
 import { dateToString } from "../../utils/stringToDate";
-import { useActiveFiltersCount } from "../../hooks";
+import { useActiveFiltersCount } from "../../hooks/useActiveFiltersCount";
 import { DropdownList, Dates, MobileDropDownMenu } from "../";
 import Filter from "../../assets/images/filter.svg";
 

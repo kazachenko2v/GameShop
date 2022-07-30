@@ -1,6 +1,6 @@
 export const API = "https://api.rawg.io/api/";
 export const GAMES_LIST = "https://api.rawg.io/api/games";
-export const KEY_ID = "?key=79fd490bc00041509c19e4a1a36cb212";
+export const KEY_ID = "79fd490bc00041509c19e4a1a36cb212";
 export const PAGE = "&page=";
 export const PAGE_SIZE = "&page_size=";
 export const PAGE_SIZE_COUNT_5 = 5;

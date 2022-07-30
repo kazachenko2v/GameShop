@@ -1,7 +1,9 @@
 @import url("./fonts.css");
 
 html {
-  height: -webkit-fill-available;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
 
 a,
@@ -20,6 +22,9 @@ button {
   margin: 0 auto;
   padding: 35px 0 80px;
   overflow: hidden;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
 
 @media (max-width: 1272px) {

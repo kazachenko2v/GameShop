@@ -1,14 +1,11 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { TGamesItem } from "../../redux/games/types";
-import { ALL_PLATFORMS_ID } from "../../constants";
+import { GameCardProps } from "../types";
 
 import styles from "./GameCard.module.css";
 
-const GameCard: React.FC<{
-  item: TGamesItem;
-}> = ({ item }) => {
+const GameCard: React.FC<GameCardProps> = ({ item }) => {
   return (
     <>
       <div className={styles.item_container}>

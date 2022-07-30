@@ -1,17 +1,15 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
 
 import { addGame, removeGame } from "../../redux/favorite/slice";
 import { getFavorite } from "../../redux/favorite/selectors";
-import { TGamesItem } from "../../redux/games/types";
+import { useGetGameQuery } from "../../redux/game/game.api";
 
 import {
   addItemLocalStorage,
   removeItemLocalStorage,
 } from "../../utils/localStorage";
-import { fetchGameById } from "../../utils/fetching";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -22,17 +20,12 @@ import cn from "classnames";
 const GamePage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { gamesId: favoriteGamesId } = useSelector(getFavorite);
   const { id } = useParams();
-  const isTablet = useMediaQuery({ maxWidth: 912 });
-  const isPhone = useMediaQuery({ maxWidth: 414 });
-
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [game, setGame] = React.useState<TGamesItem>();
+  const { gamesId: favoriteGamesId } = useSelector(getFavorite);
+  const { data: game, isError, isLoading } = useGetGameQuery(id);
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   React.useEffect(() => {
-    fetchGameById(Number(id), setGame, setIsLoading);
     setIsFavorite(
       Boolean(favoriteGamesId.find((gameId) => gameId === Number(id)))
     );
@@ -62,6 +55,23 @@ const GamePage: React.FC = () => {
 
   return (
     <div className={styles.main}>
+      {isError && (
+        <div>
+          <span>Sorry, something went wrong...</span>
+          <div className={styles.links_container}>
+            <button className={styles.back_link} onClick={() => navigate(-1)}>
+              <span className={styles.arrow}></span>
+              <span className={styles.back_link__text}>Go Back</span>
+            </button>
+            <button
+              className={cn(styles.favorite, {
+                [styles.favorite_active]: isFavorite,
+              })}
+              onClick={toggleFavorite}
+            ></button>
+          </div>
+        </div>
+      )}
       {isLoading ? (
         <Skeleton className={styles.skeleton} />
       ) : (

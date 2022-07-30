@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { TListId } from "../../redux/filter/types";
 
 import { DropDown, DropdownListItem } from "..";
-import { arraysComparing } from "../../utils/dropDown";
+import { arraysComparing } from "../../utils/dropdown";
 import { setLocalStorage } from "../../utils/localStorage";
-import { useClickOutside } from "../../hooks";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import { DropdownListProps } from "../types";
 import { TFilterContext } from "../../contexts/FilterContext/FilterContext";
 
