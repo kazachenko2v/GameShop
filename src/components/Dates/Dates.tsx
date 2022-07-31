@@ -12,13 +12,11 @@ import {
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
 import { arraysComparing } from "../../utils/dropdown";
-import { dateToString } from "../../utils/stringToDate";
+import { arrDateToString } from "../../utils/stringToDate";
 
 import "./calendar.css";
 
-const Dates: React.FC<{
-  isTablet: boolean;
-}> = ({ isTablet }) => {
+const Dates: React.FC<{ isTablet: boolean }> = ({ isTablet }) => {
   const dispatch = useDispatch();
   const { dates } = useSelector(getFilter);
   const { calendar, setValue } = React.useContext(
@@ -30,9 +28,8 @@ const Dates: React.FC<{
   const startDates = React.useRef<string[] | null>(null);
 
   startDates.current = [...dates];
-
   selectedDates.current = calendar.value
-    ? dateToString(calendar.value)
+    ? arrDateToString(calendar.value)
     : [...dates];
 
   const buttonOnClickHandler = () => {

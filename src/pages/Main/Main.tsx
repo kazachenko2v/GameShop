@@ -1,113 +1,46 @@
-import React from "react";
-import qs from "qs";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 
-import { getFilter } from "../../redux/filter/selectors";
 import { useGetGamesQuery } from "../../redux/games/games.api";
-import { useSearchParams } from "./../../hooks/useSearchParams";
-import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
+import { arrDateToString, dateToString } from "../../utils/stringToDate";
 
-import {
-  SortContainer,
-  SortPanel,
-  GameCard,
-  GameCardSkeleton,
-  Pagination,
-} from "../../components";
-
-import { PAGE_SIZE_COUNT_20 } from "../../constants";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import styles from "./Main.module.css";
 
-const Main: React.FC = () => {
-  const navigate = useNavigate();
+const Main = () => {
+  const [date, setDate] = useState<string>("");
+  useEffect(() => {
+    var d = new Date();
+    d.setMonth(d.getMonth() - 1);
 
-  const isMounted = React.useRef(false);
+    setDate(`&dates=${arrDateToString([d, new Date()])}`);
+  }, []);
 
-  const { page, platformsId, genresId, tagsId, search, dates } =
-    useSelector(getFilter);
-
-  const state = useSearchParams([
-    page,
-    platformsId,
-    genresId,
-    tagsId,
-    search,
-    dates,
-  ]);
-
-  const { data, isLoading, isSuccess } = useGetGamesQuery(
-    [PAGE_SIZE_COUNT_20, state],
-    { skip: state === "" }
-  );
-
-  React.useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify(
-        {
-          page,
-          parent_platforms: platformsId,
-          genres: genresId,
-          tags: tagsId,
-          search,
-          dates,
-        },
-        {
-          arrayFormat: "comma",
-          filter: (prefix, value) => {
-            if (
-              (prefix === "search" && value === "") ||
-              (prefix === "dates" && value === "") ||
-              (prefix === "parent_platforms" && value === "") ||
-              (prefix === "genres" && value === "") ||
-              (prefix === "tags" && value === "")
-            ) {
-              return;
-            }
-            return value;
-          },
-        }
-      );
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
-  }, [page, platformsId, genresId, tagsId, search, dates]);
-
+  const { data, isLoading, isSuccess } = useGetGamesQuery([10, date], {
+    skip: date.length === 0,
+  });
+  console.log(date);
+  console.log(data);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
-    <>
-      <CalendarContextProvider>
-        <SortContainer
-          page={page}
-          search={search}
-          platformsId={platformsId}
-          genresId={genresId}
-          tagsId={tagsId}
-          dates={dates}
-        />
-        <SortPanel
-          search={search}
-          platformsId={platformsId}
-          genresId={genresId}
-          tagsId={tagsId}
-          dates={dates}
-        />
-      </CalendarContextProvider>
-      <div className={styles.conteiner}>
-        {isLoading &&
-          [...new Array(PAGE_SIZE_COUNT_20)].map((_, index) => (
-            <GameCardSkeleton key={index} />
-          ))}
+    <div className={styles.container}>
+      <Slider {...settings}>
         {isSuccess &&
-          data.results.map((item) => <GameCard key={item.id} item={item} />)}
-      </div>
-      {isSuccess && (
-        <Pagination
-          currentPage={page}
-          gamesCount={data.count}
-          isSuccess={isSuccess}
-        />
-      )}
-    </>
+          data.results.map((game) => (
+            <div key={game.id} className={styles.slide}>
+              <h1>{game.name}</h1>
+              <img className={styles.image} src={game.background_image}></img>
+            </div>
+          ))}
+      </Slider>
+    </div>
   );
 };
 

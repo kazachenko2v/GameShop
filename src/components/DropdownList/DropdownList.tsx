@@ -34,12 +34,7 @@ const DropdownList: React.FC<DropdownListProps> = ({
       sortedSelectedItemsRef
     );
     if (toUpdate) {
-      !isTablet
-        ? dispatch(setItemsIdtoState(toUpdate))
-        : setValue((prevState: TFilterContext) => {
-            console.log(prevState);
-            return { ...prevState, [value]: toUpdate };
-          });
+      !isTablet && dispatch(setItemsIdtoState(toUpdate));
       setLocalStorage(value, toUpdate);
     }
   };
@@ -53,7 +48,7 @@ const DropdownList: React.FC<DropdownListProps> = ({
     }
   };
 
-  const togglePlatforms = (id: number) => {
+  const toggleItems = (id: number) => {
     if (selectedItems.includes(id)) {
       setValue((prevState: TFilterContext) => {
         return {
@@ -80,18 +75,17 @@ const DropdownList: React.FC<DropdownListProps> = ({
       dropDownRef={dropDownRef}
       buttonOnClickHandler={buttonOnClickHandler}
     >
-      <ul>
+      <>
         {allItemConstant.map((item) => (
-          <li key={item.id}>
-            <DropdownListItem
-              item={item}
-              isActiveMenu={isActive}
-              togglePlatforms={togglePlatforms}
-              platformsId={selectedItems}
-            />
-          </li>
+          <DropdownListItem
+            key={item.id}
+            item={item}
+            isActiveMenu={isActive}
+            toggleItems={toggleItems}
+            itemsId={selectedItems}
+          />
         ))}
-      </ul>
+      </>
     </DropDown>
   );
 };

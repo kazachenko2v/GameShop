@@ -13,7 +13,7 @@ import {
   FilterContext,
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
-import { dateToString } from "../../utils/stringToDate";
+import { arrDateToString } from "../../utils/stringToDate";
 import { useActiveFiltersCount } from "../../hooks/useActiveFiltersCount";
 import { DropdownList, Dates, MobileDropDownMenu } from "../";
 import Filter from "../../assets/images/filter.svg";
@@ -31,6 +31,12 @@ const SortContainer: React.FC<IFilterSliceState> = ({
   tagsId,
   dates,
 }) => {
+  React.useEffect(() => {
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
+
   const { calendar, Genres, Tags, Platforms, setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
@@ -48,7 +54,7 @@ const SortContainer: React.FC<IFilterSliceState> = ({
         genresId: Genres.value,
         tagsId: Tags.value,
         search: search,
-        dates: calendar.value ? dateToString(calendar.value) : [],
+        dates: calendar.value ? arrDateToString(calendar.value) : [],
       })
     );
   };
@@ -86,6 +92,7 @@ const SortContainer: React.FC<IFilterSliceState> = ({
     tagsId,
     dates,
   ]);
+
   return isTablet ? (
     <div className={styles.container}>
       <button

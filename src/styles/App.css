@@ -3,7 +3,7 @@
 html {
   min-height: 100vh;
   /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+  /* min-height: -webkit-fill-available; */
 }
 
 a,
@@ -18,13 +18,14 @@ button {
 }
 
 #root {
+  position: relative;
   max-width: 1244px;
   margin: 0 auto;
   padding: 35px 0 80px;
   overflow: hidden;
   min-height: 100vh;
   /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+  /* min-height: -webkit-fill-available; */
 }
 
 @media (max-width: 1272px) {

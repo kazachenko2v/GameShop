@@ -29,8 +29,8 @@ export type DropdownListItemProps = {
     name: string;
   };
   isActiveMenu: boolean;
-  togglePlatforms: (id: number) => void;
-  platformsId: TListId;
+  toggleItems: (id: number) => void;
+  itemsId: TListId;
 };
 
 export type DropdownListProps = {

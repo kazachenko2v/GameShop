@@ -26,7 +26,9 @@
     "react-responsive": "^9.0.0-beta.10",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
     "react-transition-group": "^4.4.2",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -58,6 +60,7 @@
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7",
     "@types/react-calendar": "^3.5.1",
+    "@types/react-slick": "^0.23.10",
     "@types/react-transition-group": "^4.4.4",
     "bootstrap-select-dropdown": "^0.14.6",
     "gh-pages": "^4.0.0",

@@ -6,18 +6,18 @@ import styles from "./DropdownListItem.module.css";
 const DropdownListItem: React.FC<DropdownListItemProps> = ({
   item,
   isActiveMenu,
-  togglePlatforms,
-  platformsId,
+  toggleItems,
+  itemsId,
 }) => {
   const [isActive, setIsActive] = React.useState(false);
 
   React.useEffect(() => {
-    setIsActive(platformsId.includes(item.id));
+    setIsActive(itemsId.includes(item.id));
   }, [isActiveMenu]);
 
   const clickHandler = () => {
     setIsActive(!isActive);
-    togglePlatforms(item.id);
+    toggleItems(item.id);
   };
 
   return (
