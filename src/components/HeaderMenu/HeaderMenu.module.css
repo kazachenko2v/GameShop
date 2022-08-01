@@ -29,6 +29,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
+    flex-direction: column-reverse;
     z-index: 500;
     top: 0;
     right: 0;
@@ -38,9 +39,12 @@
     /* min-height: 100vh;
     min-height: -webkit-fill-available; */
     background-color: #fff;
-    flex-direction: column;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-family: inherit;
+  }
+
+  .list {
+    flex-direction: column;
   }
 }
 

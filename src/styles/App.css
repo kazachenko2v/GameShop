@@ -1,9 +1,9 @@
 @import url("./fonts.css");
 
 html {
-  min-height: 100vh;
+  /* min-height: 100%; */
   /* mobile viewport bug fix */
-  /* min-height: -webkit-fill-available; */
+  min-height: -webkit-fill-available;
 }
 
 a,
@@ -23,14 +23,62 @@ button {
   margin: 0 auto;
   padding: 35px 0 80px;
   overflow: hidden;
-  min-height: 100vh;
+  /* min-height: 100%; */
   /* mobile viewport bug fix */
-  /* min-height: -webkit-fill-available; */
+  min-height: -webkit-fill-available;
 }
 
 @media (max-width: 1272px) {
   #root {
     width: 100vw;
     padding: 25px 20px 60px;
+  }
+}
+
+/* slick-slider */
+
+.slick-list {
+  border-radius: 20px;
+}
+
+.slick-arrow {
+  height: 100%;
+  width: 5%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.slick-prev {
+  left: 0;
+  border-radius: 20px 0 0 20px;
+  background: linear-gradient(to left, transparent, #000);
+}
+
+.slick-prev:hover,
+.slick-prev:focus {
+  background: linear-gradient(to left, transparent, #000);
+  opacity: 1;
+}
+
+.slick-next {
+  right: 0;
+  border-radius: 0 20px 20px 0;
+  background: linear-gradient(to right, transparent, #000);
+}
+.slick-next:hover,
+.slick-next:focus {
+  background: linear-gradient(to right, transparent, #000);
+  opacity: 1;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  color: #000;
+}
+
+@media (max-width: 359px) {
+  .slick-dots li {
+    margin: 0 3px;
   }
 }
