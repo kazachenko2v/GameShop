@@ -77,3 +77,8 @@ export const ALL_GENRES = [
 export const ALL_GENRES_ID = ALL_GENRES.map((item) => item.id);
 
 export const START_PAGE = 1;
+
+/// responsive
+
+export const TABLET = 912;
+export const PHONE = 414;

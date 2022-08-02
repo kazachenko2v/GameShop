@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  height: 700px;
   margin: 0 auto;
   font-size: clamp(1rem, 5vw, 3rem);
   /*               24px       48px */
@@ -46,4 +45,41 @@
   border-radius: 20px;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+.genres__title {
+  display: flex;
+  justify-content: center;
+  font-family: VelaSans-SemiBold;
+  font-size: 1em;
+  line-height: 116%;
+  margin: 0 auto;
+}
+
+.genres__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
+  grid-column-gap: 3px;
+  grid-row-gap: 16px;
+}
+
+.genres__item {
+  position: relative;
+  font-family: VelaSans-Medium;
+  font-size: 0.5em;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  color: #fff;
+  cursor: pointer;
+}
+
+.genres__item:hover {
+  transform: translateY(-5px);
+}
+
+.genres__image {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

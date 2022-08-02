@@ -2,17 +2,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 0.4em;
   font-family: VelaSans-Medium;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: clamp(0.7rem, 2vw, 1rem);
+  line-height: 100%;
 }
 
 .page_link_container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 48px;
+  min-width: 3em;
   cursor: pointer;
   border: 1px solid #e7ecf1;
   border-radius: 8px;
@@ -21,11 +21,19 @@
 
 .page_link {
   display: inline-block;
-  padding: 16px;
+  padding: 1em;
 }
 
 .page_link_container:hover,
 .page_link__active {
   background: #f4f7fa;
   border-radius: 8px;
+}
+
+@media (max-width: 914px) {
+  .page_link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

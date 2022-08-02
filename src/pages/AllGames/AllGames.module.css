@@ -4,4 +4,5 @@
   grid-column-gap: 3px;
   grid-row-gap: 16px;
   margin-bottom: 40px;
+  flex: 1 1 100%;
 }

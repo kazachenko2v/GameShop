@@ -18,7 +18,7 @@ import { useActiveFiltersCount } from "../../hooks/useActiveFiltersCount";
 import { DropdownList, Dates, MobileDropDownMenu } from "../";
 import Filter from "../../assets/images/filter.svg";
 
-import { ALL_PLATFORMS, ALL_GENRES, ALL_TAGS } from "../../constants";
+import { ALL_PLATFORMS, ALL_GENRES, ALL_TAGS, TABLET } from "../../constants";
 
 import styles from "./SortContainer.module.css";
 import cn from "classnames";
@@ -31,17 +31,11 @@ const SortContainer: React.FC<IFilterSliceState> = ({
   tagsId,
   dates,
 }) => {
-  React.useEffect(() => {
-    let vh = window.innerHeight * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }, []);
-
   const { calendar, Genres, Tags, Platforms, setValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
   const dispatch = useDispatch();
-  const isTablet = useMediaQuery({ maxWidth: 912 });
+  const isTablet = useMediaQuery({ maxWidth: TABLET });
 
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
 

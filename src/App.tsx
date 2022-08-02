@@ -1,4 +1,11 @@
-import { Main, AllGames, GamePage, NotFound, Favorites } from "./pages";
+import {
+  Main,
+  AllGames,
+  GamePage,
+  NotFound,
+  Favorites,
+  GenresPage,
+} from "./pages";
 import MainLayouts from "./layouts/MainLayouts";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -11,6 +18,7 @@ function App() {
           <Route path="" element={<Main />} />
           <Route path="allgames" element={<AllGames />} />
           <Route path=":id" element={<GamePage />} />
+          <Route path="/genres/:id" element={<GenresPage />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate replace to="/404" />} />

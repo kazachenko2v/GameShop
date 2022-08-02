@@ -1,9 +1,11 @@
 @import url("./fonts.css");
 
-html,
+html {
+  height: -webkit-fill-available;
+}
+
 body {
-  height: 100%;
-  /* mobile viewport bug fix */
+  min-height: 100vh;
   height: -webkit-fill-available;
 }
 
@@ -30,6 +32,8 @@ button {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   flex: 1 0 100%;
 }
 

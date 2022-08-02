@@ -4,6 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { Squash as Hamburger } from "hamburger-react";
 
 import { MobileDropDownMenu, HeaderMenu } from "../";
+import { PHONE, TABLET } from "../../constants";
 
 import img_logo_desktop from "../../assets/images/PS_Store_logo_desktop.png";
 import img_logo_phone from "../../assets/images/PS_Store_logo_phone.png";
@@ -12,8 +13,8 @@ import styles from "./Header.module.css";
 const Header: React.FC = () => {
   const navigate = useNavigate();
 
-  const isTablet = useMediaQuery({ maxWidth: 912 });
-  const isPhone = useMediaQuery({ maxWidth: 414 });
+  const isTablet = useMediaQuery({ maxWidth: TABLET });
+  const isPhone = useMediaQuery({ maxWidth: PHONE });
 
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
 
