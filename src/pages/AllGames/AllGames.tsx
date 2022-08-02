@@ -8,6 +8,7 @@ import { useGetGamesQuery } from "../../redux/games/games.api";
 import { useSearchParams } from "../../hooks/useSearchParams";
 import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
+import { PAGE_SIZE_COUNT_20 } from "../../constants";
 import {
   SortContainer,
   SortPanel,
@@ -16,7 +17,6 @@ import {
   Pagination,
 } from "../../components";
 
-import { PAGE_SIZE_COUNT_20 } from "../../constants";
 import styles from "./AllGames.module.css";
 
 const AllGames: React.FC = () => {

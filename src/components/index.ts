@@ -2,6 +2,7 @@ export { default as Dates } from "./Dates/Dates";
 export { default as DropDown } from "./DropDown/DropDown";
 export { default as FavoriteItem } from "./FavoriteItem/FavoriteItem";
 export { default as Favorites } from "./Favorites/Favorites";
+export { default as Footer } from "./Footer/Footer";
 export { default as GameCard } from "./GameCard/GameCard";
 export { default as GameCardSkeleton } from "./GameCardSkeleton/GameCardSkeleton";
 export { default as Header } from "./Header/Header";

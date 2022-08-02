@@ -1,7 +1,7 @@
 import { Main, AllGames, GamePage, NotFound, Favorites } from "./pages";
 import MainLayouts from "./layouts/MainLayouts";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -12,7 +12,8 @@ function App() {
           <Route path="allgames" element={<AllGames />} />
           <Route path=":id" element={<GamePage />} />
           <Route path="favorites" element={<Favorites />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
         </Route>
       </Routes>
     </BrowserRouter>

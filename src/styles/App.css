@@ -1,9 +1,10 @@
 @import url("./fonts.css");
 
-html {
-  /* min-height: 100%; */
+html,
+body {
+  height: 100%;
   /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+  height: -webkit-fill-available;
 }
 
 a,
@@ -18,14 +19,18 @@ button {
 }
 
 #root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   position: relative;
   max-width: 1244px;
   margin: 0 auto;
   padding: 35px 0 80px;
   overflow: hidden;
-  /* min-height: 100%; */
-  /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+}
+
+main {
+  flex: 1 0 100%;
 }
 
 @media (max-width: 1272px) {

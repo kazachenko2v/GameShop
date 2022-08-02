@@ -23,7 +23,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <Link className={styles.logo} to={`/`}>
         {isPhone ? (
           <img src={img_logo_phone} alt="PS Store Logo" />
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
           setIsOpenMenu={setIsOpenMenu}
         />
       )}
-    </div>
+    </header>
   );
 };
 
