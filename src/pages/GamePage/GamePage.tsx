@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addGame, removeGame } from "../../redux/favorite/slice";
 import { getFavorite } from "../../redux/favorite/selectors";
-import { useGetGameQuery } from "../../redux/game/game.api";
+import { useGetGameQuery } from "../../redux/games/games.api";
 
 import {
   addItemLocalStorage,

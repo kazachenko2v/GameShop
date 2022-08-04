@@ -1,0 +1,43 @@
+.image__container {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  margin-bottom: 50px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+  font-family: VelaSans-SemiBold;
+  font-size: 48px;
+}
+
+.image {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.description__container {
+  padding: 20px;
+}
+
+@media (max-width: 912px) {
+  .description__container {
+    padding: 0;
+  }
+}
+
+.description__container p {
+  font-family: VelaSans-Regular;
+  font-size: 16px;
+  line-height: 140%;
+}

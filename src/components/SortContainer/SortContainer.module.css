@@ -26,7 +26,6 @@
 @media (max-width: 912px) {
   .container {
     border: none;
-    overflow-y: auto;
   }
 
   .menu {

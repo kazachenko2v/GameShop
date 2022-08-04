@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API, KEY_ID } from "../../constants";
-import { Genres, GenresResult, IGames } from "./types";
+import { Genres, GenresResult, GamesResult, IGame } from "./types";
 
 export const gamesApi = createApi({
   reducerPath: "gamesApi",
   baseQuery: fetchBaseQuery({ baseUrl: API }),
   endpoints: (builder) => ({
-    getGames: builder.query<IGames, [number, string]>({
+    getGames: builder.query<GamesResult, [number, string]>({
       query: ([count, state]) => ({
         url: "games?" + state,
         params: {
@@ -15,14 +15,21 @@ export const gamesApi = createApi({
         },
       }),
     }),
-    getGenres: builder.query<Genres[], void>({
+    getGame: builder.query<IGame, string | undefined>({
+      query: (id) => ({
+        url: "games/" + id,
+        params: {
+          key: KEY_ID,
+        },
+      }),
+    }),
+    getGenres: builder.query<GenresResult, void>({
       query: () => ({
         url: "genres?",
         params: {
           key: KEY_ID,
         },
       }),
-      transformResponse: (response: GenresResult) => response.results,
     }),
     getGenre: builder.query<any, number>({
       query: (id) => ({
@@ -35,5 +42,9 @@ export const gamesApi = createApi({
   }),
 });
 
-export const { useGetGamesQuery, useGetGenresQuery, useGetGenreQuery } =
-  gamesApi;
+export const {
+  useGetGamesQuery,
+  useGetGameQuery,
+  useGetGenresQuery,
+  useGetGenreQuery,
+} = gamesApi;

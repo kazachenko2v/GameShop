@@ -6,18 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { getFilter } from "../../redux/filter/selectors";
 import { useGetGamesQuery } from "../../redux/games/games.api";
 import { useSearchParams } from "../../hooks/useSearchParams";
+import { useResetPageWhenUnmount } from "../../hooks/useResetPageWhenUnmount";
 import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
 import { PAGE_SIZE_COUNT_20 } from "../../constants";
 import {
   SortContainer,
   SortPanel,
-  GameCard,
-  GameCardSkeleton,
   Pagination,
+  GamesList,
 } from "../../components";
-
-import styles from "./AllGames.module.css";
 
 const AllGames: React.FC = () => {
   const navigate = useNavigate();
@@ -27,19 +25,22 @@ const AllGames: React.FC = () => {
   const { page, platformsId, genresId, tagsId, search, dates } =
     useSelector(getFilter);
 
-  const state = useSearchParams([
+  const searchParams = useSearchParams({
     page,
     platformsId,
     genresId,
     tagsId,
     search,
     dates,
-  ]);
+  });
 
-  const { data, isLoading, isSuccess } = useGetGamesQuery(
-    [PAGE_SIZE_COUNT_20, state],
-    { skip: state === "" }
-  );
+  const {
+    data: games,
+    isLoading,
+    isSuccess,
+  } = useGetGamesQuery([PAGE_SIZE_COUNT_20, searchParams], {
+    skip: searchParams === "",
+  });
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -73,6 +74,8 @@ const AllGames: React.FC = () => {
     isMounted.current = true;
   }, [page, platformsId, genresId, tagsId, search, dates]);
 
+  useResetPageWhenUnmount();
+
   return (
     <>
       <CalendarContextProvider>
@@ -92,21 +95,8 @@ const AllGames: React.FC = () => {
           dates={dates}
         />
       </CalendarContextProvider>
-      <div className={styles.conteiner}>
-        {isLoading &&
-          [...new Array(PAGE_SIZE_COUNT_20)].map((_, index) => (
-            <GameCardSkeleton key={index} />
-          ))}
-        {isSuccess &&
-          data.results.map((item) => <GameCard key={item.id} item={item} />)}
-      </div>
-      {isSuccess && (
-        <Pagination
-          currentPage={page}
-          gamesCount={data.count}
-          isSuccess={isSuccess}
-        />
-      )}
+      <GamesList games={games} isLoading={isLoading} isSuccess={isSuccess} />
+      {isSuccess && <Pagination currentPage={page} gamesCount={games.count} />}
     </>
   );
 };

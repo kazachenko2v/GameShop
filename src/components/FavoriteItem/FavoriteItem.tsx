@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { removeGame } from "../../redux/favorite/slice";
 import { removeItemLocalStorage } from "../../utils/localStorage";
 import { FavoriteItemProps } from "../types";
-import { useGetGameQuery } from "../../redux/game/game.api";
+import { useGetGameQuery } from "../../redux/games/games.api";
 
 import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";

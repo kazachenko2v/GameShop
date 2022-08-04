@@ -2,6 +2,7 @@ import React from "react";
 import { TListId } from "../redux/filter/types";
 import { IGame } from "../redux/games/types";
 import { TFilterContext } from "../contexts/FilterContext";
+import { GamesResult } from "../../redux/games/types";
 
 export type MobileDropDownMenuProps = {
   children: React.ReactNode;
@@ -20,7 +21,6 @@ export type GameCardProps = {
 export type PaginationProps = {
   currentPage: number;
   gamesCount: number;
-  isSuccess: boolean;
 };
 
 export type DropdownListItemProps = {
@@ -70,4 +70,10 @@ export type HeaderMenuProps = {
 
 export type SeacrhProp = {
   setIsOpenMenu: (isActive: boolean) => void;
+};
+
+export type GamesListProp = {
+  games: GamesResult;
+  isLoading: boolean;
+  isSuccess: boolean;
 };

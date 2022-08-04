@@ -8,11 +8,7 @@ import { TABLET } from "../../constants";
 
 import styles from "./Pagination.module.css";
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  gamesCount,
-  isSuccess,
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ currentPage, gamesCount }) => {
   const dispatch = useDispatch();
   const pageCount = Math.ceil(gamesCount / 20);
   const handlePageClick = (event: React.MouseEvent & { selected: number }) => {
@@ -34,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onPageChange={handlePageClick}
         pageRangeDisplayed={paginatePageCount}
         marginPagesDisplayed={paginatePageCount}
-        pageCount={isSuccess ? pageCount : 1}
+        pageCount={pageCount}
         previousLabel="<"
         containerClassName={styles.pagination_container}
         pageClassName={styles.page_link_container}

@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   height: -webkit-fill-available;
 }
 
@@ -21,26 +21,28 @@ button {
 }
 
 #root {
+  min-height: 100vh;
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  position: relative;
+  /* position: relative; */
   max-width: 1244px;
   margin: 0 auto;
-  padding: 35px 0 80px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 main {
   display: flex;
   flex-direction: column;
-  flex: 1 0 100%;
+  flex: 1;
+  overflow-y: scroll;
+  margin-bottom: 50px;
 }
 
 @media (max-width: 1272px) {
   #root {
     width: 100vw;
-    padding: 25px 20px 60px;
+    padding: 0 20px 0;
   }
 }
 
