@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   height: -webkit-fill-available;
 }
 
@@ -24,11 +24,11 @@ button {
   min-height: 100vh;
   height: -webkit-fill-available;
   display: flex;
+  position: relative; /* dropdown menu mobile */
   flex-direction: column;
-  /* position: relative; */
   max-width: 1244px;
   margin: 0 auto;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 main {
