@@ -29,12 +29,6 @@ const GamePage: React.FC = () => {
     setIsFavorite(
       Boolean(favoriteGamesId.find((gameId) => gameId === Number(id)))
     );
-  }, []);
-
-  React.useEffect(() => {
-    setIsFavorite(
-      Boolean(favoriteGamesId.find((gameId) => gameId === Number(id)))
-    );
   }, [isFavorite]);
 
   const toggleFavorite = () => {
@@ -95,6 +89,7 @@ const GamePage: React.FC = () => {
                   className={cn(styles.favorite, {
                     [styles.favorite_active]: isFavorite,
                   })}
+                  title="Add to Favorites"
                   onClick={toggleFavorite}
                 ></button>
               </div>

@@ -19,6 +19,11 @@
   user-select: none;
 }
 
+.nav__link_active {
+  background-color: #000;
+  color: #fff;
+}
+
 .nav__link:hover {
   background-color: #f4f7fa;
 }
@@ -34,7 +39,7 @@
     top: 0;
     right: 0;
     width: 300px;
-    min-height: 100vh;
+    height: 100%;
     background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-family: inherit;

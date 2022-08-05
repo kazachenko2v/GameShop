@@ -17,6 +17,7 @@ import styles from "./Main.module.css";
 
 const Main: React.FC = () => {
   const [date, setDate] = useState<string>("");
+
   useEffect(() => {
     var d = new Date();
     d.setMonth(d.getMonth() - 1);
@@ -34,7 +35,11 @@ const Main: React.FC = () => {
     skip: date.length === 0,
   });
 
-  const { data: genres, isLoading, isSuccess } = useGetGenresQuery();
+  const {
+    data: genres,
+    isLoading: isLoadingGenres,
+    isSuccess: isSuccessGenres,
+  } = useGetGenresQuery();
 
   const settings = {
     infinite: true,
@@ -70,14 +75,14 @@ const Main: React.FC = () => {
             ))}
         </Slider>
       )}
-      <section className={styles.genres__container}>
+      <section id="genres" className={styles.genres__container}>
         <h1 className={styles.genres__title}>Genres</h1>
         <div className={styles.genres__list}>
-          {isLoading &&
+          {isLoadingGenres &&
             [...new Array(20)].map((_, index) => (
               <Skeleton key={index} className={styles.genres__item} />
             ))}
-          {isSuccess &&
+          {isSuccessGenres &&
             genres.results.map((genre) => (
               <Link key={genre.id} to={"/genres/" + genre.id}>
                 <div className={styles.genres__item}>

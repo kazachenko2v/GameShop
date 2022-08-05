@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  height: 100vh;
   height: -webkit-fill-available;
 }
 
@@ -21,8 +21,7 @@ button {
 }
 
 #root {
-  min-height: 100vh;
-  height: -webkit-fill-available;
+  height: 100%;
   display: flex;
   position: relative; /* dropdown menu mobile */
   flex-direction: column;
@@ -36,7 +35,18 @@ main {
   flex-direction: column;
   flex: 1;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin-bottom: 50px;
+}
+
+main::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+
+main::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 2px;
 }
 
 @media (max-width: 1272px) {
