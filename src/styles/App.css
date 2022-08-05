@@ -21,10 +21,11 @@ button {
 }
 
 #root {
-  height: 100%;
   display: flex;
-  position: relative; /* dropdown menu mobile */
   flex-direction: column;
+  position: relative; /* dropdown menu mobile */
+  height: 100vh;
+  height: -webkit-fill-available;
   max-width: 1244px;
   margin: 0 auto;
   overflow: hidden;
