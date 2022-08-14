@@ -1,21 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getFavorite } from "../../redux/favorite/selectors";
-
 import { FavoriteItem } from "../../components";
-import styles from "./Favorites.module.css";
+import { useListenGamesFromDatabase } from "../../hooks/useGetDataFromDatabase";
 
-const Favorites: React.FC = () => {
+import styles from "./FavoritesPage.module.css";
+
+const FavoritesPage: React.FC = () => {
   const navigate = useNavigate();
-  const { gamesId } = useSelector(getFavorite);
+  const gamesId = useListenGamesFromDatabase();
 
   return (
     <>
-      {gamesId.length ? (
+      {gamesId && gamesId.favGames.length ? (
         <>
-          {gamesId.map((id: number) => (
+          {gamesId.favGames.map((id: number) => (
             <FavoriteItem key={id} id={id} />
           ))}
         </>
@@ -29,4 +28,4 @@ const Favorites: React.FC = () => {
   );
 };
 
-export default Favorites;
+export default FavoritesPage;

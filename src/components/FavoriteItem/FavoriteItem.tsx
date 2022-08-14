@@ -1,22 +1,21 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { removeGame } from "../../redux/favorite/slice";
-import { removeItemLocalStorage } from "../../utils/localStorage";
-import { FavoriteItemProps } from "../types";
+import { getIsAuth } from "../../redux/authentication/selectors";
 import { useGetGameQuery } from "../../redux/games/games.api";
+import { FavoriteItemProps } from "../types";
+import { removeItemToBase } from "../../utils/toggleItemInDb";
 
 import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
 
 const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
-  const dispatch = useDispatch();
   const { data: game, isError, isLoading } = useGetGameQuery(id.toString());
+  const { userId } = useSelector(getIsAuth);
 
   const removeButton = (id: number) => {
-    removeItemLocalStorage("favorites", id);
-    dispatch(removeGame(id));
+    removeItemToBase(userId, id);
   };
 
   return (

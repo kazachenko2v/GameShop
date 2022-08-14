@@ -6,7 +6,7 @@ const localStorageGetItem = (key: string) => {
 
 export const setLocalStorage = (
   key: string,
-  value: number | string | string[] | number[]
+  value: number | string | string[]
 ) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
@@ -19,24 +19,4 @@ export const getLocalStorage = (key: string) => {
     return;
   }
   return localStorageGetItem(key);
-};
-
-export const addItemLocalStorage = (key: string, value: number) => {
-  let data = getLocalStorage(key);
-  if (!data) {
-    localStorage.setItem(key, JSON.stringify([value]));
-  } else {
-    localStorage.setItem(key, JSON.stringify([...data, value]));
-  }
-};
-
-export const removeItemLocalStorage = (key: string, value: number) => {
-  let data = getLocalStorage(key);
-  if (!data) {
-    return;
-  }
-
-  const newData = data.filter((gameId: number) => gameId !== value);
-
-  localStorage.setItem(key, JSON.stringify(newData));
 };

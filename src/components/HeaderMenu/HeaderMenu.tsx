@@ -1,15 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Favorites, Search } from "../";
 import { HeaderMenuProps } from "../types";
 import { HashLink } from "react-router-hash-link";
 
 import styles from "./HeaderMenu.module.css";
+import { useSelector } from "react-redux";
+import { getIsAuth } from "../../redux/authentication/selectors";
 
 const HeaderMenu: React.FC<HeaderMenuProps> = ({
   handleClickOnLink,
   setIsOpenMenu,
 }) => {
+  const { userId } = useSelector(getIsAuth);
+
   return (
     <div className={styles.menu}>
       <nav>
@@ -29,12 +32,14 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
               {"Genres"}
             </HashLink>
           </li>
-          <li
-            className={styles.nav__link}
-            onClick={() => handleClickOnLink("favorites")}
-          >
-            <Favorites />
-          </li>
+          {userId && (
+            <li
+              className={styles.nav__link}
+              onClick={() => handleClickOnLink("favorites")}
+            >
+              <Favorites />
+            </li>
+          )}
         </ul>
       </nav>
       <Search setIsOpenMenu={setIsOpenMenu} />

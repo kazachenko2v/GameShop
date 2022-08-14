@@ -1,15 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { addGame, removeGame } from "../../redux/favorite/slice";
-import { getFavorite } from "../../redux/favorite/selectors";
 import { useGetGameQuery } from "../../redux/games/games.api";
-
-import {
-  addItemLocalStorage,
-  removeItemLocalStorage,
-} from "../../utils/localStorage";
+import { getIsAuth } from "../../redux/authentication/selectors";
+import { useListenGamesFromDatabase } from "../../hooks/useGetDataFromDatabase";
+import { addItemToBase, removeItemToBase } from "../../utils/toggleItemInDb";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -19,53 +15,39 @@ import cn from "classnames";
 
 const GamePage: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { id } = useParams();
-  const { gamesId: favoriteGamesId } = useSelector(getFavorite);
-  const { data: game, isError, isLoading } = useGetGameQuery(id);
-  const [isFavorite, setIsFavorite] = React.useState(false);
+  const { data: game, isSuccess, isError, isLoading } = useGetGameQuery(id);
+  const gamesId = useListenGamesFromDatabase();
+  const { userId } = useSelector(getIsAuth);
+  const [isFavorite, setIsFavorite] = React.useState<boolean | null>(false);
 
   React.useEffect(() => {
     setIsFavorite(
-      Boolean(favoriteGamesId.find((gameId) => gameId === Number(id)))
+      gamesId &&
+        Boolean(
+          gamesId.favGames.find((gameId: number) => gameId === Number(id))
+        )
     );
-  }, [isFavorite]);
+  }, [isFavorite, gamesId]);
 
   const toggleFavorite = () => {
     /*  check if the game is in favorites */
-    const isContain = favoriteGamesId.find((item) => item === Number(id));
-    if (game) {
-      if (isContain) {
-        setIsFavorite(false);
-        dispatch(removeGame(game.id));
-        removeItemLocalStorage("favorites", game.id);
-      } else {
-        setIsFavorite(true);
-        dispatch(addGame(game.id));
-        addItemLocalStorage("favorites", game.id);
-      }
+    const isContain =
+      gamesId &&
+      gamesId.favGames.find((gameId: number) => gameId === Number(id));
+
+    if (isContain) {
+      removeItemToBase(userId, Number(id));
+      setIsFavorite(false);
+    } else {
+      addItemToBase(userId, Number(id));
+      setIsFavorite(true);
     }
   };
 
   return (
     <div className={styles.main}>
-      {isError && (
-        <div>
-          <span>Sorry, something went wrong...</span>
-          <div className={styles.links_container}>
-            <button className={styles.back_link} onClick={() => navigate(-1)}>
-              <span className={styles.arrow}></span>
-              <span className={styles.back_link__text}>Go Back</span>
-            </button>
-            <button
-              className={cn(styles.favorite, {
-                [styles.favorite_active]: isFavorite,
-              })}
-              onClick={toggleFavorite}
-            ></button>
-          </div>
-        </div>
-      )}
+      {isError && <span>Sorry, something went wrong...</span>}
       {isLoading ? (
         <Skeleton className={styles.skeleton} />
       ) : (

@@ -1,0 +1,60 @@
+.container {
+  width: 300px;
+  margin: 0 auto;
+  font-family: VelaSans-Regular;
+  /* font-size: clamp(1.5rem, 5vw, 3rem); */
+  /*               24px       48px */
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-family: VelaSans-SemiBold;
+  font-size: 2rem;
+  line-height: 116%;
+  margin-bottom: 1em;
+}
+
+.input_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 8px;
+  padding: var(--button_medium);
+  background: #f4f7fa;
+  margin-bottom: 20px;
+}
+
+.input_text {
+  border: none;
+  background: #f4f7fa;
+  font-family: inherit;
+}
+
+.button {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 1rem 0.5em;
+  border-radius: 0.5em;
+  background-color: #d63d00;
+  font-family: VelaSans-SemiBold;
+  font-size: 1rem;
+  line-height: 100%;
+  color: #fff;
+}
+
+.text {
+  font-family: inherit;
+}
+
+.link {
+  font-family: VelaSans-Medium;
+  text-decoration: underline;
+}
+
+.error {
+  font-family: VelaSans-Medium;
+  color: #ff0000;
+  margin-bottom: 10px;
+}

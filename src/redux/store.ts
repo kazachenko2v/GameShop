@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filterReducer from "./filter/slice";
-import favoriteReducer from "./favorite/slice";
+import authReducer from "./authentication/slice";
 import { gamesApi } from "./games/games.api";
 
 export const store = configureStore({
   reducer: {
     filter: filterReducer,
-    favorite: favoriteReducer,
+    auth: authReducer,
     [gamesApi.reducerPath]: gamesApi.reducer,
   },
   middleware: (getDefaultMiddalware) =>
