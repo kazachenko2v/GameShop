@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import { useGetGameQuery } from "../../redux/games/games.api";
-import { getIsAuth } from "../../redux/authentication/selectors";
-import { useListenGamesFromDatabase } from "../../hooks/useGetDataFromDatabase";
-import { addItemToBase, removeItemToBase } from "../../utils/toggleItemInDb";
+import {
+  useAuthListen,
+  useGamesListener,
+} from "../../hooks/useGetDataFromDatabase";
+import { addItemToBase, removeItemFromBase } from "../../firebase";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -16,9 +17,9 @@ import cn from "classnames";
 const GamePage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: game, isSuccess, isError, isLoading } = useGetGameQuery(id);
-  const gamesId = useListenGamesFromDatabase();
-  const { userId } = useSelector(getIsAuth);
+  const { data: game, isError, isLoading, isSuccess } = useGetGameQuery(id);
+  const currentUser = useAuthListen();
+  const gamesId = useGamesListener();
   const [isFavorite, setIsFavorite] = React.useState<boolean | null>(false);
 
   React.useEffect(() => {
@@ -31,17 +32,21 @@ const GamePage: React.FC = () => {
   }, [isFavorite, gamesId]);
 
   const toggleFavorite = () => {
-    /*  check if the game is in favorites */
-    const isContain =
-      gamesId &&
-      gamesId.favGames.find((gameId: number) => gameId === Number(id));
+    if (currentUser) {
+      /*  check if the game is in favorites */
+      const isContain =
+        gamesId &&
+        gamesId.favGames.find((gameId: number) => gameId === Number(id));
 
-    if (isContain) {
-      removeItemToBase(userId, Number(id));
-      setIsFavorite(false);
+      if (isContain) {
+        removeItemFromBase(Number(id));
+        setIsFavorite(false);
+      } else {
+        addItemToBase(Number(id));
+        setIsFavorite(true);
+      }
     } else {
-      addItemToBase(userId, Number(id));
-      setIsFavorite(true);
+      alert("first create account or log in");
     }
   };
 
@@ -51,7 +56,7 @@ const GamePage: React.FC = () => {
       {isLoading ? (
         <Skeleton className={styles.skeleton} />
       ) : (
-        game && (
+        isSuccess && (
           <>
             <img
               className={styles.main_bgimage}

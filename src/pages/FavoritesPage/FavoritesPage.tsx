@@ -2,13 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FavoriteItem } from "../../components";
-import { useListenGamesFromDatabase } from "../../hooks/useGetDataFromDatabase";
+import { useGamesListener } from "../../hooks/useGetDataFromDatabase";
 
 import styles from "./FavoritesPage.module.css";
 
 const FavoritesPage: React.FC = () => {
   const navigate = useNavigate();
-  const gamesId = useListenGamesFromDatabase();
+  const gamesId = useGamesListener();
 
   return (
     <>

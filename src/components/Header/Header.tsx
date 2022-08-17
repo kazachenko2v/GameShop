@@ -6,20 +6,23 @@ import { Squash as Hamburger } from "hamburger-react";
 import { MobileDropDownMenu, HeaderMenu } from "../";
 import { PHONE, TABLET } from "../../constants";
 
-import img_logo_desktop from "../../assets/images/PS_Store_logo_desktop.png";
-import img_logo_phone from "../../assets/images/PS_Store_logo_phone.png";
+import img_logo from "../../assets/images/PS_Store_logo.png";
+import img_title from "../../assets/images/PS_Store_title.png";
 import styles from "./Header.module.css";
+import { useAuthListen } from "../../hooks/useGetDataFromDatabase";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
-
+  const currentUser = useAuthListen();
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const isPhone = useMediaQuery({ maxWidth: PHONE });
-
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
-
   const handleClickOnLink = (page: string) => {
-    navigate(`/${page}`, { replace: true });
+    if (page === "favorites" && !currentUser) {
+      navigate("/signin");
+    } else {
+      navigate(`/${page}`, { replace: true });
+    }
     setIsOpenMenu(false);
   };
 
@@ -27,12 +30,22 @@ const Header: React.FC = () => {
     <header className={styles.container}>
       <Link className={styles.logo} to={`/`}>
         {isPhone ? (
-          <img src={img_logo_phone} alt="PS Store Logo" />
+          <img className={styles.logo_img} src={img_logo} alt="PS Store Logo" />
         ) : (
-          <img src={img_logo_desktop} alt="PS Store Logo" />
+          <>
+            <img
+              className={styles.logo_img}
+              src={img_logo}
+              alt="PS Store Logo"
+            />
+            <img
+              className={styles.logo_title}
+              src={img_title}
+              alt="PS Store Logo"
+            />
+          </>
         )}
       </Link>
-
       {isTablet ? (
         <>
           <MobileDropDownMenu
@@ -40,6 +53,7 @@ const Header: React.FC = () => {
             setIsOpenMenu={setIsOpenMenu}
           >
             <HeaderMenu
+              currentUser={currentUser}
               handleClickOnLink={handleClickOnLink}
               setIsOpenMenu={setIsOpenMenu}
             />
@@ -57,6 +71,7 @@ const Header: React.FC = () => {
         </>
       ) : (
         <HeaderMenu
+          currentUser={currentUser}
           handleClickOnLink={handleClickOnLink}
           setIsOpenMenu={setIsOpenMenu}
         />

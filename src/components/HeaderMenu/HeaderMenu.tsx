@@ -1,21 +1,19 @@
 import React from "react";
-import { Favorites, Search } from "../";
+import { Favorites, Search, User } from "../";
 import { HeaderMenuProps } from "../types";
 import { HashLink } from "react-router-hash-link";
 
 import styles from "./HeaderMenu.module.css";
-import { useSelector } from "react-redux";
-import { getIsAuth } from "../../redux/authentication/selectors";
+import cn from "classnames";
 
 const HeaderMenu: React.FC<HeaderMenuProps> = ({
+  currentUser,
   handleClickOnLink,
   setIsOpenMenu,
 }) => {
-  const { userId } = useSelector(getIsAuth);
-
   return (
-    <div className={styles.menu}>
-      <nav>
+    <div className={styles.container}>
+      <nav className={styles.nav}>
         <ul className={styles.list}>
           <li
             className={styles.nav__link}
@@ -32,17 +30,18 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
               {"Genres"}
             </HashLink>
           </li>
-          {userId && (
-            <li
-              className={styles.nav__link}
-              onClick={() => handleClickOnLink("favorites")}
-            >
-              <Favorites />
-            </li>
-          )}
+          <li
+            className={cn(styles.nav__link, {
+              [styles.nav__link_disabled]: !currentUser,
+            })}
+            onClick={() => handleClickOnLink("favorites")}
+          >
+            <Favorites />
+          </li>
         </ul>
       </nav>
       <Search setIsOpenMenu={setIsOpenMenu} />
+      <User setIsOpenMenu={setIsOpenMenu} />
     </div>
   );
 };

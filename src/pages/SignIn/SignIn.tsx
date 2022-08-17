@@ -1,11 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { signInWithEmailAndPassword } from "@firebase/auth";
-import { useDispatch } from "react-redux";
-import { auth } from "../../firebase";
+import { signIn } from "../../firebase";
 
-import { setUserId } from "../../redux/authentication/slice";
-import { setLocalStorage } from "../../utils/localStorage";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
 import styles from "./SignIn.module.css";
@@ -18,16 +14,12 @@ const SignIn: React.FC = () => {
   });
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const singInHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const singInHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+    await signIn(data.email, data.password)
+      .then(() => {
         navigate("/");
-        dispatch(setUserId(user.uid));
-        setLocalStorage("userId", user.uid);
       })
       .catch((error) => {
         setErrorText(getErrorMessage(error));

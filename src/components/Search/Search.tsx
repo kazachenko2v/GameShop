@@ -56,12 +56,12 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const dropDownRef = useClickOutside(() => setIsActive(false));
   return (
     <div ref={dropDownRef} className={styles.container}>
-      <label className={styles.seacrh_container}>
+      <label className={styles.label}>
         <input
           ref={inputRef}
           onChange={debounceOnChange}
           onFocus={() => setIsActive(true)}
-          className={styles.search_input}
+          className={styles.input}
           type="text"
         />
         {value.length > 0 && (

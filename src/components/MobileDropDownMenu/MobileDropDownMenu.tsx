@@ -23,12 +23,13 @@ const MobileDropDownMenu: React.FC<MobileDropDownMenuProps> = ({
         in={isOpenMenu}
         timeout={200}
         classNames={{
-          enterActive: styles.blur_enter,
-          enterDone: styles.blur_enter_active,
-          exitActive: styles.blur_exit,
-          exitDone: styles.blur_exit_active,
+          enter: styles.blur_enter,
+          enterActive: styles.blur_enter_active,
+          enterDone: styles.blur_enter_done,
+          exit: styles.blur_exit,
+          exitActive: styles.blur_exit_active,
+          exitDone: styles.blur_exit_done,
         }}
-        unmountOnExit
         mountOnEnter
       >
         <div className={styles.blur} onClick={() => setIsOpenMenu(false)}></div>
@@ -37,11 +38,14 @@ const MobileDropDownMenu: React.FC<MobileDropDownMenuProps> = ({
         in={isOpenMenu}
         timeout={200}
         classNames={{
-          enterActive: styles.menu_enter,
-          enterDone: styles.menu_enter_active,
-          exitActive: styles.menu_exit,
-          exitDone: styles.menu_exit_active,
+          enter: styles.menu_enter,
+          enterActive: styles.menu_enter_active,
+          enterDone: styles.menu_enter_done,
+          exit: styles.menu_exit,
+          exitActive: styles.menu_exit_active,
+          exitDone: styles.menu_exit_done,
         }}
+        unmountOnExit
         mountOnEnter
       >
         <>{children}</>

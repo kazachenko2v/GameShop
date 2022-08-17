@@ -1,29 +1,23 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
-import { useGetDataFromDatabase } from "../../hooks/useGetDataFromDatabase";
-import { getIsAuth } from "../../redux/authentication/selectors";
-import { setUserId, setUserName } from "../../redux/authentication/slice";
+import { User } from "../";
+import { useAuthListen } from "../../hooks/useGetDataFromDatabase";
+import { signOutCustom } from "../../firebase";
 
-import User from "../../assets/images/non-login-user.svg";
 import styles from "./Footer.module.css";
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { userId, userName } = useSelector(getIsAuth);
-  useGetDataFromDatabase();
+  const currentUser = useAuthListen();
 
   const singOutHandler = () => {
-    dispatch(setUserName(""));
-    dispatch(setUserId(""));
-    localStorage.removeItem("userId");
+    signOutCustom();
   };
 
   return (
     <footer className={styles.container}>
-      {userId ? (
+      {/* {currentUser ? (
         <button onClick={singOutHandler} className={styles.button}>
           Log Out
         </button>
@@ -32,14 +26,7 @@ const Footer: React.FC = () => {
           Log In
         </button>
       )}
-
-      <button
-        onClick={() => navigate("/signin")}
-        className={styles.button_user}
-      >
-        <span>{userName}</span>
-        <img src={User} alt="User Avatar" />
-      </button>
+      <User /> */}
     </footer>
   );
 };

@@ -1,16 +1,18 @@
 import React from "react";
-import { useListenGamesFromDatabase } from "../../hooks/useGetDataFromDatabase";
+
+import { useGamesListener } from "../../hooks/useGetDataFromDatabase";
+import { auth } from "../../firebase";
 
 import styles from "./Favorites.module.css";
 import cn from "classnames";
 
 const Favorites: React.FC = () => {
-  const gamesId = useListenGamesFromDatabase();
+  const gamesId = useGamesListener();
 
   return (
     <>
       <span>Favorites</span>
-      {gamesId && (
+      {gamesId && auth.currentUser && (
         <span
           className={cn(styles.count, {
             [styles.count_invisible]: gamesId.favGames.length === 0,

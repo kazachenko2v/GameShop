@@ -9,11 +9,17 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   user-select: none;
 }
 
-.logo img {
+.logo_img {
   height: 45px;
+}
+
+.logo_title {
+  height: 30px;
 }
 
 @media (max-width: 912px) {

@@ -11,13 +11,11 @@ import {
 import MainLayouts from "./layouts/MainLayouts";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getIsAuth } from "./redux/authentication/selectors";
+import { auth } from "./firebase";
 
 function App() {
   const RequireAuth = ({ children }: { children: JSX.Element }) => {
-    const { userId } = useSelector(getIsAuth);
-    return userId ? children! : <Navigate replace to="/" />;
+    return auth?.currentUser?.uid ? children! : <Navigate replace to="/" />;
   };
 
   return (

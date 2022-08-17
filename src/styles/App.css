@@ -7,6 +7,7 @@ html {
 body {
   height: 100vh;
   height: -webkit-fill-available;
+  position: relative;
 }
 
 a,
@@ -23,21 +24,24 @@ button {
 #root {
   display: flex;
   flex-direction: column;
-  position: relative; /* dropdown menu mobile */
   height: 100vh;
   height: -webkit-fill-available;
   max-width: 1244px;
   margin: 0 auto;
-  overflow: hidden;
+}
+
+@media (max-width: 1272px) {
+  #root {
+    position: relative;
+    width: 100vw;
+    padding: 0 20px;
+  }
 }
 
 main {
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-bottom: 50px;
 }
 
 main::-webkit-scrollbar {
@@ -48,13 +52,6 @@ main::-webkit-scrollbar {
 main::-webkit-scrollbar-thumb {
   background-color: #000;
   border-radius: 2px;
-}
-
-@media (max-width: 1272px) {
-  #root {
-    width: 100vw;
-    padding: 0 20px 0;
-  }
 }
 
 /* slick-slider */

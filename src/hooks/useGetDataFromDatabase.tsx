@@ -1,49 +1,35 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsAuth } from "../redux/authentication/selectors";
-import { getDoc, doc, DocumentData, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
-import { setUserName } from "../redux/authentication/slice";
+import { doc, DocumentData, onSnapshot } from "firebase/firestore";
+import { auth, db } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
-export const useGetDataFromDatabase = () => {
-  const { userId } = useSelector(getIsAuth);
-  const dispatch = useDispatch();
-
+export const useGamesListener = () => {
   const [data, setData] = React.useState<DocumentData | null>(null);
 
   React.useEffect(() => {
-    const getData = async () => {
-      if (userId) {
-        try {
-          const docSnap = await getDoc(doc(db, "favorites", userId));
-          if (docSnap.exists()) {
-            setData(docSnap.data());
-            dispatch(setUserName(docSnap.data().name));
-          }
-        } catch (er) {
-          console.log(er);
+    if (auth.currentUser?.uid) {
+      onSnapshot(doc(db, "favorites", auth.currentUser.uid), (doc) => {
+        if (doc.exists()) {
+          setData(doc.data());
         }
-      }
-    };
-
-    getData();
-  }, [userId]);
+      });
+    }
+  }, [auth.currentUser?.uid]);
 
   return data;
 };
 
-export const useListenGamesFromDatabase = () => {
-  const { userId } = useSelector(getIsAuth);
-
-  const [gamesId, setGamesId] = React.useState<DocumentData | null>(null);
+export const useAuthListen = () => {
+  const [currentUser, setCurrentUser] = React.useState<DocumentData | null>(
+    null
+  );
 
   React.useEffect(() => {
-    onSnapshot(doc(db, "favorites", userId), (doc) => {
-      if (doc.exists()) {
-        setGamesId(doc.data());
-      }
+    const unSub = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
     });
+    return unSub;
   }, []);
 
-  return gamesId;
+  return currentUser;
 };

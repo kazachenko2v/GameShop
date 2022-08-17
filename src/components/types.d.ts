@@ -64,6 +64,7 @@ export type DropDownProps = {
 };
 
 export type HeaderMenuProps = {
+  currentUser: any | null;
   setIsOpenMenu: (isActive: boolean) => void;
   handleClickOnLink: (arg: string) => void;
 };

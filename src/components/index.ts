@@ -15,3 +15,4 @@ export { default as DropdownList } from "./DropdownList/DropdownList";
 export { default as Search } from "./Search/Search";
 export { default as SortContainer } from "./SortContainer/SortContainer";
 export { default as SortPanel } from "./SortPanel/SortPanel";
+export { default as User } from "./User/User";

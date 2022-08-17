@@ -7,6 +7,8 @@ export const getErrorMessage = (error: unknown) => {
         return "Invalid email";
       case "Firebase: Error (auth/email-already-in-use).":
         return "Email already in use";
+      case "Firebase: Error (auth/wrong-password).":
+        return "Wrong password";
     }
   }
   return String(error);

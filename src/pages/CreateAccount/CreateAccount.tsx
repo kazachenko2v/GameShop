@@ -1,12 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
-import { auth, db } from "../../firebase";
+import {
+  creacteUserName,
+  createUser,
+  createUsersFavoriteList,
+} from "../../firebase";
 
-import { setUserId } from "../../redux/authentication/slice";
-import { setLocalStorage } from "../../utils/localStorage";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
 import styles from "../SignIn/SignIn.module.css";
@@ -20,28 +19,18 @@ const CreateAccount: React.FC = () => {
   });
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const createUserHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-
-      await setDoc(doc(db, "favorites", user.user.uid), {
-        name: data.name,
-        favGames: [],
+    await createUser(data.email, data.password)
+      .then(async (user) => {
+        await createUsersFavoriteList(user.user.uid, data.name);
+        await creacteUserName(data.name);
+        navigate("/");
+      })
+      .catch((error) => {
+        setErrorText(getErrorMessage(error));
       });
-
-      navigate("/");
-      dispatch(setUserId(user.user.uid));
-      setLocalStorage("userId", user.user.uid);
-    } catch (error) {
-      setErrorText(getErrorMessage(error));
-    }
   };
 
   return (
