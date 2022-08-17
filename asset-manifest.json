@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/GameShop/static/css/main.65ebab98.css",
-    "main.js": "/GameShop/static/js/main.db5c0d87.js",
+    "main.css": "/GameShop/static/css/main.285fe378.css",
+    "main.js": "/GameShop/static/js/main.0e2e1e48.js",
     "static/media/VelaSans-SemiBold.otf": "/GameShop/static/media/VelaSans-SemiBold.6872804a6599c78ed00d.otf",
     "static/media/VelaSans-Regular.otf": "/GameShop/static/media/VelaSans-Regular.117e8a4c3026c5b404ac.otf",
     "static/media/VelaSans-Medium.otf": "/GameShop/static/media/VelaSans-Medium.afb228c904d90fa6ad23.otf",
     "static/media/VelaSans-SemiBold.woff": "/GameShop/static/media/VelaSans-SemiBold.42299d95265808ed8ff8.woff",
     "static/media/VelaSans-Regular.woff": "/GameShop/static/media/VelaSans-Regular.8a891125566ccc384e8a.woff",
     "static/media/VelaSans-Medium.woff": "/GameShop/static/media/VelaSans-Medium.3d7b2c23830563cc7a04.woff",
-    "static/media/PS_Store_logo_desktop.png": "/GameShop/static/media/PS_Store_logo_desktop.91664de03d7c1d26c522.png",
-    "static/media/PS_Store_logo_phone.png": "/GameShop/static/media/PS_Store_logo_phone.4bd79f985096ed80411d.png",
+    "static/media/PS_Store_logo.png": "/GameShop/static/media/PS_Store_logo.4bd79f985096ed80411d.png",
     "static/media/non-login-user.svg": "/GameShop/static/media/non-login-user.a10932d303923971cef6499054b965af.svg",
     "static/media/slick.svg": "/GameShop/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/GameShop/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/logout.svg": "/GameShop/static/media/logout.4442e41949afb53f245be9d80ac03136.svg",
     "static/media/slick.ttf": "/GameShop/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/GameShop/static/media/slick.295183786cd8a1389865.woff",
     "static/media/filter.svg": "/GameShop/static/media/filter.48cb955dc14fde6ad22bd9ca1b3de416.svg",
     "index.html": "/GameShop/index.html",
     "static/media/close.svg": "/GameShop/static/media/close.4420b3dbf1589fb0c0218721402255cf.svg",
-    "main.65ebab98.css.map": "/GameShop/static/css/main.65ebab98.css.map",
-    "main.db5c0d87.js.map": "/GameShop/static/js/main.db5c0d87.js.map"
+    "main.285fe378.css.map": "/GameShop/static/css/main.285fe378.css.map",
+    "main.0e2e1e48.js.map": "/GameShop/static/js/main.0e2e1e48.js.map"
   },
   "entrypoints": [
-    "static/css/main.65ebab98.css",
-    "static/js/main.db5c0d87.js"
+    "static/css/main.285fe378.css",
+    "static/js/main.0e2e1e48.js"
   ]
 }
