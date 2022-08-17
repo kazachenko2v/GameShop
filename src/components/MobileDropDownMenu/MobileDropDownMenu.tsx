@@ -10,10 +10,11 @@ const MobileDropDownMenu: React.FC<MobileDropDownMenuProps> = ({
   setIsOpenMenu,
 }) => {
   React.useEffect(() => {
+    const root = document.body.children[0] as HTMLElement;
     if (isOpenMenu) {
-      document.body.style.overflow = "hidden";
+      root.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto";
+      root.style.overflow = "auto";
     }
   }, [isOpenMenu]);
 

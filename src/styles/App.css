@@ -10,6 +10,16 @@ body {
   position: relative;
 }
 
+body::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 2px;
+}
+
 a,
 button {
   user-select: none;
@@ -42,16 +52,6 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-main::-webkit-scrollbar {
-  width: 5px;
-  background-color: #fff;
-}
-
-main::-webkit-scrollbar-thumb {
-  background-color: #000;
-  border-radius: 2px;
 }
 
 /* slick-slider */

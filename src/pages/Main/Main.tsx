@@ -43,7 +43,7 @@ const Main: React.FC = () => {
 
   const settings = {
     infinite: true,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     accessibility: true,
     dots: true,
