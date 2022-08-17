@@ -1,5 +1,5 @@
 
-# [Game Shop React App](https://kazachenko2v.github.io/GameShop/)
+# [GameShop React App](https://kazachenko2v.github.io/GameShop/)
 https://kazachenko2v.github.io/GameShop/
 
 
@@ -13,8 +13,12 @@ https://kazachenko2v.github.io/GameShop/
 * Each authorized user has his own ***Favorite*** list, accessible only to him
 
 
-## Libraries used:
+## What was used:
 
 * React Toolkit
+* RTK Query
+* Firebase Authentication
+* Firestore Database
 * React Transition Group
 * React Router
+* and a bit more...
