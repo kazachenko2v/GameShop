@@ -10,8 +10,6 @@ body {
   height: 100vh;
   height: -webkit-fill-available;
   position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: #000 #fff;
 }
 
 body::-webkit-scrollbar {

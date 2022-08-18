@@ -18,11 +18,6 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
     navigate("/signin");
   };
 
-  const singOutHandler = () => {
-    setIsOpenMenu(false);
-    signOutCustom();
-  };
-
   return (
     <>
       <div className={styles.container}>
@@ -31,7 +26,7 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
           <span>{currentUser ? currentUser.displayName : "User"}</span>
         </a>
         {currentUser && (
-          <a onClick={singOutHandler}>
+          <a onClick={signOutCustom}>
             <img className={styles.pic_logout} src={Logout} alt="Logout" />
           </a>
         )}
