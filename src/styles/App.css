@@ -2,6 +2,8 @@
 
 html {
   height: -webkit-fill-available;
+  scrollbar-width: thin;
+  scrollbar-color: #000 #fff;
 }
 
 body {

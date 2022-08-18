@@ -13,10 +13,6 @@ const FavoritesPage: React.FC = () => {
 
   return (
     <>
-      {gamesId === null &&
-        [...new Array(3)].map((_, index) => (
-          <Skeleton key={index} className={styles.skeleton} />
-        ))}
       {gamesId && (
         <>
           {gamesId.favGames.map((id: number) => (
@@ -24,7 +20,6 @@ const FavoritesPage: React.FC = () => {
           ))}
         </>
       )}
-
       {gamesId && gamesId.favGames.length === 0 && (
         <h1 className={styles.title_empty}>
           You don't have any favorite games yet.
