@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import _debounce from "lodash.debounce";
+import Skeleton from "react-loading-skeleton";
 
 import { setSearchQuery } from "../../redux/filter/slice";
 import { useGetGamesQuery } from "../../redux/games/games.api";
@@ -21,12 +22,14 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const [isActive, setIsActive] = React.useState<boolean>(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const { data: games, isSuccess } = useGetGamesQuery(
-    [PAGE_SIZE_COUNT_5, `&search=${value}`],
-    {
-      skip: value.length === 0,
-    }
-  );
+  const {
+    data: games,
+    isSuccess,
+    isLoading,
+    isError,
+  } = useGetGamesQuery([PAGE_SIZE_COUNT_5, `&search=${value}`], {
+    skip: value.length === 0,
+  });
 
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -54,56 +57,74 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   };
 
   const dropDownRef = useClickOutside(() => setIsActive(false));
+
   return (
-    <div ref={dropDownRef} className={styles.container}>
-      <label className={styles.label}>
-        <input
-          ref={inputRef}
-          onChange={debounceOnChange}
-          onFocus={() => setIsActive(true)}
-          className={styles.input}
-          type="text"
-        />
-        {value.length > 0 && (
+    <div className={styles.container}>
+      <div ref={dropDownRef} className={styles.dropdown_container}>
+        <label className={styles.label}>
+          <input
+            ref={inputRef}
+            onChange={debounceOnChange}
+            onFocus={() => setIsActive(true)}
+            className={styles.input}
+            type="text"
+          />
+          {value.length > 0 && (
+            <button
+              onClick={clearValue}
+              className={styles.button_remove}
+            ></button>
+          )}
           <button
-            onClick={clearValue}
-            className={styles.button_remove}
+            onClick={() => clickHandler(value)}
+            className={styles.button}
           ></button>
+        </label>
+        {isError && <span>Sorry, something went wrong...</span>}
+        {isLoading && (
+          <div
+            className={cn(styles.dropdown, {
+              [styles.dropdown_acive]: isActive,
+              [styles.dropdown_deacive]: !isActive,
+            })}
+          >
+            <ul>
+              {[...new Array(PAGE_SIZE_COUNT_5)].map((_, index) => (
+                <Skeleton key={index} className={styles.skeleton} />
+              ))}
+            </ul>
+          </div>
         )}
-        <button
-          onClick={() => clickHandler(value)}
-          className={styles.button}
-        ></button>
-      </label>
-      {isSuccess && value.length > 0 && (
-        <div
-          className={cn(styles.dropdown, {
-            [styles.dropdown_acive]: isActive,
-            [styles.dropdown_deacive]: !isActive,
-          })}
-        >
-          <ul>
-            {games.results.length ? (
-              games.results.map((game) => (
-                <li
-                  key={game.id}
-                  className={styles.dropdown__item}
-                  onClick={() => handleClickOnLink(game.id)}
-                >
-                  <img
-                    src={game.background_image}
-                    alt={game.name}
-                    className={styles.image}
-                  />
-                  <span>{game.name}</span>
-                </li>
-              ))
-            ) : (
-              <span>NotFound</span>
-            )}
-          </ul>
-        </div>
-      )}
+        {isSuccess && (
+          <div
+            className={cn(styles.dropdown, {
+              [styles.dropdown_acive]: isActive,
+              [styles.dropdown_deacive]: !isActive,
+            })}
+          >
+            <ul>
+              {games.results.length ? (
+                games.results.map((game) => (
+                  <li
+                    key={game.id}
+                    className={styles.dropdown__item}
+                    onClick={() => handleClickOnLink(game.id)}
+                  >
+                    <img
+                      src={game.background_image}
+                      alt={game.name}
+                      className={styles.image}
+                    />
+                    <span>{game.name}</span>
+                  </li>
+                ))
+              ) : (
+                <span>NotFound</span>
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,15 +1,18 @@
 .container {
-  position: relative;
   display: flex;
   justify-content: end;
 }
 
+.dropdown_container {
+  position: relative;
+  flex: 0 1 300px;
+  min-width: 220px;
+}
+
 .label {
   display: flex;
-  flex: 0 1 300px;
   justify-content: space-between;
   align-items: center;
-  min-width: 260px;
   border-radius: 8px;
   padding: var(--button_medium);
   background: #f4f7fa;
@@ -24,9 +27,6 @@
 @media (max-width: 912px) {
   .container {
     order: -1;
-  }
-  .label {
-    margin: 20px 0;
   }
 }
 
@@ -106,6 +106,10 @@
 
 .dropdown__item:hover {
   background: #e7ecf1;
+}
+
+.skeleton {
+  height: 30px;
 }
 
 .image {

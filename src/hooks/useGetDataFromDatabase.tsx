@@ -8,11 +8,15 @@ export const useGamesListener = () => {
 
   React.useEffect(() => {
     if (auth.currentUser?.uid) {
-      onSnapshot(doc(db, "favorites", auth.currentUser.uid), (doc) => {
-        if (doc.exists()) {
-          setData(doc.data());
+      const unSub = onSnapshot(
+        doc(db, "favorites", auth.currentUser.uid),
+        (doc) => {
+          if (doc.exists()) {
+            setData(doc.data());
+          }
         }
-      });
+      );
+      return unSub;
     }
   }, [auth.currentUser?.uid]);
 
