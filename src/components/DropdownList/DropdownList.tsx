@@ -1,24 +1,37 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+
+import { setCurrentPage } from "../../redux/filter/slice";
 import { TListId } from "../../redux/filter/types";
+import {
+  FilterContext,
+  IFilterContextInterface,
+  TFilterContext,
+} from "../../contexts/FilterContext/FilterContext";
 
 import { DropDown, DropdownListItem } from "..";
 import { arraysComparing } from "../../utils/dropdown";
 import { setLocalStorage } from "../../utils/localStorage";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { DropdownListProps } from "../types";
-import { TFilterContext } from "../../contexts/FilterContext/FilterContext";
+import { TABLET } from "../../constants";
 
 const DropdownList: React.FC<DropdownListProps> = ({
-  isTablet,
   startItems,
   selectedItems,
-  setValue,
   setItemsIdtoState,
   value,
   allItemConstant,
 }) => {
   const dispatch = useDispatch();
+
+  const isTablet = useMediaQuery({ maxWidth: TABLET });
+
+  const { setContextValue } = React.useContext(
+    FilterContext
+  ) as IFilterContextInterface;
+
   const [isActive, setIsActive] = React.useState<boolean>(false);
   const selectedItemsRef = React.useRef<TListId | null>(null);
   const startItemsRef = React.useRef<TListId | null>(null);
@@ -34,7 +47,10 @@ const DropdownList: React.FC<DropdownListProps> = ({
       sortedSelectedItemsRef
     );
     if (toUpdate) {
-      !isTablet && dispatch(setItemsIdtoState(toUpdate));
+      if (!isTablet) {
+        dispatch(setItemsIdtoState(toUpdate));
+        dispatch(setCurrentPage(1));
+      }
       setLocalStorage(value, toUpdate);
     }
   };
@@ -50,15 +66,15 @@ const DropdownList: React.FC<DropdownListProps> = ({
 
   const toggleItems = (id: number) => {
     if (selectedItems.includes(id)) {
-      setValue((prevState: TFilterContext) => {
+      setContextValue((prevState: TFilterContext) => {
         return {
           ...prevState,
-          [value]: [...selectedItems].filter((item) => item !== id),
+          [`${value}Context`]: [...selectedItems].filter((item) => item !== id),
         };
       });
     } else if (!selectedItems.includes(id)) {
-      setValue((prevState: TFilterContext) => {
-        return { ...prevState, [value]: [...selectedItems, id] };
+      setContextValue((prevState: TFilterContext) => {
+        return { ...prevState, [`${value}Context`]: [...selectedItems, id] };
       });
     }
   };
@@ -75,17 +91,15 @@ const DropdownList: React.FC<DropdownListProps> = ({
       dropDownRef={dropDownRef}
       buttonOnClickHandler={buttonOnClickHandler}
     >
-      <>
-        {allItemConstant.map((item) => (
-          <DropdownListItem
-            key={item.id}
-            item={item}
-            isActiveMenu={isActive}
-            toggleItems={toggleItems}
-            itemsId={selectedItems}
-          />
-        ))}
-      </>
+      {allItemConstant.map((item) => (
+        <DropdownListItem
+          key={item.id}
+          item={item}
+          isActiveMenu={isActive}
+          toggleItems={toggleItems}
+          itemsId={selectedItems}
+        />
+      ))}
     </DropDown>
   );
 };

@@ -32,6 +32,7 @@ const GenresPage: React.FC = () => {
     data: games,
     isSuccess: gamesSuccess,
     isLoading: gamesLoading,
+    isError: gamesError,
   } = useGetGamesQuery([20, `&genres=${id}&page=${page}`]);
 
   React.useEffect(() => {
@@ -70,6 +71,7 @@ const GenresPage: React.FC = () => {
         games={games}
         isSuccess={gamesSuccess}
         isLoading={gamesLoading}
+        isError={gamesError}
       />
       {gamesSuccess && (
         <Pagination currentPage={page} gamesCount={games.count} />

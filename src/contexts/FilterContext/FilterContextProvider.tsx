@@ -10,25 +10,28 @@ interface IFilterContextProvider {
 const FilterContextProvider: React.FC<IFilterContextProvider> = ({
   children,
 }) => {
-  const { dates, platformsId, genresId, tagsId } = useSelector(getFilter);
+  const { search, dates, platformsId, genresId, tagsId } =
+    useSelector(getFilter);
 
   const initValue = {
-    calendar: dates.length ? dates.map((item) => new Date(item)) : null,
-    Platforms: [...platformsId],
-    Genres: [...genresId],
-    Tags: [...tagsId],
+    searchContext: search,
+    datesContext: dates.length ? dates.map((item) => new Date(item)) : null,
+    platformsContext: [...platformsId],
+    genresContext: [...genresId],
+    tagsContext: [...tagsId],
   };
 
-  const [value, setValue] = React.useState(initValue);
+  const [value, setContextValue] = React.useState(initValue);
 
   return (
     <FilterContext.Provider
       value={{
-        calendar: { value: value.calendar },
-        Platforms: { value: value.Platforms },
-        Genres: { value: value.Genres },
-        Tags: { value: value.Tags },
-        setValue,
+        searchContext: { value: value.searchContext },
+        datesContext: { value: value.datesContext },
+        platformsContext: { value: value.platformsContext },
+        genresContext: { value: value.genresContext },
+        tagsContext: { value: value.tagsContext },
+        setContextValue,
       }}
     >
       {children}

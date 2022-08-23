@@ -1,15 +1,12 @@
-export const getErrorMessage = (error: unknown) => {
+export interface ErrWithCode extends Error {
+  code: string;
+}
+
+export const getErrorMessage = (error: ErrWithCode) => {
   if (error instanceof Error) {
-    switch (error.message) {
-      case "Firebase: Error (auth/user-not-found).":
-        return "User not found";
-      case "Firebase: Error (auth/invalid-email).":
-        return "Invalid email";
-      case "Firebase: Error (auth/email-already-in-use).":
-        return "Email already in use";
-      case "Firebase: Error (auth/wrong-password).":
-        return "Wrong password";
-    }
+    const newStr = error.code.replace("auth/", "").replace(/-/g, " ");
+
+    return newStr[0].toUpperCase() + newStr.slice(1);
   }
   return String(error);
 };

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: center;
+  position: relative;
   margin-left: 20px;
 }
 
@@ -27,6 +28,20 @@
 
 .pic_logout {
   width: 30px;
-  height: 30px;
-  margin-left: 10px;
+  height: 100%;
+}
+
+.list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}
+
+.list:hover {
+  display: block;
+}
+
+.logout_container {
+  display: flex;
 }

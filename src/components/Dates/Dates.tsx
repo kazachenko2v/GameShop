@@ -15,11 +15,16 @@ import { arraysComparing } from "../../utils/dropdown";
 import { arrDateToString } from "../../utils/stringToDate";
 
 import "./calendar.css";
+import { useMediaQuery } from "react-responsive";
+import { TABLET } from "../../constants";
 
-const Dates: React.FC<{ isTablet: boolean }> = ({ isTablet }) => {
+const Dates: React.FC = () => {
   const dispatch = useDispatch();
+
+  const isTablet = useMediaQuery({ maxWidth: TABLET });
+
   const { dates } = useSelector(getFilter);
-  const { calendar, setValue } = React.useContext(
+  const { datesContext, setContextValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
   const [isActive, setIsActive] = React.useState<boolean>(false);
@@ -28,8 +33,8 @@ const Dates: React.FC<{ isTablet: boolean }> = ({ isTablet }) => {
   const startDates = React.useRef<string[] | null>(null);
 
   startDates.current = [...dates];
-  selectedDates.current = calendar.value
-    ? arrDateToString(calendar.value)
+  selectedDates.current = datesContext.value
+    ? arrDateToString(datesContext.value)
     : [...dates];
 
   const buttonOnClickHandler = () => {
@@ -53,8 +58,8 @@ const Dates: React.FC<{ isTablet: boolean }> = ({ isTablet }) => {
   };
 
   const clickHandler = (value: [Date, Date]) => {
-    setValue((prevState) => {
-      return { ...prevState, calendar: value };
+    setContextValue((prevState) => {
+      return { ...prevState, datesContext: value };
     });
   };
   const dropDownRef = useClickOutside(() => {
@@ -71,7 +76,11 @@ const Dates: React.FC<{ isTablet: boolean }> = ({ isTablet }) => {
     >
       <Calendar
         value={
-          calendar.value as Date | [Date | null, Date | null] | null | undefined
+          datesContext.value as
+            | Date
+            | [Date | null, Date | null]
+            | null
+            | undefined
         }
         onChange={clickHandler as OnChangeDateRangeCallback}
         selectRange={true}

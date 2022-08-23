@@ -54,10 +54,10 @@ export const filterSlice = createSlice({
     },
     setFilters: (state, action: PayloadAction<IFilterSliceState>) => {
       state.page = action.payload.page;
+      state.search = action.payload.search;
       state.platformsId = action.payload.platformsId;
       state.genresId = action.payload.genresId;
       state.tagsId = action.payload.tagsId;
-      state.search = action.payload.search;
       state.dates = action.payload.dates;
     },
   },

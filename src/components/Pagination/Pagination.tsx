@@ -5,14 +5,16 @@ import { useMediaQuery } from "react-responsive";
 import { setCurrentPage } from "../../redux/filter/slice";
 import { PaginationProps } from "../types";
 import { TABLET } from "../../constants";
+import { setLocalStorage } from "../../utils/localStorage";
 
 import styles from "./Pagination.module.css";
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, gamesCount }) => {
   const dispatch = useDispatch();
   const pageCount = Math.ceil(gamesCount / 20);
+
   const handlePageClick = (event: React.MouseEvent & { selected: number }) => {
-    localStorage.setItem("page", JSON.stringify(event.selected + 1));
+    setLocalStorage("page", JSON.stringify(event.selected + 1));
     dispatch(setCurrentPage(event.selected + 1));
   };
 

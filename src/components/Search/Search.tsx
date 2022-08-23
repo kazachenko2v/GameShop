@@ -5,22 +5,31 @@ import { useMediaQuery } from "react-responsive";
 import _debounce from "lodash.debounce";
 import Skeleton from "react-loading-skeleton";
 
+import {
+  FilterContext,
+  IFilterContextInterface,
+  TFilterContext,
+} from "../../contexts/FilterContext/FilterContext";
 import { setSearchQuery } from "../../redux/filter/slice";
 import { useGetGamesQuery } from "../../redux/games/games.api";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { PAGE_SIZE_COUNT_5 } from "../../constants";
-import { SeacrhProp } from "../types";
+import { setLocalStorage } from "../../utils/localStorage";
 
 import styles from "./Search.module.css";
 import cn from "classnames";
 
-const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isTablet = useMediaQuery({ maxWidth: 912 });
   const [value, setValue] = React.useState<string>("");
   const [isActive, setIsActive] = React.useState<boolean>(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const { setContextValue } = React.useContext(
+    FilterContext
+  ) as IFilterContextInterface;
 
   const {
     data: games,
@@ -45,15 +54,23 @@ const Search: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const debounceOnChange = _debounce(updateValue, 300);
 
   const clickHandler = (value: string) => {
-    localStorage.setItem("search", value);
-    dispatch(setSearchQuery(value));
-    isTablet && setIsOpenMenu(false);
+    setLocalStorage("search", value);
+    setIsActive(false);
+    if (!isTablet) {
+      dispatch(setSearchQuery(value));
+    } else {
+      setContextValue((prevState: TFilterContext) => {
+        return {
+          ...prevState,
+          searchContext: value,
+        };
+      });
+    }
   };
 
   const handleClickOnLink = (id: number) => {
     navigate(`/${id}`, { replace: true });
     setIsActive(false);
-    isTablet && setIsOpenMenu(false);
   };
 
   const dropDownRef = useClickOutside(() => setIsActive(false));

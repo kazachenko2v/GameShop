@@ -26,7 +26,7 @@ const SortPanel: React.FC<SortProps> = ({
   dates,
 }) => {
   const dispatch = useDispatch();
-  const { setValue } = React.useContext(
+  const { setContextValue } = React.useContext(
     FilterContext
   ) as IFilterContextInterface;
   const [platformsName, setPlatformsName] = React.useState<string[] | null>(
@@ -36,37 +36,40 @@ const SortPanel: React.FC<SortProps> = ({
   const [tagsName, setTagsName] = React.useState<string[] | null>(null);
 
   const clearPlatforms = () => {
-    setValue((prevState) => {
-      return { ...prevState, Platforms: [] };
+    setContextValue((prevState) => {
+      return { ...prevState, platformsContext: [] };
     });
     dispatch(setPlatformsId([]));
-    localStorage.removeItem("Platforms");
+    localStorage.removeItem("platforms");
   };
 
   const clearGenres = () => {
-    setValue((prevState) => {
-      return { ...prevState, Genres: [] };
+    setContextValue((prevState) => {
+      return { ...prevState, genresContext: [] };
     });
     dispatch(setGenresId([]));
-    localStorage.removeItem("Genres");
+    localStorage.removeItem("genres");
   };
 
   const clearTags = () => {
-    setValue((prevState) => {
-      return { ...prevState, Tags: [] };
+    setContextValue((prevState) => {
+      return { ...prevState, tagsContext: [] };
     });
     dispatch(setTagsId([]));
-    localStorage.removeItem("Tags");
+    localStorage.removeItem("tags");
   };
 
   const clearSearch = () => {
+    setContextValue((prevState) => {
+      return { ...prevState, searchContext: "" };
+    });
     dispatch(setSearchQuery(""));
     localStorage.removeItem("search");
   };
 
   const clearDates = () => {
-    setValue((prevState) => {
-      return { ...prevState, calendar: null };
+    setContextValue((prevState) => {
+      return { ...prevState, datesContext: null };
     });
     dispatch(setDates([]));
     localStorage.removeItem("dates");

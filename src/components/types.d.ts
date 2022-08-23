@@ -34,10 +34,8 @@ export type DropdownListItemProps = {
 };
 
 export type DropdownListProps = {
-  isTablet: boolean;
   startItems: TListId;
-  selectedItems: TListId;
-  setValue: React.Dispatch<React.SetStateAction<TFilterContext>>;
+  selectedItems: ListId;
   setItemsIdtoState: React.SetStateAction<S>;
   value: string;
   allItemConstant: {
@@ -47,7 +45,6 @@ export type DropdownListProps = {
 };
 
 export type SortProps = {
-  page?: number;
   search: string;
   platformsId: TListId;
   genresId: TListId;
@@ -77,4 +74,5 @@ export type GamesListProp = {
   games: GamesResult;
   isLoading: boolean;
   isSuccess: boolean;
+  isError: boolean;
 };

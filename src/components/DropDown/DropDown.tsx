@@ -20,7 +20,7 @@ const DropDown: React.FC<DropDownProps> = ({
         })}
         onClick={buttonOnClickHandler}
       >
-        <span>{value}</span>
+        <span>{value[0].toUpperCase() + value.slice(1)}</span>
         <span
           className={cn(styles.arrow, { [styles.arrow_acive]: isActive })}
         ></span>

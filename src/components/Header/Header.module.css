@@ -1,6 +1,6 @@
 .container {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   padding: 16px;
   margin-bottom: 17px;
   font-family: VelaSans-Medium;
@@ -26,6 +26,6 @@
   .burger__container {
     position: relative;
     z-index: 1000;
-    justify-self: end;
+    justify-self: self-start;
   }
 }

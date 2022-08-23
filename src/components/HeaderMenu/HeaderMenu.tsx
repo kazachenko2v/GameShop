@@ -1,7 +1,7 @@
 import React from "react";
-import { Favorites, Search, User } from "../";
-import { HeaderMenuProps } from "../types";
 import { HashLink } from "react-router-hash-link";
+import { Favorites, User } from "../";
+import { HeaderMenuProps } from "../types";
 
 import styles from "./HeaderMenu.module.css";
 import cn from "classnames";
@@ -40,7 +40,6 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
           </li>
         </ul>
       </nav>
-      <Search setIsOpenMenu={setIsOpenMenu} />
       <User setIsOpenMenu={setIsOpenMenu} />
     </div>
   );

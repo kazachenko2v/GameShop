@@ -7,11 +7,11 @@ import { getFilter } from "../../redux/filter/selectors";
 import { useGetGamesQuery } from "../../redux/games/games.api";
 import { useSearchParams } from "../../hooks/useSearchParams";
 import { useResetPageWhenUnmount } from "../../hooks/useResetPageWhenUnmount";
-import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
+import FilterContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
 import { PAGE_SIZE_COUNT_20 } from "../../constants";
 import {
-  SortContainer,
+  FiltersContainer,
   SortPanel,
   Pagination,
   GamesList,
@@ -38,6 +38,7 @@ const AllGames: React.FC = () => {
     data: games,
     isLoading,
     isSuccess,
+    isError,
   } = useGetGamesQuery([PAGE_SIZE_COUNT_20, searchParams], {
     skip: searchParams === "",
   });
@@ -78,9 +79,8 @@ const AllGames: React.FC = () => {
 
   return (
     <>
-      <CalendarContextProvider>
-        <SortContainer
-          page={page}
+      <FilterContextProvider>
+        <FiltersContainer
           search={search}
           platformsId={platformsId}
           genresId={genresId}
@@ -94,8 +94,13 @@ const AllGames: React.FC = () => {
           tagsId={tagsId}
           dates={dates}
         />
-      </CalendarContextProvider>
-      <GamesList games={games} isLoading={isLoading} isSuccess={isSuccess} />
+      </FilterContextProvider>
+      <GamesList
+        games={games}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+      />
       {isSuccess && <Pagination currentPage={page} gamesCount={games.count} />}
     </>
   );

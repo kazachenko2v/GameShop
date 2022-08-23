@@ -11,6 +11,7 @@ const GamesList: React.FC<GamesListProp> = ({
   games,
   isLoading,
   isSuccess,
+  isError,
 }) => {
   return (
     <div className={styles.conteiner}>
@@ -22,6 +23,10 @@ const GamesList: React.FC<GamesListProp> = ({
         games.results.map((item: IGame) => (
           <GameCard key={item.id} item={item} />
         ))}
+      {isError && <h1>Sorry, something went wrong... Try again</h1>}
+      {isSuccess && games.results.length === 0 && (
+        <h1>Sorry, no games for you...</h1>
+      )}
     </div>
   );
 };
