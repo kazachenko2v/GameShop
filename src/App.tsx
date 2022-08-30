@@ -7,15 +7,19 @@ import {
   GenresPage,
   CreateAccount,
   SignIn,
+  Account,
 } from "./pages";
 import MainLayouts from "./layouts/MainLayouts";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { auth } from "./firebase";
+import { useSelector } from "react-redux";
+import { getUid } from "./redux/auth/selectors";
 
 function App() {
+  const { uid } = useSelector(getUid);
+
   const RequireAuth = ({ children }: { children: JSX.Element }) => {
-    return auth?.currentUser?.uid ? children! : <Navigate replace to="/" />;
+    return uid ? children! : <Navigate replace to="/" />;
   };
 
   return (
@@ -23,6 +27,14 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayouts />}>
           <Route path="" element={<Main />} />
+          <Route
+            path="account"
+            element={
+              <RequireAuth>
+                <Account />
+              </RequireAuth>
+            }
+          />
           <Route path="allgames" element={<AllGames />} />
           <Route path=":id" element={<GamePage />} />
           <Route path="/genres/:id" element={<GenresPage />} />

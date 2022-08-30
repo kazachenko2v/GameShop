@@ -10,7 +10,7 @@ export type MobileDropDownMenuProps = {
   setIsOpenMenu: (isActive: boolean) => void;
 };
 
-export type FavoriteItemProps = {
+export type IdItemProps = {
   id: number;
 };
 

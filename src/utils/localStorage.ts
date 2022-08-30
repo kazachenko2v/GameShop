@@ -12,9 +12,6 @@ export const setLocalStorage = (
 };
 
 export const getLocalStorage = (key: string) => {
-  if (key === "search") {
-    return localStorage.getItem(key);
-  }
   if (!localStorageGetItem(key)) {
     return;
   }

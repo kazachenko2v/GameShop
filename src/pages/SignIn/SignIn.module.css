@@ -1,5 +1,5 @@
 .container {
-  width: 300px;
+  max-width: 300px;
   margin: 0 auto;
   font-family: VelaSans-Regular;
   /* font-size: clamp(1.5rem, 5vw, 3rem); */
@@ -27,6 +27,7 @@
 }
 
 .input_text {
+  width: 100%;
   border: none;
   background: #f4f7fa;
   font-family: inherit;

@@ -6,6 +6,7 @@ export { default as FiltersContainer } from "./FiltersContainer/FiltersContainer
 export { default as FiltersLists } from "./FiltersLists/FiltersLists";
 export { default as Footer } from "./Footer/Footer";
 export { default as GameCard } from "./GameCard/GameCard";
+export { default as GamesCardMini } from "./GamesCardMini/GamesCardMini";
 export { default as GamesList } from "./GamesList/GamesList";
 export { default as GameCardSkeleton } from "./GameCardSkeleton/GameCardSkeleton";
 export { default as Header } from "./Header/Header";

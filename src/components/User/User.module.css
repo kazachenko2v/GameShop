@@ -2,23 +2,17 @@
   display: flex;
   align-items: center;
   position: relative;
-  margin-left: 20px;
-}
-
-@media (max-width: 912px) {
-  .container {
-    order: 1;
-    align-self: stretch;
-    justify-content: space-evenly;
-    margin-left: 0;
-  }
 }
 
 .button_user {
   display: flex;
-  flex-direction: column;
   align-items: center;
   color: inherit;
+}
+
+.skeleton {
+  height: 100%;
+  width: 80px;
 }
 
 .pic_user {
@@ -34,14 +28,26 @@
 .list {
   display: none;
   position: absolute;
+  z-index: 5000;
   top: 100%;
+  left: 0;
+  width: 100%;
   font-size: 12px;
+  text-align: center;
+  background-color: #fff;
 }
 
-.list:hover {
+.list li {
+  padding: 10px;
+}
+
+.list_active {
   display: block;
 }
 
-.logout_container {
-  display: flex;
+@media (max-width: 912px) {
+  .list {
+    top: auto;
+    bottom: 100%;
+  }
 }

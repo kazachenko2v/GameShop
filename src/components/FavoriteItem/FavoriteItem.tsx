@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 import { useGetGameQuery } from "../../redux/games/games.api";
-import { FavoriteItemProps } from "../types";
+import { IdItemProps } from "../types";
 import { removeItemFromBase } from "../../firebase";
 
 import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
 
-const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
-  const { data: game, isError, isLoading } = useGetGameQuery(id.toString());
+const FavoriteItem: React.FC<IdItemProps> = ({ id }) => {
+  const { data: game, isError, isLoading } = useGetGameQuery(id);
 
   const removeButton = (id: number) => {
     removeItemFromBase(id);
@@ -17,8 +18,9 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
 
   return (
     <>
-      {game ? (
-        <div key={game.id} className={styles.items__contaier}>
+      {isLoading && <Skeleton className={styles.skeleton} />}
+      {game && (
+        <div key={game.id} className={styles.items__container}>
           <Link to={`/${game.id}`}>
             <div className={styles.title__container}>
               <img
@@ -29,18 +31,14 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ id }) => {
               <h2 className={styles.title}>{game.name} </h2>
             </div>
           </Link>
-          <div className={styles.bottons__container}>
-            <button className={styles.price}>Buy</button>
-            <button
-              className={styles.remove__button}
-              onClick={() => removeButton(game.id)}
-            >
-              <img src={Close} alt="Remove" />
-            </button>
-          </div>
+          <button className={styles.price}>Buy</button>
+          <button
+            className={styles.remove__button}
+            onClick={() => removeButton(game.id)}
+          >
+            <img src={Close} alt="Remove" />
+          </button>
         </div>
-      ) : (
-        <></>
       )}
     </>
   );

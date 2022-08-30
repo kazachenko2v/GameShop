@@ -1,8 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { signIn } from "../../firebase";
 
+import { setUid } from "../../redux/auth/slice";
+
 import { getErrorMessage } from "../../utils/getErrorMessage";
+import { setLocalStorage } from "../../utils/localStorage";
 
 import styles from "./SignIn.module.css";
 
@@ -14,16 +18,27 @@ const SignIn: React.FC = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const singInHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signIn(data.email, data.password)
-      .then(() => {
+      .then((user) => {
         navigate("/");
+        setLocalStorage("uid", user.user.uid);
+        dispatch(setUid(user.user.uid));
       })
       .catch((error) => {
         setErrorText(getErrorMessage(error));
       });
+  };
+
+  const inputHandler = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    value: string
+  ) => {
+    setData({ ...data, [value]: e.target.value });
+    setErrorText("");
   };
 
   return (
@@ -35,7 +50,7 @@ const SignIn: React.FC = () => {
             value={data.email}
             type="email"
             placeholder="Email"
-            onChange={(e) => setData({ ...data, email: e.target.value })}
+            onChange={(e) => inputHandler(e, "email")}
             className={styles.input_text}
           />
         </label>
@@ -44,7 +59,7 @@ const SignIn: React.FC = () => {
             value={data.password}
             type="password"
             placeholder="Password"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
+            onChange={(e) => inputHandler(e, "password")}
             className={styles.input_text}
           />
         </label>

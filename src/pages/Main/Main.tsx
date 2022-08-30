@@ -89,7 +89,7 @@ const Main: React.FC = () => {
                   <img
                     className={styles.genres__image}
                     src={genre.image_background}
-                    alt=""
+                    alt="Genres"
                   />
                   <div className={styles.title__container}>
                     <h2 className={styles.title}>{genre.name}</h2>

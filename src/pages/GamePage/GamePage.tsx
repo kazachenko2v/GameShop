@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useGetGameQuery } from "../../redux/games/games.api";
+import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
 import {
-  useAuthListen,
-  useGamesListener,
-} from "../../hooks/useGetDataFromDatabase";
-import { addItemToBase, removeItemFromBase } from "../../firebase";
+  addItemToBase,
+  removeItemFromBase,
+  visitedListListener,
+} from "../../firebase";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -17,26 +18,32 @@ import cn from "classnames";
 const GamePage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: game, isError, isLoading, isSuccess } = useGetGameQuery(id);
+  const {
+    data: game,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useGetGameQuery(Number(id));
   const currentUser = useAuthListen();
-  const gamesId = useGamesListener();
+  const data = useGetData();
   const [isFavorite, setIsFavorite] = React.useState<boolean | null>(false);
 
   React.useEffect(() => {
     setIsFavorite(
-      gamesId &&
-        Boolean(
-          gamesId.favGames.find((gameId: number) => gameId === Number(id))
-        )
+      data &&
+        Boolean(data.favGames.find((gameId: number) => gameId === Number(id)))
     );
-  }, [isFavorite, gamesId]);
+  }, [isFavorite, data]);
+
+  React.useEffect(() => {
+    visitedListListener(Number(id));
+  }, []);
 
   const toggleFavorite = () => {
     if (currentUser) {
       /*  check if the game is in favorites */
       const isContain =
-        gamesId &&
-        gamesId.favGames.find((gameId: number) => gameId === Number(id));
+        data && data.favGames.find((gameId: number) => gameId === Number(id));
 
       if (isContain) {
         removeItemFromBase(Number(id));

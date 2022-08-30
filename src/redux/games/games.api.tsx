@@ -15,7 +15,7 @@ export const gamesApi = createApi({
         },
       }),
     }),
-    getGame: builder.query<IGame, string | undefined>({
+    getGame: builder.query<IGame, number | undefined>({
       query: (id) => ({
         url: "games/" + id,
         params: {

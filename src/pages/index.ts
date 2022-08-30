@@ -1,3 +1,4 @@
+export { default as Account } from "./Account/Account";
 export { default as FavoritesPage } from "./FavoritesPage/FavoritesPage";
 export { default as GamePage } from "./GamePage/GamePage";
 export { default as GenresPage } from "./GenresPage/GenresPage";

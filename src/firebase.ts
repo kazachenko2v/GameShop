@@ -4,7 +4,6 @@ import {
   signOut,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  updateProfile,
 } from "firebase/auth";
 import {
   doc,
@@ -12,9 +11,11 @@ import {
   arrayRemove,
   arrayUnion,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 
 import { getFirestore } from "firebase/firestore";
+import { getLocalStorage } from "./utils/localStorage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -41,27 +42,25 @@ export const createUser = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const creacteUserName = (name: string) => {
-  if (auth.currentUser) {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-    }).then(() => {
-      // Profile updated!
-      // ...
-    });
-  }
+export const createUserField = (id: string, key: string, value: any) => {
+  return setDoc(
+    doc(db, "games", id),
+    {
+      [key]: value,
+    },
+    { merge: true }
+  );
 };
 
-export const createUsersFavoriteList = (id: string, name: string) => {
-  return setDoc(doc(db, "favorites", id), {
-    name,
-    favGames: [],
+export const updateUserField = (id: string, key: string, value: any) => {
+  return updateDoc(doc(db, "games", id), {
+    [key]: value,
   });
 };
 
 export const addItemToBase = async (id: number) => {
   if (auth.currentUser) {
-    await updateDoc(doc(db, "favorites", auth.currentUser.uid), {
+    await updateDoc(doc(db, "games", auth.currentUser.uid), {
       favGames: arrayUnion(id),
     });
   }
@@ -69,8 +68,33 @@ export const addItemToBase = async (id: number) => {
 
 export const removeItemFromBase = async (id: number) => {
   if (auth.currentUser) {
-    await updateDoc(doc(db, "favorites", auth.currentUser.uid), {
+    await updateDoc(doc(db, "games", auth.currentUser.uid), {
       favGames: arrayRemove(id),
     });
+  }
+};
+
+export const visitedListListener = async (id: number) => {
+  const uid = getLocalStorage("uid");
+  const gamesListsRef = doc(db, "games", uid);
+
+  const gamesSnap = await getDoc(gamesListsRef);
+  if (uid) {
+    if (gamesSnap.exists()) {
+      const lastVisitedGames = gamesSnap.data().lastVisitedGames;
+      if (lastVisitedGames.length < 10 && !lastVisitedGames.includes(id)) {
+        await updateDoc(doc(db, "games", uid), {
+          lastVisitedGames: arrayUnion(id),
+        });
+      } else if (lastVisitedGames.includes(id)) {
+        return;
+      } else {
+        lastVisitedGames.shift();
+        lastVisitedGames.push(id);
+        await updateDoc(doc(db, "games", uid), {
+          lastVisitedGames: lastVisitedGames,
+        });
+      }
+    }
   }
 };

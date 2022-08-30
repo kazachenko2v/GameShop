@@ -2,23 +2,21 @@ import React from "react";
 import { doc, DocumentData, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { getLocalStorage } from "../utils/localStorage";
 
-export const useGamesListener = () => {
+export const useGetData = () => {
   const [data, setData] = React.useState<DocumentData | null>(null);
 
   React.useEffect(() => {
-    if (auth.currentUser?.uid) {
-      const unSub = onSnapshot(
-        doc(db, "favorites", auth.currentUser.uid),
-        (doc) => {
-          if (doc.exists()) {
-            setData(doc.data());
-          }
+    const uid = getLocalStorage("uid");
+    if (uid) {
+      onSnapshot(doc(db, "games", uid), (doc) => {
+        if (doc.exists()) {
+          setData(doc.data());
         }
-      );
-      return unSub;
+      });
     }
-  }, [auth.currentUser?.uid]);
+  }, [auth.currentUser]);
 
   return data;
 };
@@ -29,10 +27,9 @@ export const useAuthListen = () => {
   );
 
   React.useEffect(() => {
-    const unSub = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
     });
-    return unSub;
   }, []);
 
   return currentUser;

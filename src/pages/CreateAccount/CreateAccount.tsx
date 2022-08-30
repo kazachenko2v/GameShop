@@ -1,12 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import {
-  creacteUserName,
-  createUser,
-  createUsersFavoriteList,
-} from "../../firebase";
+import { createUser, createUserField } from "../../firebase";
+
+import { setUid } from "../../redux/auth/slice";
 
 import { getErrorMessage } from "../../utils/getErrorMessage";
+import { setLocalStorage } from "../../utils/localStorage";
 
 import styles from "../SignIn/SignIn.module.css";
 
@@ -19,18 +19,30 @@ const CreateAccount: React.FC = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const createUserHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createUser(data.email, data.password)
       .then(async (user) => {
-        await createUsersFavoriteList(user.user.uid, data.name);
-        await creacteUserName(data.name);
+        await createUserField(user.user.uid, "favGames", []);
+        await createUserField(user.user.uid, "lastVisitedGames", []);
+        await createUserField(user.user.uid, "name", data.name);
+        setLocalStorage("uid", user.user.uid);
+        dispatch(setUid(user.user.uid));
         navigate("/");
       })
       .catch((error) => {
         setErrorText(getErrorMessage(error));
       });
+  };
+
+  const inputHandler = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    value: string
+  ) => {
+    setData({ ...data, [value]: e.target.value });
+    setErrorText("");
   };
 
   return (
@@ -42,7 +54,7 @@ const CreateAccount: React.FC = () => {
             value={data.name}
             type="text"
             placeholder="Name"
-            onChange={(e) => setData({ ...data, name: e.target.value })}
+            onChange={(e) => inputHandler(e, "name")}
             className={styles.input_text}
             required
           />
@@ -52,7 +64,7 @@ const CreateAccount: React.FC = () => {
             value={data.email}
             type="email"
             placeholder="Email"
-            onChange={(e) => setData({ ...data, email: e.target.value })}
+            onChange={(e) => inputHandler(e, "email")}
             className={styles.input_text}
           />
         </label>
@@ -61,7 +73,7 @@ const CreateAccount: React.FC = () => {
             value={data.password}
             type="password"
             placeholder="Password"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
+            onChange={(e) => inputHandler(e, "password")}
             className={styles.input_text}
             required
           />
