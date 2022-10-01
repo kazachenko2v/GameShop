@@ -9,16 +9,16 @@ const initialState: IFilterSliceState = {
       ? getLocalStorage("page")
       : START_PAGE,
   platformsId:
-    window.location.search && getLocalStorage("Platforms")
-      ? getLocalStorage("Platforms")
+    window.location.search && getLocalStorage("platforms")
+      ? getLocalStorage("platforms")
       : [],
   genresId:
-    window.location.search && getLocalStorage("Genres")
-      ? getLocalStorage("Genres")
+    window.location.search && getLocalStorage("genres")
+      ? getLocalStorage("genres")
       : [],
   tagsId:
-    window.location.search && getLocalStorage("Tags")
-      ? getLocalStorage("Tags")
+    window.location.search && getLocalStorage("tags")
+      ? getLocalStorage("tags")
       : [],
   search:
     window.location.search && getLocalStorage("search")

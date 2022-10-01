@@ -2,46 +2,40 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 
-import { GamesCardMini } from "../../components";
+import { GamesCardMini, Modal } from "../../components";
 import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
 import { updateUserField } from "../../firebase";
 
 import UserPic from "../../assets/images/non-login-user.png";
 import Pen from "../../assets/images/pen.svg";
 import styles from "./Account.module.css";
-import cn from "classnames";
+import { Input } from "../../components/forms";
 
 const Account: React.FC = () => {
   const data = useGetData();
   const currentUser = useAuthListen();
-  const h1Ref = React.useRef<HTMLHeadingElement | null>(null);
-  const [changeName, setChangeName] = React.useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
   const [name, setName] = React.useState<string>("");
+  const [newName, setNewName] = React.useState<string>("");
+  const [error, setError] = React.useState<string>("");
 
   React.useEffect(() => {
     setName(data?.name);
   }, [data]);
 
-  React.useEffect(() => {
-    if (changeName && h1Ref.current) {
-      h1Ref.current.focus();
-    }
-  }, [changeName]);
-
-  const qwe = async () => {
-    if (changeName) {
-      if (h1Ref.current) {
-        await updateUserField(
-          currentUser?.uid,
-          "name",
-          h1Ref.current.innerHTML
-        );
-        setChangeName(false);
-      }
+  const acceptNewName = () => {
+    if (newName.length === 0) {
+      setError("Please, enter the correct name");
     } else {
-      setChangeName(true);
+      updateUserField("name", newName);
+      setIsOpenModal(false);
     }
   };
+
+  React.useEffect(() => {
+    setError("");
+    setNewName("");
+  }, [isOpenModal]);
 
   return (
     <>
@@ -53,17 +47,11 @@ const Account: React.FC = () => {
           {data ? (
             <>
               <div className={styles.name__container}>
-                <h1
-                  ref={h1Ref}
-                  contentEditable={changeName}
-                  suppressContentEditableWarning={true}
-                  className={cn(styles.user__name, {
-                    [styles.user__name_active]: changeName,
-                  })}
+                <h1 className={styles.user__name}>{name}</h1>
+                <button
+                  className={styles.rename}
+                  onClick={() => setIsOpenModal(true)}
                 >
-                  {name}
-                </h1>
-                <button className={styles.rename} onClick={qwe}>
                   <img src={Pen} alt="Rename" />
                 </button>
               </div>
@@ -78,6 +66,22 @@ const Account: React.FC = () => {
           )}
         </div>
       </div>
+      {isOpenModal && (
+        <Modal
+          newValue={newName}
+          error={error}
+          setIsOpen={setIsOpenModal}
+          acceptHandler={acceptNewName}
+        >
+          <Input
+            newValue={newName}
+            value={name}
+            setError={setError}
+            setValue={setNewName}
+            acceptHandler={acceptNewName}
+          />
+        </Modal>
+      )}
       <h2 className={styles.visited__title}>Last Visited Games</h2>
       <div className={styles.visited__list}>
         {data
@@ -86,8 +90,10 @@ const Account: React.FC = () => {
                 <GamesCardMini id={id} />
               </Link>
             ))
-          : [...new Array(8)].map((_, index) => (
-              <Skeleton key={index} className={styles.skeleton__card} />
+          : [...new Array(4)].map((_, index) => (
+              <div key={index} className={styles.skeleton__card__container}>
+                <Skeleton className={styles.skeleton__card} />
+              </div>
             ))}
       </div>
     </>

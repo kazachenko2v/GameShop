@@ -20,11 +20,11 @@ const GenresPage: React.FC = () => {
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const { page } = useSelector(getFilter);
   const descriptionRef = React.useRef<HTMLDivElement | null>(null);
+  const isMounted = React.useRef(false);
+
   const { data: genres, isSuccess: genresSuccess } = useGetGenreQuery(
     Number(id)
   );
-
-  const isMounted = React.useRef(false);
 
   useResetPageWhenUnmount();
 
@@ -51,7 +51,8 @@ const GenresPage: React.FC = () => {
         genres.description,
         "text/html"
       );
-      descriptionRef.current!.prepend(doc.body.firstChild!);
+      descriptionRef.current &&
+        descriptionRef.current.prepend(doc.body.firstChild!);
     }
   }, [genresSuccess]);
 

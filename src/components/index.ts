@@ -12,9 +12,13 @@ export { default as GameCardSkeleton } from "./GameCardSkeleton/GameCardSkeleton
 export { default as Header } from "./Header/Header";
 export { default as HeaderMenu } from "./HeaderMenu/HeaderMenu";
 export { default as MobileDropDownMenu } from "./MobileDropDownMenu/MobileDropDownMenu";
+export { default as Modal } from "./Modal/Modal";
+export { default as MoneyCount } from "./MoneyCount/MoneyCount";
 export { default as Pagination } from "./Pagination/Pagination";
+export { default as RequireAuth } from "./RequireAuth/RequireAuth";
 export { default as DropdownListItem } from "./DropdownListItem/DropdownListItem";
 export { default as DropdownList } from "./DropdownList/DropdownList";
 export { default as Search } from "./Search/Search";
+export { default as ShopSkeleton } from "./ShopSkeleton/ShopSkeleton";
 export { default as SortPanel } from "./SortPanel/SortPanel";
 export { default as User } from "./User/User";

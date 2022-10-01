@@ -3,6 +3,28 @@ import { TListId } from "../redux/filter/types";
 import { IGame } from "../redux/games/types";
 import { TFilterContext } from "../contexts/FilterContext";
 import { GamesResult } from "../../redux/games/types";
+import { DocumentData } from "firebase/firestore";
+
+export type ModalFormProps = {
+  newValue: string;
+  value: string;
+  setNewValue: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  acceptHandler: () => void;
+};
+
+export type ModalProps = {
+  children: React.ReactNode;
+  newValue: string;
+  error: string;
+  setIsOpen: (value: boolean) => void;
+  acceptHandler: () => void;
+};
+
+export type MoneyCountProps = {
+  isOpenModal: boolean;
+  setIsOpenModal: (arg: boolean) => void;
+};
 
 export type MobileDropDownMenuProps = {
   children: React.ReactNode;
@@ -35,7 +57,7 @@ export type DropdownListItemProps = {
 
 export type DropdownListProps = {
   startItems: TListId;
-  selectedItems: ListId;
+  selectedItems: TListId;
   setItemsIdtoState: React.SetStateAction<S>;
   value: string;
   allItemConstant: {
@@ -61,7 +83,7 @@ export type DropDownProps = {
 };
 
 export type HeaderMenuProps = {
-  currentUser: any | null;
+  currentUser: DocumentData | null;
   setIsOpenMenu: (isActive: boolean) => void;
   handleClickOnLink: (arg: string) => void;
 };

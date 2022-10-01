@@ -35,6 +35,7 @@
   font-size: 12px;
   text-align: center;
   background-color: #fff;
+  border-radius: 10px;
 }
 
 .list li {
@@ -49,5 +50,6 @@
   .list {
     top: auto;
     bottom: 100%;
+    background-color: none;
   }
 }

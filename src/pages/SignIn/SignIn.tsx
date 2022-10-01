@@ -68,12 +68,12 @@ const SignIn: React.FC = () => {
         </button>
       </form>
       {errorText && <p className={styles.error}>{errorText}</p>}
-      <span className={styles.text}>Don't want to link this account?</span>{" "}
+      <span className={styles.text}>Don't have an Account?</span>{" "}
       <button
         className={styles.link}
         onClick={() => navigate("/creacteaccount")}
       >
-        Sign in.
+        Sign up.
       </button>
     </div>
   );

@@ -234,8 +234,7 @@ a:focus {
  * Improve readability when focused and also mouse hovered in all browsers.
  */
 
-a:active,
-a:hover {
+a:active {
   outline: 0;
   color: inherit;
 }

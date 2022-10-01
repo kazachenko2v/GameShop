@@ -13,7 +13,7 @@ const FavoriteItem: React.FC<IdItemProps> = ({ id }) => {
   const { data: game, isError, isLoading } = useGetGameQuery(id);
 
   const removeButton = (id: number) => {
-    removeItemFromBase(id);
+    removeItemFromBase("favGames", id);
   };
 
   return (
@@ -31,7 +31,9 @@ const FavoriteItem: React.FC<IdItemProps> = ({ id }) => {
               <h2 className={styles.title}>{game.name} </h2>
             </div>
           </Link>
-          <button className={styles.price}>Buy</button>
+          <Link className={styles.price} to={"/shop/" + id}>
+            Buy
+          </Link>
           <button
             className={styles.remove__button}
             onClick={() => removeButton(game.id)}

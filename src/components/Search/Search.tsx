@@ -53,18 +53,20 @@ const Search: React.FC = () => {
 
   const debounceOnChange = _debounce(updateValue, 300);
 
-  const clickHandler = (value: string) => {
-    setLocalStorage("search", value);
-    setIsActive(false);
-    if (!isTablet) {
-      dispatch(setSearchQuery(value));
-    } else {
-      setContextValue((prevState: TFilterContext) => {
-        return {
-          ...prevState,
-          searchContext: value,
-        };
-      });
+  const clickHandler = () => {
+    if (value) {
+      setLocalStorage("search", value);
+      setIsActive(false);
+      if (!isTablet) {
+        dispatch(setSearchQuery(value));
+      } else {
+        setContextValue((prevState: TFilterContext) => {
+          return {
+            ...prevState,
+            searchContext: value,
+          };
+        });
+      }
     }
   };
 
@@ -92,10 +94,7 @@ const Search: React.FC = () => {
               className={styles.button_remove}
             ></button>
           )}
-          <button
-            onClick={() => clickHandler(value)}
-            className={styles.button}
-          ></button>
+          <button onClick={clickHandler} className={styles.button}></button>
         </label>
         {isError && <span>Sorry, something went wrong...</span>}
         {isLoading && (

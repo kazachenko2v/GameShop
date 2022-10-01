@@ -17,8 +17,9 @@ const Header: React.FC = () => {
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const isPhone = useMediaQuery({ maxWidth: PHONE });
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
+
   const handleClickOnLink = (page: string) => {
-    if (page === "favorites" && !currentUser) {
+    if ((page === "favorites" || page === "library") && !currentUser) {
       navigate("/signin");
     } else {
       navigate(`/${page}`, { replace: true });

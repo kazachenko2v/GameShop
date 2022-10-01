@@ -52,24 +52,26 @@ export const createUserField = (id: string, key: string, value: any) => {
   );
 };
 
-export const updateUserField = (id: string, key: string, value: any) => {
-  return updateDoc(doc(db, "games", id), {
-    [key]: value,
-  });
-};
-
-export const addItemToBase = async (id: number) => {
+export const updateUserField = async (key: string, value: any) => {
   if (auth.currentUser) {
     await updateDoc(doc(db, "games", auth.currentUser.uid), {
-      favGames: arrayUnion(id),
+      [key]: value,
     });
   }
 };
 
-export const removeItemFromBase = async (id: number) => {
+export const addItemToBase = async (key: string, id: number) => {
   if (auth.currentUser) {
     await updateDoc(doc(db, "games", auth.currentUser.uid), {
-      favGames: arrayRemove(id),
+      [key]: arrayUnion(id),
+    });
+  }
+};
+
+export const removeItemFromBase = async (key: string, id: number) => {
+  if (auth.currentUser) {
+    await updateDoc(doc(db, "games", auth.currentUser.uid), {
+      [key]: arrayRemove(id),
     });
   }
 };

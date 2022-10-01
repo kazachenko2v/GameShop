@@ -4,8 +4,6 @@ import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
 
 import styles from "./Favorites.module.css";
 import cn from "classnames";
-import { getLocalStorage } from "../../utils/localStorage";
-import Skeleton from "react-loading-skeleton";
 
 const Favorites: React.FC = () => {
   const data = useGetData();

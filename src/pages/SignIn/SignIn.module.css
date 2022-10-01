@@ -2,8 +2,6 @@
   max-width: 300px;
   margin: 0 auto;
   font-family: VelaSans-Regular;
-  /* font-size: clamp(1.5rem, 5vw, 3rem); */
-  /*               24px       48px */
 }
 
 .title {

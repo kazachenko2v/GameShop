@@ -25,7 +25,7 @@ const AllGames: React.FC = () => {
   const { page, platformsId, genresId, tagsId, search, dates } =
     useSelector(getFilter);
 
-  const searchParams = useSearchParams({
+  const searchParamsString = useSearchParams({
     page,
     platformsId,
     genresId,
@@ -39,8 +39,8 @@ const AllGames: React.FC = () => {
     isLoading,
     isSuccess,
     isError,
-  } = useGetGamesQuery([PAGE_SIZE_COUNT_20, searchParams], {
-    skip: searchParams === "",
+  } = useGetGamesQuery([PAGE_SIZE_COUNT_20, searchParamsString], {
+    skip: searchParamsString === "",
   });
 
   React.useEffect(() => {

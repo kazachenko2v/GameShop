@@ -1,55 +1,17 @@
-import {
-  Main,
-  AllGames,
-  GamePage,
-  NotFound,
-  FavoritesPage,
-  GenresPage,
-  CreateAccount,
-  SignIn,
-  Account,
-} from "./pages";
 import MainLayouts from "./layouts/MainLayouts";
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getUid } from "./redux/auth/selectors";
+import routesConfig from "./routes";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const { uid } = useSelector(getUid);
-
-  const RequireAuth = ({ children }: { children: JSX.Element }) => {
-    return uid ? children! : <Navigate replace to="/" />;
-  };
-
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<MainLayouts />}>
-          <Route path="" element={<Main />} />
-          <Route
-            path="account"
-            element={
-              <RequireAuth>
-                <Account />
-              </RequireAuth>
-            }
-          />
-          <Route path="allgames" element={<AllGames />} />
-          <Route path=":id" element={<GamePage />} />
-          <Route path="/genres/:id" element={<GenresPage />} />
-          <Route
-            path="favorites"
-            element={
-              <RequireAuth>
-                <FavoritesPage />
-              </RequireAuth>
-            }
-          />
-          <Route path="creacteaccount" element={<CreateAccount />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<Navigate replace to="/404" />} />
+          {routesConfig.map((item, index) => (
+            <Route key={index} path={item.path} element={item.element} />
+          ))}
         </Route>
       </Routes>
     </BrowserRouter>

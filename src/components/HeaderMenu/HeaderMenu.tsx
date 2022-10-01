@@ -1,6 +1,7 @@
 import React from "react";
 import { HashLink } from "react-router-hash-link";
-import { Favorites, User } from "../";
+import { useNavigate } from "react-router-dom";
+import { Favorites, User, MoneyCount } from "../";
 import { HeaderMenuProps } from "../types";
 
 import styles from "./HeaderMenu.module.css";
@@ -11,6 +12,10 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
   handleClickOnLink,
   setIsOpenMenu,
 }) => {
+  const navigate = useNavigate();
+
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
+
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -19,7 +24,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
             className={styles.nav__link}
             onClick={() => handleClickOnLink("allgames")}
           >
-            {"All Games"}
+            All Games
           </li>
           <li>
             <HashLink
@@ -27,8 +32,16 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
               to="/#genres"
               onClick={() => setIsOpenMenu(false)}
             >
-              {"Genres"}
+              Genres
             </HashLink>
+          </li>
+          <li
+            className={cn(styles.nav__link, {
+              [styles.nav__link_disabled]: !currentUser,
+            })}
+            onClick={() => handleClickOnLink("library")}
+          >
+            Library
           </li>
           <li
             className={cn(styles.nav__link, {
@@ -37,6 +50,21 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
             onClick={() => handleClickOnLink("favorites")}
           >
             <Favorites />
+          </li>
+          <li
+            className={cn(styles.nav__link, {
+              [styles.nav__link_disabled]: !currentUser,
+            })}
+            onClick={
+              !currentUser
+                ? () => navigate("/signin")
+                : () => setIsOpenModal(!isOpenModal)
+            }
+          >
+            <MoneyCount
+              isOpenModal={isOpenModal}
+              setIsOpenModal={setIsOpenModal}
+            />
           </li>
         </ul>
       </nav>

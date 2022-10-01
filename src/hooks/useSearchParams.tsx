@@ -6,7 +6,8 @@ import { IFilterSliceState } from "../redux/filter/types";
 
 export const useSearchParams = (arr: IFilterSliceState): string => {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = React.useState<string>("");
+  const [searchParamsString, setSearchParamsString] =
+    React.useState<string>("");
   const { page, platformsId, genresId, tagsId, search, dates } = { ...arr };
 
   React.useEffect(() => {
@@ -45,7 +46,7 @@ export const useSearchParams = (arr: IFilterSliceState): string => {
     const genresValue = genresId.length ? `&genres=${genresId.join(",")}` : "";
     const tagsValue = tagsId.length ? `&tags=${tagsId.join(",")}` : "";
 
-    setSearchParams(
+    setSearchParamsString(
       pageValue +
         searchValue +
         datesValue +
@@ -55,5 +56,5 @@ export const useSearchParams = (arr: IFilterSliceState): string => {
     );
   }, [page, platformsId, genresId, tagsId, search, dates]);
 
-  return searchParams;
+  return searchParamsString;
 };

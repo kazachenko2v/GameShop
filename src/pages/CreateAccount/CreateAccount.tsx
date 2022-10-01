@@ -27,7 +27,9 @@ const CreateAccount: React.FC = () => {
       .then(async (user) => {
         await createUserField(user.user.uid, "favGames", []);
         await createUserField(user.user.uid, "lastVisitedGames", []);
+        await createUserField(user.user.uid, "purchasedGames", []);
         await createUserField(user.user.uid, "name", data.name);
+        await createUserField(user.user.uid, "money", 0);
         setLocalStorage("uid", user.user.uid);
         dispatch(setUid(user.user.uid));
         navigate("/");
@@ -83,7 +85,7 @@ const CreateAccount: React.FC = () => {
         </button>
       </form>
       {errorText && <p className={styles.error}>{errorText}</p>}
-      <span className={styles.text}>Don't want to link this account? </span>
+      <span className={styles.text}>Already have an Account? </span>
       <button className={styles.link} onClick={() => navigate("/signin")}>
         Sign in.
       </button>

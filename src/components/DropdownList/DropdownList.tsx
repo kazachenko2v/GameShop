@@ -34,18 +34,14 @@ const DropdownList: React.FC<DropdownListProps> = ({
 
   const [isActive, setIsActive] = React.useState<boolean>(false);
   const selectedItemsRef = React.useRef<TListId | null>(null);
-  const startItemsRef = React.useRef<TListId | null>(null);
   selectedItemsRef.current = [...selectedItems];
-  startItemsRef.current = [...startItems];
 
   const sortAndCompareArrays = () => {
     const sortedSelectedItemsRef = selectedItemsRef.current!.sort(
       (a, b) => a - b
     );
-    const toUpdate = arraysComparing(
-      startItemsRef.current!,
-      sortedSelectedItemsRef
-    );
+
+    const toUpdate = arraysComparing(startItems, sortedSelectedItemsRef);
     if (toUpdate) {
       if (!isTablet) {
         dispatch(setItemsIdtoState(toUpdate));
