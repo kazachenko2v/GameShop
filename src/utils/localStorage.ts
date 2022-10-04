@@ -6,7 +6,7 @@ const localStorageGetItem = (key: string) => {
 
 export const setLocalStorage = (
   key: string,
-  value: number | string | string[]
+  value: number | string | string[] | null
 ) => {
   localStorage.setItem(key, JSON.stringify(value));
 };

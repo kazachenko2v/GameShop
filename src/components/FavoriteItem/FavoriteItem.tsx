@@ -9,7 +9,7 @@ import { removeItemFromBase } from "../../firebase";
 import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
 
-const FavoriteItem: React.FC<IdItemProps> = ({ id }) => {
+const FavoriteItem: React.FC<IdItemProps> = ({ id, value }) => {
   const { data: game, isError, isLoading } = useGetGameQuery(id);
 
   const removeButton = (id: number) => {
@@ -31,15 +31,24 @@ const FavoriteItem: React.FC<IdItemProps> = ({ id }) => {
               <h2 className={styles.title}>{game.name} </h2>
             </div>
           </Link>
-          <Link className={styles.price} to={"/shop/" + id}>
-            Buy
-          </Link>
-          <button
-            className={styles.remove__button}
-            onClick={() => removeButton(game.id)}
-          >
-            <img src={Close} alt="Remove" />
-          </button>
+
+          {value === "Buy" ? (
+            <>
+              <Link className={styles.price} to={"/shop/" + id}>
+                {value}
+              </Link>
+              <button
+                className={styles.remove__button}
+                onClick={() => removeButton(game.id)}
+              >
+                <img src={Close} alt="Remove" />
+              </button>
+            </>
+          ) : (
+            <a className={styles.price} onClick={() => alert("Game started")}>
+              {value}
+            </a>
+          )}
         </div>
       )}
     </>

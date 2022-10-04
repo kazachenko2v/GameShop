@@ -1,4 +1,5 @@
 import React from "react";
+import useBlockScreen from "../../hooks/useBlockScreen";
 import { ModalProps } from "../types";
 
 import styles from "./Modal.module.css";
@@ -7,9 +8,11 @@ const Modal: React.FC<ModalProps> = ({
   children,
   error,
   newValue,
+  isOpen,
   setIsOpen,
   acceptHandler,
 }) => {
+  useBlockScreen(isOpen);
   React.useEffect(() => {
     const keyHandle = (e: KeyboardEvent) => {
       if (e.code === "Enter") {

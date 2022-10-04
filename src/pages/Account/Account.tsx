@@ -3,25 +3,60 @@ import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 
 import { GamesCardMini, Modal } from "../../components";
+import { Input } from "../../components/UI";
 import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
-import { updateUserField } from "../../firebase";
+import { updateUserField, storage, updateImage } from "../../firebase";
 
 import UserPic from "../../assets/images/non-login-user.png";
 import Pen from "../../assets/images/pen.svg";
+import Close from "../../assets/images/close.svg";
+
 import styles from "./Account.module.css";
-import { Input } from "../../components/forms";
+import cn from "classnames";
+
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Account: React.FC = () => {
   const data = useGetData();
   const currentUser = useAuthListen();
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
-  const [name, setName] = React.useState<string>("");
   const [newName, setNewName] = React.useState<string>("");
+  const [file, setFile] = React.useState<File | null>(null);
   const [error, setError] = React.useState<string>("");
+  const [rdy, setRdy] = React.useState<boolean>(true);
+  const [perc, setPerc] = React.useState<number | null>(null);
+  const isImageUploading = perc !== null && perc < 100;
 
   React.useEffect(() => {
-    setName(data?.name);
-  }, [data]);
+    if (file) {
+      const uploadFile = () => {
+        const newName = new Date().getTime() + file.name;
+        const storageRef = ref(storage, newName);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            setPerc(progress);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              updateImage(downloadURL, setRdy);
+            });
+          }
+        );
+      };
+
+      uploadFile();
+    }
+  }, [file]);
 
   const acceptNewName = () => {
     if (newName.length === 0) {
@@ -34,20 +69,64 @@ const Account: React.FC = () => {
 
   React.useEffect(() => {
     setError("");
-    setNewName("");
+    setNewName(data?.name);
   }, [isOpenModal]);
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      setFile(e.target.files![0]);
+      setRdy(false);
+    }
+  };
+
+  const removeImage = () => {
+    updateImage("", setRdy);
+    setFile(null);
+  };
+
+  const valueCleaner = (e: React.MouseEvent) => {
+    (e.target as HTMLInputElement).value = "";
+  };
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.image__container}>
-          <img className={styles.image} src={UserPic} alt="User" />
+          {data?.imageUrl && (
+            <button className={styles.button__remove} onClick={removeImage}>
+              <img className={styles.img__remove} src={Close} alt="Remove" />
+            </button>
+          )}
+          <label>
+            <input
+              disabled={isImageUploading}
+              className={styles.input__file}
+              type="file"
+              onClick={valueCleaner}
+              onChange={changeHandler}
+            ></input>
+            {isImageUploading || !rdy || data === null ? (
+              // user is authorized and waiting for a response from the database
+              <Skeleton
+                className={cn(styles.image, {
+                  [styles.image_disabled]: isImageUploading,
+                })}
+              />
+            ) : (
+              // response received
+              <img
+                className={styles.image}
+                src={data.imageUrl ? data.imageUrl : UserPic}
+                alt="User"
+              />
+            )}
+          </label>
         </div>
         <div className={styles.user__info}>
           {data ? (
             <>
               <div className={styles.name__container}>
-                <h1 className={styles.user__name}>{name}</h1>
+                <h1 className={styles.user__name}>{data?.name}</h1>
                 <button
                   className={styles.rename}
                   onClick={() => setIsOpenModal(true)}
@@ -70,12 +149,13 @@ const Account: React.FC = () => {
         <Modal
           newValue={newName}
           error={error}
+          isOpen={isOpenModal}
           setIsOpen={setIsOpenModal}
           acceptHandler={acceptNewName}
         >
           <Input
             newValue={newName}
-            value={name}
+            value={data?.name}
             setError={setError}
             setValue={setNewName}
             acceptHandler={acceptNewName}

@@ -51,21 +51,19 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
           >
             <Favorites />
           </li>
-          <li
-            className={cn(styles.nav__link, {
-              [styles.nav__link_disabled]: !currentUser,
-            })}
-            onClick={
-              !currentUser
-                ? () => navigate("/signin")
-                : () => setIsOpenModal(!isOpenModal)
-            }
-          >
-            <MoneyCount
-              isOpenModal={isOpenModal}
-              setIsOpenModal={setIsOpenModal}
-            />
-          </li>
+          {currentUser && (
+            <li
+              className={cn(styles.nav__link, {
+                [styles.nav__link_disabled]: !currentUser,
+              })}
+              onClick={() => setIsOpenModal(!isOpenModal)}
+            >
+              <MoneyCount
+                isOpenModal={isOpenModal}
+                setIsOpenModal={setIsOpenModal}
+              />
+            </li>
+          )}
         </ul>
       </nav>
       <User setIsOpenMenu={setIsOpenMenu} />

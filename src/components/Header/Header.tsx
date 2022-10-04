@@ -10,6 +10,7 @@ import img_logo from "../../assets/images/PS_Store_logo.png";
 import img_title from "../../assets/images/PS_Store_title.png";
 import styles from "./Header.module.css";
 import { useAuthListen } from "../../hooks/useGetDataFromDatabase";
+import { ScrollerButton } from "../UI";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.container}>
+      <ScrollerButton />
       <Link className={styles.logo} to={`/`}>
         {isPhone ? (
           <img className={styles.logo_img} src={img_logo} alt="PS Store Logo" />

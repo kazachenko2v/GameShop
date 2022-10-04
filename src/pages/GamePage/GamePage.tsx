@@ -15,7 +15,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import styles from "./GamePage.module.css";
 import cn from "classnames";
-import useBlockScreen from "../../hooks/useBlockScreen";
 
 const GamePage: React.FC = () => {
   const navigate = useNavigate();
@@ -31,8 +30,6 @@ const GamePage: React.FC = () => {
   const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
   const [isPurchased, setIsPurchased] = React.useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
-
-  useBlockScreen(isOpenModal);
 
   React.useEffect(() => {
     setIsFavorite(
@@ -81,6 +78,7 @@ const GamePage: React.FC = () => {
         <Modal
           newValue={""}
           error={""}
+          isOpen={isOpenModal}
           setIsOpen={setIsOpenModal}
           acceptHandler={() => redirectHandler("/signin")}
         >

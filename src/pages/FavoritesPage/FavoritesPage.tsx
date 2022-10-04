@@ -8,15 +8,15 @@ import styles from "./FavoritesPage.module.css";
 
 const FavoritesPage: React.FC = () => {
   const navigate = useNavigate();
-  const gamesId = useGetData();
+  const data = useGetData();
 
   return (
     <>
-      {gamesId?.favGames.map((id: number) => (
-        <FavoriteItem key={id} id={id} />
+      {data?.favGames.map((id: number) => (
+        <FavoriteItem key={id} id={id} value={"Buy"} />
       ))}
 
-      {gamesId?.favGames.length === 0 && (
+      {data?.favGames.length === 0 && (
         <h1 className={styles.title_empty}>
           You don't have any favorite games yet.
           <a onClick={() => navigate(-1)}> Go back</a>

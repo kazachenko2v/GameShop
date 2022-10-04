@@ -8,7 +8,7 @@ import { setUid } from "../../redux/auth/slice";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 import { setLocalStorage } from "../../utils/localStorage";
 
-import styles from "./SignIn.module.css";
+import styles from "../CreateAccount/CreateAccount.module.css";
 
 const SignIn: React.FC = () => {
   const [errorText, setErrorText] = React.useState<string>("");

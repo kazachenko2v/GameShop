@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+
 import {
   doc,
   setDoc,
@@ -12,9 +13,16 @@ import {
   arrayUnion,
   updateDoc,
   getDoc,
+  getFirestore,
 } from "firebase/firestore";
 
-import { getFirestore } from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
 import { getLocalStorage } from "./utils/localStorage";
 
 const firebaseConfig = {
@@ -29,6 +37,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export const signIn = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
@@ -57,6 +66,15 @@ export const updateUserField = async (key: string, value: any) => {
     await updateDoc(doc(db, "games", auth.currentUser.uid), {
       [key]: value,
     });
+  }
+};
+
+export const updateImage = async (value: any, setRdy: any) => {
+  if (auth.currentUser) {
+    await updateDoc(doc(db, "games", auth.currentUser.uid), {
+      imageUrl: value,
+    });
+    setRdy(true);
   }
 };
 

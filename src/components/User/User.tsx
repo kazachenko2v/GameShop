@@ -21,14 +21,8 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
   const currentUser = useAuthListen();
   const data = useGetData();
   const [isOpen, setisOpen] = React.useState(false);
-  const [name, setName] = React.useState<string>("");
-  const isLoading = useIsLoading(currentUser);
-
-  React.useEffect(() => {
-    if (getLocalStorage("uid")) {
-      setName(data?.name);
-    }
-  }, [data]);
+  const isLoadingName = useIsLoading(currentUser);
+  const isLoadingImage = useIsLoading(data?.imageUrl);
 
   const singInHandler = () => {
     setIsOpenMenu(false);
@@ -39,7 +33,6 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
     localStorage.removeItem("uid");
     dispatch(setUid(null));
     signOutCustom();
-    setName("");
   };
 
   const swithToAccount = () => {
@@ -60,14 +53,27 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
         {!getLocalStorage("uid") ? (
           // user is not authorized
           <span>User</span>
-        ) : isLoading ? (
+        ) : isLoadingName ? (
           // user is authorized and waiting for a response from the database
           <Skeleton className={styles.skeleton} />
         ) : (
           // response received
-          <span>{name}</span>
+          <span>{data?.name}</span>
         )}
-        <img className={styles.pic_user} src={UserPic} alt="User Avatar" />
+        {!getLocalStorage("uid") ? (
+          // user is not authorized
+          <img className={styles.pic_user} src={UserPic} alt="User Avatar" />
+        ) : isLoadingImage ? (
+          // user is authorized and waiting for a response from the database
+          <Skeleton className={styles.pic_user} />
+        ) : (
+          // response received
+          <img
+            className={styles.pic_user}
+            src={data?.imageUrl.length ? data.imageUrl : UserPic}
+            alt="User Avatar"
+          />
+        )}
       </a>
       {currentUser && (
         <ul className={cn(styles.list, { [styles.list_active]: isOpen })}>

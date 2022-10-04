@@ -17,6 +17,7 @@ export type ModalProps = {
   children: React.ReactNode;
   newValue: string;
   error: string;
+  isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   acceptHandler: () => void;
 };
@@ -34,6 +35,7 @@ export type MobileDropDownMenuProps = {
 
 export type IdItemProps = {
   id: number;
+  value?: string;
 };
 
 export type GameCardProps = {

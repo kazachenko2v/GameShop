@@ -13,7 +13,7 @@
   }
 }
 
-.game_container {
+.game__container {
   display: flex;
   align-items: flex-end;
   position: relative;
@@ -23,7 +23,7 @@
   height: 100%;
 }
 
-.price_container {
+.info__container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -47,7 +47,7 @@
   padding: 0.667em;
   background-color: #000;
   border-radius: 20px;
-  max-width: 100%;
+  width: 100%;
   color: #fff;
 }
 
@@ -58,6 +58,7 @@
   justify-content: center;
   align-items: stretch;
   width: 100%;
+  margin: 20px 0;
 }
 
 .price {
@@ -69,11 +70,10 @@
   margin-bottom: 10px;
 }
 
-.price:last-of-type {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid black;
-  /* align-self: stretch; */
+.price:nth-child(2) {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
 }
 
 .buttom {

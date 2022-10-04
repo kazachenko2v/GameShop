@@ -7,6 +7,7 @@
 .button_user {
   display: flex;
   align-items: center;
+  gap: 5px;
   color: inherit;
 }
 
@@ -18,11 +19,8 @@
 .pic_user {
   width: 35px;
   height: 35px;
-}
-
-.pic_logout {
-  width: 30px;
-  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .list {

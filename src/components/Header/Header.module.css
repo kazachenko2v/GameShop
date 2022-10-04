@@ -1,6 +1,7 @@
 .container {
   display: flex;
   justify-content: space-between;
+  gap: 5px;
   padding: 16px;
   margin-bottom: 17px;
   font-family: VelaSans-Medium;

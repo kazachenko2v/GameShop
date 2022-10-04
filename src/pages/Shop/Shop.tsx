@@ -1,5 +1,4 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
 import { useParams } from "react-router-dom";
 import { ShopSkeleton } from "../../components";
 import {
@@ -8,9 +7,9 @@ import {
   updateUserField,
 } from "../../firebase";
 import { useGetData } from "../../hooks/useGetDataFromDatabase";
+import useIsLoading from "../../hooks/useIsLoading";
 
 import { useGetGameQuery } from "../../redux/games/games.api";
-import { getLocalStorage } from "../../utils/localStorage";
 
 import styles from "./Shop.module.css";
 
@@ -18,13 +17,11 @@ const Shop: React.FC = () => {
   const { id } = useParams();
   const data = useGetData();
 
-  const [moneyCount, setMoneyCount] = React.useState<number>(0);
+  const isLoadingDB = useIsLoading(data);
+
   const [isPurchased, setIsPurchased] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (getLocalStorage("uid")) {
-      setMoneyCount(data?.money);
-    }
     setIsPurchased(
       Boolean(
         data?.purchasedGames.find((gameId: number) => gameId === Number(id))
@@ -35,15 +32,14 @@ const Shop: React.FC = () => {
   const {
     data: game,
     isError,
-    isLoading,
-    isSuccess,
+    isLoading: isLoadingGame,
   } = useGetGameQuery(Number(id));
-  console.log(isLoading);
+
   const submitHandler = () => {
-    if (moneyCount - 50 < 0) {
+    if (data?.money - 50 < 0) {
       alert("Not enought money");
     } else {
-      updateUserField("money", moneyCount - 50);
+      updateUserField("money", data?.money - 50);
       id && addItemToBase("purchasedGames", Number(id));
       id && removeItemFromBase("favGames", Number(id));
     }
@@ -51,18 +47,18 @@ const Shop: React.FC = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingGame || isLoadingDB ? (
         <ShopSkeleton />
       ) : (
         <div className={styles.container}>
-          <div className={styles.game_container}>
+          <div className={styles.game__container}>
             <img
               className={styles.image}
               src={game?.background_image}
               alt={game?.name}
             />
           </div>
-          <div className={styles.price_container}>
+          <div className={styles.info__container}>
             {isPurchased ? (
               <div className={styles.price}>You already bought this game</div>
             ) : (
@@ -70,13 +66,13 @@ const Shop: React.FC = () => {
                 <h1 className={styles.title}>{game?.name}</h1>
                 <div className={styles.price__container}>
                   <p className={styles.price}>
-                    <span>$ {moneyCount}</span>
+                    <span>$ {data?.money}</span>
                   </p>
                   <p className={styles.price}>
                     <span>$ 50</span>
                   </p>
                   <p className={styles.price}>
-                    <span>$ {moneyCount - 50}</span>
+                    <span>$ {data?.money - 50}</span>
                   </p>
                 </div>
                 <button

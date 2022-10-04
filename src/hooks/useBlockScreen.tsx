@@ -6,11 +6,10 @@ const useBlockScreen = (isOpenModal: boolean) => {
     if (isOpenModal) {
       root.style.overflow = "hidden";
     } else {
-      root.style.overflow = "auto";
+      root.style.overflow = "";
     }
-
     return () => {
-      root.style.overflow = "auto";
+      root.style.overflow = "";
     };
   }, [isOpenModal]);
 };

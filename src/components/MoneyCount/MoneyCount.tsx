@@ -1,29 +1,30 @@
 import React from "react";
 import { updateUserField } from "../../firebase";
+import Skeleton from "react-loading-skeleton";
+
 import { Modal } from "..";
+import { Input } from "../UI";
+
 import { useGetData } from "../../hooks/useGetDataFromDatabase";
+import useIsLoading from "../../hooks/useIsLoading";
 import { MoneyCountProps } from "../types";
-import { Input } from "../forms";
+import styles from "./MoneyCount.module.css";
 
 const MoneyCount: React.FC<MoneyCountProps> = ({
   isOpenModal,
   setIsOpenModal,
 }) => {
   const data = useGetData();
-  const [moneyCount, setMoneyCount] = React.useState<number>(0);
+  const isLoadingDB = useIsLoading(data);
   const [newMoneyCount, setNewMoneyCount] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
-
-  React.useEffect(() => {
-    setMoneyCount(data?.money);
-  }, [data]);
 
   const submitHandler = () => {
     const isPositive = Math.sign(Number(newMoneyCount)) === -1;
     if (isNaN(Number(newMoneyCount)) || isPositive) {
       setError("Please, enter the correct value");
     } else {
-      updateUserField("money", moneyCount + Number(newMoneyCount));
+      updateUserField("money", data?.money + Number(newMoneyCount));
       setIsOpenModal(false);
     }
   };
@@ -35,11 +36,16 @@ const MoneyCount: React.FC<MoneyCountProps> = ({
 
   return (
     <>
-      <span>$ {moneyCount}</span>
+      {isLoadingDB ? (
+        <Skeleton className={styles.skeleton} />
+      ) : (
+        <span>$ {Number.isNaN(data?.money) ? <Skeleton /> : data?.money}</span>
+      )}
       {isOpenModal && (
         <Modal
           newValue={newMoneyCount}
           error={error}
+          isOpen={isOpenModal}
           setIsOpen={setIsOpenModal}
           acceptHandler={submitHandler}
         >

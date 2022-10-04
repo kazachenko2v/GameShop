@@ -6,18 +6,18 @@ import { getLocalStorage } from "../utils/localStorage";
 
 export const useGetData = () => {
   const [data, setData] = React.useState<DocumentData | null>(null);
-
   React.useEffect(() => {
     const uid = getLocalStorage("uid");
+    let unsubscribe: Function | null = null;
     if (uid) {
-      onSnapshot(doc(db, "games", uid), (doc) => {
+      unsubscribe = onSnapshot(doc(db, "games", uid), (doc) => {
         if (doc.exists()) {
           setData(doc.data());
         }
       });
     }
+    return () => unsubscribe && unsubscribe();
   }, [auth.currentUser]);
-
   return data;
 };
 

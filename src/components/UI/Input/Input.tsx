@@ -21,9 +21,7 @@ const Input: React.FC<InputProps> = ({
     setError("");
     setValue("");
   };
-
   React.useEffect(() => {
-    setValue(value);
     if (inputRef.current) {
       inputRef.current.value = value;
     }
@@ -37,15 +35,15 @@ const Input: React.FC<InputProps> = ({
   return (
     <label className={styles.label}>
       <input
+        type="text"
         ref={inputRef}
         onChange={changeValue}
         className={styles.input}
-        type="text"
       />
       <button
         onClick={clearValue}
         className={cn(styles.button__remove, {
-          [styles.button__remove_active]: newValue.length > 0,
+          [styles.button__remove_active]: newValue?.length > 0,
         })}
       ></button>
       <button className={styles.button} onClick={acceptHandler}>

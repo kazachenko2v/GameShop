@@ -2,11 +2,51 @@
   max-width: 300px;
   margin: 0 auto;
   font-family: VelaSans-Regular;
+  text-align: center;
+}
+
+.img__container {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 10px;
+}
+
+.button__remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: fit-content;
+}
+
+.img__remove {
+  width: 12px;
+  height: 12px;
+}
+
+.img__remove:hover {
+  transform: scale(120%);
+  transition: all 0.3s ease;
+}
+
+.input__file {
+  display: none;
+}
+
+.img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  outline: 2px solid #000;
+  transition: all 0.1s ease;
+  cursor: pointer;
+}
+
+.img:hover {
+  outline: 5px solid #000;
 }
 
 .title {
-  display: flex;
-  justify-content: center;
   font-family: VelaSans-SemiBold;
   font-size: 2rem;
   line-height: 116%;
@@ -41,6 +81,11 @@
   font-size: 1rem;
   line-height: 100%;
   color: #fff;
+}
+
+.button:disabled {
+  background-color: #812500;
+  cursor: wait;
 }
 
 .text {

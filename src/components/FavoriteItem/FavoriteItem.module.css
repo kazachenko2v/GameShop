@@ -49,7 +49,6 @@
 
 .price {
   padding: 0.334em 0.5em;
-  margin-right: 0.5em;
   background-color: #d63d00;
   border-radius: 12px;
   font-family: VelaSans-SemiBold;
@@ -65,8 +64,10 @@
 }
 
 .remove__button {
+  display: flex;
   background-color: #f4f7fa;
   padding: 5px;
+  margin-left: 0.5em;
   border-radius: 50%;
 }
 
