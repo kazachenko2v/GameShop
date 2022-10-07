@@ -2,10 +2,10 @@ import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 
-import { setCurrentPage } from "../../redux/filter/slice";
-import { PaginationProps } from "../types";
-import { TABLET } from "../../constants";
-import { setLocalStorage } from "../../utils/localStorage";
+import { setCurrentPage } from "../../../redux/filter/slice";
+import { PaginationProps } from "../../types";
+import { TABLET } from "../../../constants";
+import { setLocalStorage } from "../../../utils/localStorage";
 
 import styles from "./Pagination.module.css";
 

@@ -10,8 +10,8 @@ import {
 } from "../../contexts/FilterContext/FilterContext";
 import { arrDateToString } from "../../utils/stringToDate";
 import { useActiveFiltersCount } from "../../hooks/useActiveFiltersCount";
-import { MobileDropDownMenu, FiltersLists } from "..";
-
+import { FiltersLists } from "..";
+import { MobileDropDownMenu } from "../UI";
 import { TABLET } from "../../constants";
 
 import Filter from "../../assets/images/filter.svg";

@@ -1,5 +1,5 @@
 import React from "react";
-import { DropDownProps } from "../types";
+import { DropDownProps } from "../../types";
 
 import styles from "./DropDown.module.css";
 import cn from "classnames";
@@ -9,16 +9,16 @@ const DropDown: React.FC<DropDownProps> = ({
   value,
   isActive,
   dropDownRef,
-  buttonOnClickHandler,
+  onButtonClickHandler,
 }) => {
   return (
     <div ref={dropDownRef} className={styles.container}>
       <button
-        className={cn(styles.dropdown__button, {
-          [styles.dropdown__button_not_acive]: !isActive,
-          [styles.dropdown__button_active]: isActive,
+        className={cn(styles.button, {
+          [styles.button_not_acive]: !isActive,
+          [styles.button_active]: isActive,
         })}
-        onClick={buttonOnClickHandler}
+        onClick={onButtonClickHandler}
       >
         <span>{value[0].toUpperCase() + value.slice(1)}</span>
         <span
@@ -26,8 +26,8 @@ const DropDown: React.FC<DropDownProps> = ({
         ></span>
       </button>
       <div
-        className={cn(styles.dropdown__menu, {
-          [styles.dropdown__menu_active]: isActive,
+        className={cn(styles.menu, {
+          [styles.menu_active]: isActive,
         })}
       >
         {children}

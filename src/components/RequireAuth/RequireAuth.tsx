@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 
 const RequireAuth: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const uid = useSelector(getUid);
-
   return uid ? children : <Navigate replace to="/" />;
 };
 

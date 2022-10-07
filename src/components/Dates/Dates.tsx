@@ -1,43 +1,38 @@
 import React from "react";
 import Calendar, { OnChangeDateRangeCallback } from "react-calendar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLocalStorage } from "../../utils/localStorage";
-import { setDates } from "../../redux/filter/slice";
-import { getFilter } from "../../redux/filter/selectors";
 
-import { DropDown } from "../";
+import { DropDown } from "../UI";
 import { useClickOutside } from "../../hooks/useClickOutside";
-import {
-  FilterContext,
-  IFilterContextInterface,
-} from "../../contexts/FilterContext/FilterContext";
-import { arraysComparing } from "../../utils/dropdown";
+import { TFilterContext } from "../../contexts/FilterContext/FilterContext";
+import { isEqual } from "../../utils/arraysComparing";
 import { arrDateToString } from "../../utils/stringToDate";
 
 import "./calendar.css";
 import { useMediaQuery } from "react-responsive";
 import { TABLET } from "../../constants";
+import { DatesListProps } from "../types";
+import { setCurrentPage } from "../../redux/filter/slice";
 
-const Dates: React.FC = () => {
+const Dates: React.FC<DatesListProps> = ({
+  startItems,
+  selectedItems,
+  setItemsIdtoState,
+  setItemsIdToContext,
+  value,
+}) => {
   const dispatch = useDispatch();
-
   const isTablet = useMediaQuery({ maxWidth: TABLET });
-
-  const { dates } = useSelector(getFilter);
-  const { datesContext, setContextValue } = React.useContext(
-    FilterContext
-  ) as IFilterContextInterface;
   const [isActive, setIsActive] = React.useState<boolean>(false);
-
   const selectedDates = React.useRef<string[] | null>(null);
   const startDates = React.useRef<string[] | null>(null);
+  startDates.current = [...startItems];
+  selectedDates.current = selectedItems
+    ? arrDateToString(selectedItems)
+    : [...startItems];
 
-  startDates.current = [...dates];
-  selectedDates.current = datesContext.value
-    ? arrDateToString(datesContext.value)
-    : [...dates];
-
-  const buttonOnClickHandler = () => {
+  const onButtonClickHandler = () => {
     if (isActive) {
       compareArrays();
       setIsActive(false);
@@ -47,21 +42,19 @@ const Dates: React.FC = () => {
   };
 
   const compareArrays = () => {
-    const toUpdate = arraysComparing(
-      startDates.current!,
-      selectedDates.current!
-    );
-    if (toUpdate) {
-      !isTablet && dispatch(setDates(toUpdate));
-      setLocalStorage("dates", toUpdate);
+    if (!isEqual(startDates.current!, selectedDates.current!)) {
+      !isTablet && dispatch(setItemsIdtoState(selectedDates.current!));
+      dispatch(setCurrentPage(1));
+      setLocalStorage("dates", selectedDates.current!);
     }
   };
 
   const clickHandler = (value: [Date, Date]) => {
-    setContextValue((prevState) => {
+    setItemsIdToContext((prevState: TFilterContext) => {
       return { ...prevState, datesContext: value };
     });
   };
+
   const dropDownRef = useClickOutside(() => {
     compareArrays();
     setIsActive(false);
@@ -69,18 +62,14 @@ const Dates: React.FC = () => {
 
   return (
     <DropDown
-      value={"Dates"}
+      value={value}
       isActive={isActive}
       dropDownRef={dropDownRef}
-      buttonOnClickHandler={buttonOnClickHandler}
+      onButtonClickHandler={onButtonClickHandler}
     >
       <Calendar
         value={
-          datesContext.value as
-            | Date
-            | [Date | null, Date | null]
-            | null
-            | undefined
+          selectedItems as Date | [Date | null, Date | null] | null | undefined
         }
         onChange={clickHandler as OnChangeDateRangeCallback}
         selectRange={true}

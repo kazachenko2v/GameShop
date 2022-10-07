@@ -1,32 +1,20 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { Squash as Hamburger } from "hamburger-react";
 
-import { MobileDropDownMenu, HeaderMenu } from "../";
+import { HeaderMenu } from "../";
 import { PHONE, TABLET } from "../../constants";
+import { MobileDropDownMenu, ScrollerButton } from "../UI";
 
 import img_logo from "../../assets/images/PS_Store_logo.png";
 import img_title from "../../assets/images/PS_Store_title.png";
 import styles from "./Header.module.css";
-import { useAuthListen } from "../../hooks/useGetDataFromDatabase";
-import { ScrollerButton } from "../UI";
 
 const Header: React.FC = () => {
-  const navigate = useNavigate();
-  const currentUser = useAuthListen();
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const isPhone = useMediaQuery({ maxWidth: PHONE });
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
-
-  const handleClickOnLink = (page: string) => {
-    if ((page === "favorites" || page === "library") && !currentUser) {
-      navigate("/signin");
-    } else {
-      navigate(`/${page}`, { replace: true });
-    }
-    setIsOpenMenu(false);
-  };
 
   return (
     <header className={styles.container}>
@@ -55,11 +43,7 @@ const Header: React.FC = () => {
             isOpenMenu={isOpenMenu}
             setIsOpenMenu={setIsOpenMenu}
           >
-            <HeaderMenu
-              currentUser={currentUser}
-              handleClickOnLink={handleClickOnLink}
-              setIsOpenMenu={setIsOpenMenu}
-            />
+            <HeaderMenu setIsOpenMenu={setIsOpenMenu} />
           </MobileDropDownMenu>
           <div className={styles.burger__container}>
             <Hamburger
@@ -73,11 +57,7 @@ const Header: React.FC = () => {
           </div>
         </>
       ) : (
-        <HeaderMenu
-          currentUser={currentUser}
-          handleClickOnLink={handleClickOnLink}
-          setIsOpenMenu={setIsOpenMenu}
-        />
+        <HeaderMenu setIsOpenMenu={setIsOpenMenu} />
       )}
     </header>
   );

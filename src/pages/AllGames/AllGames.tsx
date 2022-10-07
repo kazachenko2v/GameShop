@@ -10,12 +10,8 @@ import { useResetPageWhenUnmount } from "../../hooks/useResetPageWhenUnmount";
 import FilterContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
 import { PAGE_SIZE_COUNT_20 } from "../../constants";
-import {
-  FiltersContainer,
-  SortPanel,
-  Pagination,
-  GamesList,
-} from "../../components";
+import { FiltersContainer, FiltersPanel, GamesList } from "../../components";
+import { Pagination } from "../../components/UI";
 
 const AllGames: React.FC = () => {
   const navigate = useNavigate();
@@ -87,7 +83,7 @@ const AllGames: React.FC = () => {
           tagsId={tagsId}
           dates={dates}
         />
-        <SortPanel
+        <FiltersPanel
           search={search}
           platformsId={platformsId}
           genresId={genresId}
@@ -95,12 +91,14 @@ const AllGames: React.FC = () => {
           dates={dates}
         />
       </FilterContextProvider>
+
       <GamesList
         games={games}
         isLoading={isLoading}
         isSuccess={isSuccess}
         isError={isError}
       />
+
       {isSuccess && <Pagination currentPage={page} gamesCount={games.count} />}
     </>
   );

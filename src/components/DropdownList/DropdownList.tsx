@@ -4,14 +4,11 @@ import { useMediaQuery } from "react-responsive";
 
 import { setCurrentPage } from "../../redux/filter/slice";
 import { TListId } from "../../redux/filter/types";
-import {
-  FilterContext,
-  IFilterContextInterface,
-  TFilterContext,
-} from "../../contexts/FilterContext/FilterContext";
+import { TFilterContext } from "../../contexts/FilterContext/FilterContext";
 
-import { DropDown, DropdownListItem } from "..";
-import { arraysComparing } from "../../utils/dropdown";
+import { DropdownListItem } from "..";
+import { DropDown } from "../UI";
+import { isEqual } from "../../utils/arraysComparing";
 import { setLocalStorage } from "../../utils/localStorage";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { DropdownListProps } from "../types";
@@ -21,57 +18,56 @@ const DropdownList: React.FC<DropdownListProps> = ({
   startItems,
   selectedItems,
   setItemsIdtoState,
+  setItemsIdToContext,
   value,
   allItemConstant,
 }) => {
   const dispatch = useDispatch();
-
   const isTablet = useMediaQuery({ maxWidth: TABLET });
-
-  const { setContextValue } = React.useContext(
-    FilterContext
-  ) as IFilterContextInterface;
-
   const [isActive, setIsActive] = React.useState<boolean>(false);
+  const startItemsRef = React.useRef<TListId | null>(null);
+  startItemsRef.current = [...startItems];
   const selectedItemsRef = React.useRef<TListId | null>(null);
   selectedItemsRef.current = [...selectedItems];
 
   const sortAndCompareArrays = () => {
-    const sortedSelectedItemsRef = selectedItemsRef.current!.sort(
+    const sortedSelectedItemsRef = [...selectedItemsRef.current!].sort(
       (a, b) => a - b
     );
 
-    const toUpdate = arraysComparing(startItems, sortedSelectedItemsRef);
-    if (toUpdate) {
-      if (!isTablet) {
-        dispatch(setItemsIdtoState(toUpdate));
-        dispatch(setCurrentPage(1));
-      }
-      setLocalStorage(value, toUpdate);
+    if (!isEqual(startItemsRef.current!, sortedSelectedItemsRef)) {
+      !isTablet && dispatch(setItemsIdtoState(selectedItemsRef.current));
+      dispatch(setCurrentPage(1));
+      setLocalStorage(value, selectedItemsRef.current!);
     }
   };
 
-  const buttonOnClickHandler = () => {
+  const toggleItems = React.useCallback((id: number) => {
+    if (selectedItemsRef.current!.includes(id)) {
+      setItemsIdToContext((prevState: TFilterContext) => {
+        return {
+          ...prevState,
+          [`${value}Context`]: selectedItemsRef.current!.filter(
+            (item) => item !== id
+          ),
+        };
+      });
+    } else if (!selectedItemsRef.current!.includes(id)) {
+      setItemsIdToContext((prevState: TFilterContext) => {
+        return {
+          ...prevState,
+          [`${value}Context`]: [...selectedItemsRef.current!, id],
+        };
+      });
+    }
+  }, []);
+
+  const onButtonClickHandler = () => {
     if (isActive) {
       sortAndCompareArrays();
       setIsActive(false);
     } else {
       setIsActive(true);
-    }
-  };
-
-  const toggleItems = (id: number) => {
-    if (selectedItems.includes(id)) {
-      setContextValue((prevState: TFilterContext) => {
-        return {
-          ...prevState,
-          [`${value}Context`]: [...selectedItems].filter((item) => item !== id),
-        };
-      });
-    } else if (!selectedItems.includes(id)) {
-      setContextValue((prevState: TFilterContext) => {
-        return { ...prevState, [`${value}Context`]: [...selectedItems, id] };
-      });
     }
   };
 
@@ -85,19 +81,17 @@ const DropdownList: React.FC<DropdownListProps> = ({
       value={value}
       isActive={isActive}
       dropDownRef={dropDownRef}
-      buttonOnClickHandler={buttonOnClickHandler}
+      onButtonClickHandler={onButtonClickHandler}
     >
       {allItemConstant.map((item) => (
         <DropdownListItem
           key={item.id}
           item={item}
-          isActiveMenu={isActive}
+          isAciveAtStart={selectedItems.includes(item.id)}
           toggleItems={toggleItems}
-          itemsId={selectedItems}
         />
       ))}
     </DropDown>
   );
 };
-
 export default DropdownList;

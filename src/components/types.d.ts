@@ -52,15 +52,15 @@ export type DropdownListItemProps = {
     id: number;
     name: string;
   };
-  isActiveMenu: boolean;
+  isAciveAtStart: boolean;
   toggleItems: (id: number) => void;
-  itemsId: TListId;
 };
 
 export type DropdownListProps = {
   startItems: TListId;
   selectedItems: TListId;
   setItemsIdtoState: React.SetStateAction<S>;
+  setItemsIdToContext: React.SetStateAction<S>;
   value: string;
   allItemConstant: {
     id: number;
@@ -68,7 +68,15 @@ export type DropdownListProps = {
   }[];
 };
 
-export type SortProps = {
+export type DatesListProps = {
+  startItems: string[];
+  selectedItems: Date[] | null;
+  setItemsIdtoState: React.SetStateAction<S>;
+  setItemsIdToContext: React.SetStateAction<S>;
+  value: string;
+};
+
+export type FiltersPanelProps = {
   search: string;
   platformsId: TListId;
   genresId: TListId;
@@ -81,13 +89,11 @@ export type DropDownProps = {
   value: string;
   isActive: boolean;
   dropDownRef: React.RefObject<HTMLDivElement>;
-  buttonOnClickHandler: () => void;
+  onButtonClickHandler: () => void;
 };
 
 export type HeaderMenuProps = {
-  currentUser: DocumentData | null;
   setIsOpenMenu: (isActive: boolean) => void;
-  handleClickOnLink: (arg: string) => void;
 };
 
 export type SeacrhProp = {
@@ -99,4 +105,5 @@ export type GamesListProp = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
+  setErrorApi: any;
 };

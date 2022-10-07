@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { ShopSkeleton } from "../../components";
+
+import { ShopSkeleton } from "../../components/Skeletons";
 import {
   addItemToBase,
   removeItemFromBase,

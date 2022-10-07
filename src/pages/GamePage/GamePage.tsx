@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 import { useGetGameQuery } from "../../redux/games/games.api";
 import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
@@ -8,13 +9,12 @@ import {
   removeItemFromBase,
   visitedListListener,
 } from "../../firebase";
-import { Modal } from "../../components";
+import { Modal } from "../../components/UI";
 
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
 import styles from "./GamePage.module.css";
 import cn from "classnames";
+import { useWhyDidYouUpdate } from "ahooks";
 
 const GamePage: React.FC = () => {
   const navigate = useNavigate();

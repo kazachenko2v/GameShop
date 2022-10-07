@@ -9,12 +9,12 @@ import {
   FilterContext,
   IFilterContextInterface,
   TFilterContext,
-} from "../../contexts/FilterContext/FilterContext";
-import { setSearchQuery } from "../../redux/filter/slice";
-import { useGetGamesQuery } from "../../redux/games/games.api";
-import { useClickOutside } from "../../hooks/useClickOutside";
-import { PAGE_SIZE_COUNT_5 } from "../../constants";
-import { setLocalStorage } from "../../utils/localStorage";
+} from "../../../contexts/FilterContext/FilterContext";
+import { setSearchQuery } from "../../../redux/filter/slice";
+import { useGetGamesQuery } from "../../../redux/games/games.api";
+import { useClickOutside } from "../../../hooks/useClickOutside";
+import { PAGE_SIZE_COUNT_5 } from "../../../constants";
+import { setLocalStorage } from "../../../utils/localStorage";
 
 import styles from "./Search.module.css";
 import cn from "classnames";

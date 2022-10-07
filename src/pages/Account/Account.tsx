@@ -2,8 +2,8 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 
-import { GamesCardMini, Modal } from "../../components";
-import { Input } from "../../components/UI";
+import { GamesCardMini } from "../../components";
+import { Input, Modal } from "../../components/UI";
 import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
 import { updateUserField, storage, updateImage } from "../../firebase";
 

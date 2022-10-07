@@ -1,8 +1,8 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
 
-import useBlockScreen from "../../hooks/useBlockScreen";
-import { MobileDropDownMenuProps } from "../types";
+import useBlockScreen from "../../../hooks/useBlockScreen";
+import { MobileDropDownMenuProps } from "../../types";
 
 import styles from "./MobileDropDownMenu.module.css";
 

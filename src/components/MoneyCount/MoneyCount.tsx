@@ -2,8 +2,7 @@ import React from "react";
 import { updateUserField } from "../../firebase";
 import Skeleton from "react-loading-skeleton";
 
-import { Modal } from "..";
-import { Input } from "../UI";
+import { Input, Modal } from "../UI";
 
 import { useGetData } from "../../hooks/useGetDataFromDatabase";
 import useIsLoading from "../../hooks/useIsLoading";

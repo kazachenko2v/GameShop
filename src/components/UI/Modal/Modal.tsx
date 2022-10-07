@@ -1,6 +1,6 @@
 import React from "react";
-import useBlockScreen from "../../hooks/useBlockScreen";
-import { ModalProps } from "../types";
+import useBlockScreen from "../../../hooks/useBlockScreen";
+import { ModalProps } from "../../types";
 
 import styles from "./Modal.module.css";
 

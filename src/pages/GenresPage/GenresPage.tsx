@@ -2,7 +2,9 @@ import React from "react";
 import qs from "qs";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { GamesList, Pagination } from "../../components";
+
+import { GamesList } from "../../components";
+import { Pagination } from "../../components/UI";
 import { useResetPageWhenUnmount } from "../../hooks/useResetPageWhenUnmount";
 import { getFilter } from "../../redux/filter/selectors";
 import {

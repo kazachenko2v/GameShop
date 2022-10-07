@@ -1,0 +1,9 @@
+.title {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-family: VelaSans-SemiBold;
+  font-size: 1em;
+  line-height: 116%;
+  margin-bottom: 1em;
+}

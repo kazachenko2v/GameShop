@@ -8,17 +8,17 @@ import {
   setGenresId,
   setTagsId,
 } from "../../redux/filter/slice";
-import { SortProps } from "../types";
+import { FiltersPanelProps } from "../types";
 
 import {
   FilterContext,
   IFilterContextInterface,
 } from "../../contexts/FilterContext/FilterContext";
 
-import styles from "./SortPanel.module.css";
+import styles from "./FiltersPanel.module.css";
 import cn from "classnames";
 
-const SortPanel: React.FC<SortProps> = ({
+const FiltersPanel: React.FC<FiltersPanelProps> = ({
   search,
   platformsId,
   genresId,
@@ -36,43 +36,43 @@ const SortPanel: React.FC<SortProps> = ({
   const [tagsName, setTagsName] = React.useState<string[] | null>(null);
 
   const clearPlatforms = () => {
+    localStorage.removeItem("platforms");
+    dispatch(setPlatformsId([]));
     setContextValue((prevState) => {
       return { ...prevState, platformsContext: [] };
     });
-    dispatch(setPlatformsId([]));
-    localStorage.removeItem("platforms");
   };
 
   const clearGenres = () => {
+    localStorage.removeItem("genres");
+    dispatch(setGenresId([]));
     setContextValue((prevState) => {
       return { ...prevState, genresContext: [] };
     });
-    dispatch(setGenresId([]));
-    localStorage.removeItem("genres");
   };
 
   const clearTags = () => {
+    localStorage.removeItem("tags");
+    dispatch(setTagsId([]));
     setContextValue((prevState) => {
       return { ...prevState, tagsContext: [] };
     });
-    dispatch(setTagsId([]));
-    localStorage.removeItem("tags");
   };
 
   const clearSearch = () => {
+    localStorage.removeItem("search");
+    dispatch(setSearchQuery(""));
     setContextValue((prevState) => {
       return { ...prevState, searchContext: "" };
     });
-    dispatch(setSearchQuery(""));
-    localStorage.removeItem("search");
   };
 
   const clearDates = () => {
+    localStorage.removeItem("dates");
+    dispatch(setDates([]));
     setContextValue((prevState) => {
       return { ...prevState, datesContext: null };
     });
-    dispatch(setDates([]));
-    localStorage.removeItem("dates");
   };
 
   const clearAll = () => {
@@ -176,4 +176,4 @@ const SortPanel: React.FC<SortProps> = ({
   );
 };
 
-export default SortPanel;
+export default FiltersPanel;
