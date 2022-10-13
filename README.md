@@ -16,6 +16,7 @@ https://kazachenko2v.github.io/GameShop/
 ## What was used:
 
 * TypeScript
+* React
 * Redux Toolkit
 * RTK Query
 * Firebase Authentication
