@@ -40,7 +40,7 @@ const GamePage: React.FC = () => {
         data?.purchasedGames.find((gameId: number) => gameId === Number(id))
       )
     );
-  }, [isFavorite, data]);
+  }, [data]);
 
   React.useEffect(() => {
     visitedListListener(Number(id));
@@ -83,12 +83,12 @@ const GamePage: React.FC = () => {
           acceptHandler={() => redirectHandler("/signin")}
         >
           <p className={styles.modal__text}>Please, sign in</p>
-          <a
+          <button
             className={styles.modal__button}
             onClick={() => redirectHandler("/signin")}
           >
             Sign In
-          </a>
+          </button>
         </Modal>
       )}
       <div className={styles.main}>
@@ -125,19 +125,19 @@ const GamePage: React.FC = () => {
                   <div className={styles.main_title_price_container}>
                     <h1 className={styles.main_title}>{game.name}</h1>
                     {isPurchased ? (
-                      <a
+                      <button
                         className={styles.main_price}
                         onClick={() => alert("Game Started")}
                       >
                         PLAY
-                      </a>
+                      </button>
                     ) : (
-                      <a
+                      <button
                         className={styles.main_price}
                         onClick={() => purchaseHandler("/shop/" + id)}
                       >
                         BUY $50
-                      </a>
+                      </button>
                     )}
                   </div>
                   <h2 className={styles.main_publisher}>

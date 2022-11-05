@@ -19,7 +19,6 @@ import { ALL_PLATFORMS, ALL_GENRES, ALL_TAGS } from "../../constants";
 
 import styles from "./FiltersLists.module.css";
 import cn from "classnames";
-import { useWhyDidYouUpdate } from "ahooks";
 
 const FiltersLists: React.FC = () => {
   const { platformsId, genresId, tagsId, dates } = useSelector(getFilter);

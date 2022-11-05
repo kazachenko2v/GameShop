@@ -6,15 +6,12 @@ import { Input, Modal } from "../UI";
 
 import { useGetData } from "../../hooks/useGetDataFromDatabase";
 import useIsLoading from "../../hooks/useIsLoading";
-import { MoneyCountProps } from "../types";
 import styles from "./MoneyCount.module.css";
 
-const MoneyCount: React.FC<MoneyCountProps> = ({
-  isOpenModal,
-  setIsOpenModal,
-}) => {
+const MoneyCount: React.FC = () => {
   const data = useGetData();
   const isLoadingDB = useIsLoading(data);
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
   const [newMoneyCount, setNewMoneyCount] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
 
@@ -38,7 +35,12 @@ const MoneyCount: React.FC<MoneyCountProps> = ({
       {isLoadingDB ? (
         <Skeleton className={styles.skeleton} />
       ) : (
-        <span>$ {Number.isNaN(data?.money) ? <Skeleton /> : data?.money}</span>
+        <div
+          className={styles.nav__link}
+          onClick={() => setIsOpenModal(!isOpenModal)}
+        >
+          $ {Number.isNaN(data?.money) ? <Skeleton /> : data?.money}
+        </div>
       )}
       {isOpenModal && (
         <Modal

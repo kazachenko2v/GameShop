@@ -30,11 +30,7 @@ const Shop: React.FC = () => {
     );
   }, [data]);
 
-  const {
-    data: game,
-    isError,
-    isLoading: isLoadingGame,
-  } = useGetGameQuery(Number(id));
+  const { data: game, isLoading: isLoadingGame } = useGetGameQuery(Number(id));
 
   const submitHandler = () => {
     if (data?.money - 50 < 0) {

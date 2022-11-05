@@ -10,7 +10,7 @@ import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
 
 const FavoriteItem: React.FC<IdItemProps> = ({ id, value }) => {
-  const { data: game, isError, isLoading } = useGetGameQuery(id);
+  const { data: game, isLoading } = useGetGameQuery(id);
 
   const removeButton = (id: number) => {
     removeItemFromBase("favGames", id);

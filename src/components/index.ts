@@ -14,5 +14,4 @@ export { default as GamesList } from "./GamesList/GamesList";
 export { default as Header } from "./Header/Header";
 export { default as HeaderMenu } from "./HeaderMenu/HeaderMenu";
 export { default as MoneyCount } from "./MoneyCount/MoneyCount";
-export { default as RequireAuth } from "./RequireAuth/RequireAuth";
 export { default as User } from "./User/User";

@@ -3,8 +3,10 @@ import { scrollToTop } from "../../../utils/scrollToTop";
 
 import ArrowUp from "../../../assets/images/arrowUp.svg";
 import styles from "./ScrollerButton.module.css";
+import { useLocation } from "react-router-dom";
 
 const ScrollerButton: React.FC = () => {
+  const { pathname, search, hash } = useLocation();
   const [isActive, setIsActive] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -18,14 +20,14 @@ const ScrollerButton: React.FC = () => {
 
   React.useEffect(() => {
     scrollToTop();
-  }, [window.location.href]);
+  }, [pathname, search, hash]);
 
   return (
     <>
       {isActive ? (
-        <a onClick={scrollToTop} className={styles.container}>
+        <button onClick={scrollToTop} className={styles.container}>
           <img src={ArrowUp} alt="Go Top" />
-        </a>
+        </button>
       ) : null}
     </>
   );

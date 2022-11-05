@@ -22,11 +22,6 @@ export type ModalProps = {
   acceptHandler: () => void;
 };
 
-export type MoneyCountProps = {
-  isOpenModal: boolean;
-  setIsOpenModal: (arg: boolean) => void;
-};
-
 export type MobileDropDownMenuProps = {
   children: React.ReactNode;
   isOpenMenu: boolean;

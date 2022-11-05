@@ -19,7 +19,7 @@ const FavoritesPage: React.FC = () => {
       {data?.favGames.length === 0 && (
         <h1 className={styles.title_empty}>
           You don't have any favorite games yet.
-          <a onClick={() => navigate(-1)}> Go back</a>
+          <button onClick={() => navigate(-1)}> Go back</button>
         </h1>
       )}
     </>

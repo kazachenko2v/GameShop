@@ -13,7 +13,7 @@
   position: relative;
   display: flex !important;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-start;
   aspect-ratio: 16 / 9;
   margin: 0 auto;
@@ -74,7 +74,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-start;
   font-family: VelaSans-Medium;
   font-size: 0.5em;

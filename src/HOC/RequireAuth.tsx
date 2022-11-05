@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getUid } from "../../redux/auth/selectors";
-
 import { Navigate } from "react-router-dom";
+import { getUid } from "../redux/auth/selectors";
 
 const RequireAuth: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const uid = useSelector(getUid);

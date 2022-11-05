@@ -6,7 +6,7 @@ import { IdItemProps } from "../types";
 import styles from "./GamesCardMini.module.css";
 
 const GamesCardMini: React.FC<IdItemProps> = ({ id }) => {
-  const { data: game, isError, isLoading, isSuccess } = useGetGameQuery(id);
+  const { data: game, isSuccess } = useGetGameQuery(id);
 
   return (
     <>

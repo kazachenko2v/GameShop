@@ -46,7 +46,7 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
       onMouseLeave={() => setisOpen(false)}
       className={styles.container}
     >
-      <a
+      <button
         onClick={currentUser ? undefined : singInHandler}
         className={styles.button_user}
       >
@@ -74,15 +74,11 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
             alt="User Avatar"
           />
         )}
-      </a>
+      </button>
       {currentUser && (
         <ul className={cn(styles.list, { [styles.list_active]: isOpen })}>
-          <li>
-            <a onClick={swithToAccount}>Account</a>
-          </li>
-          <li>
-            <a onClick={singOutHandler}>Logout</a>
-          </li>
+          <li onClick={swithToAccount}>Account</li>
+          <li onClick={singOutHandler}>Logout</li>
         </ul>
       )}
     </div>

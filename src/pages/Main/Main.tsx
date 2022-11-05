@@ -66,6 +66,7 @@ const Main: React.FC = () => {
                   <img
                     className={styles.image}
                     src={game.background_image}
+                    alt={game.name}
                   ></img>
                   <div className={styles.title__container}>
                     <h1 className={styles.title}>{game.name}</h1>

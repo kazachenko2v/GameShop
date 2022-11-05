@@ -11,7 +11,6 @@ import cn from "classnames";
 
 const HeaderMenu: React.FC<HeaderMenuProps> = ({ setIsOpenMenu }) => {
   const currentUser = useAuthListen();
-  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -58,15 +57,9 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ setIsOpenMenu }) => {
           </li>
           {currentUser && (
             <li
-              className={cn(styles.nav__link, {
-                [styles.nav__link_disabled]: !currentUser,
-              })}
-              onClick={() => setIsOpenModal(!isOpenModal)}
+              className={!currentUser ? styles.nav__link_disabled : undefined}
             >
-              <MoneyCount
-                isOpenModal={isOpenModal}
-                setIsOpenModal={setIsOpenModal}
-              />
+              <MoneyCount />
             </li>
           )}
         </ul>
