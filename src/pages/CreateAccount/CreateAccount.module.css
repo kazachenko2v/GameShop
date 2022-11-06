@@ -1,0 +1,104 @@
+.container {
+  max-width: 300px;
+  margin: 0 auto;
+  font-family: VelaSans-Regular;
+  text-align: center;
+}
+
+.img__container {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 10px;
+}
+
+.button__remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: fit-content;
+}
+
+.img__remove {
+  width: 12px;
+  height: 12px;
+}
+
+.img__remove:hover {
+  transform: scale(120%);
+  transition: all 0.3s ease;
+}
+
+.input__file {
+  display: none;
+}
+
+.img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  outline: 2px solid #000;
+  transition: all 0.1s ease;
+  cursor: pointer;
+}
+
+.img:hover {
+  outline: 5px solid #000;
+}
+
+.title {
+  font-family: VelaSans-SemiBold;
+  font-size: 2rem;
+  line-height: 116%;
+  margin-bottom: 1em;
+}
+
+.input_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 8px;
+  padding: var(--button_medium);
+  background: #f4f7fa;
+  margin-bottom: 20px;
+}
+
+.input_text {
+  width: 100%;
+  border: none;
+  background: #f4f7fa;
+  font-family: inherit;
+}
+
+.button {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 1rem 0.5em;
+  border-radius: 0.5em;
+  background-color: #d63d00;
+  font-family: VelaSans-SemiBold;
+  font-size: 1rem;
+  line-height: 100%;
+  color: #fff;
+}
+
+.button:disabled {
+  background-color: #812500;
+  cursor: wait;
+}
+
+.text {
+  font-family: inherit;
+}
+
+.link {
+  font-family: VelaSans-Medium;
+  text-decoration: underline;
+}
+
+.error {
+  font-family: VelaSans-Medium;
+  color: #ff0000;
+  margin-bottom: 10px;
+}

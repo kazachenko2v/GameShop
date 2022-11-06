@@ -1,0 +1,15 @@
+.skeleton {
+  height: 100%;
+  width: 80px;
+}
+
+.nav__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  user-select: none;
+}

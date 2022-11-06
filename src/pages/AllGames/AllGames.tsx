@@ -7,15 +7,11 @@ import { getFilter } from "../../redux/filter/selectors";
 import { useGetGamesQuery } from "../../redux/games/games.api";
 import { useSearchParams } from "../../hooks/useSearchParams";
 import { useResetPageWhenUnmount } from "../../hooks/useResetPageWhenUnmount";
-import CalendarContextProvider from "../../contexts/FilterContext/FilterContextProvider";
+import FilterContextProvider from "../../contexts/FilterContext/FilterContextProvider";
 
 import { PAGE_SIZE_COUNT_20 } from "../../constants";
-import {
-  SortContainer,
-  SortPanel,
-  Pagination,
-  GamesList,
-} from "../../components";
+import { FiltersContainer, FiltersPanel, GamesList } from "../../components";
+import { Pagination } from "../../components/UI";
 
 const AllGames: React.FC = () => {
   const navigate = useNavigate();
@@ -25,7 +21,7 @@ const AllGames: React.FC = () => {
   const { page, platformsId, genresId, tagsId, search, dates } =
     useSelector(getFilter);
 
-  const searchParams = useSearchParams({
+  const searchParamsString = useSearchParams({
     page,
     platformsId,
     genresId,
@@ -38,8 +34,9 @@ const AllGames: React.FC = () => {
     data: games,
     isLoading,
     isSuccess,
-  } = useGetGamesQuery([PAGE_SIZE_COUNT_20, searchParams], {
-    skip: searchParams === "",
+    isError,
+  } = useGetGamesQuery([PAGE_SIZE_COUNT_20, searchParamsString], {
+    skip: searchParamsString === "",
   });
 
   React.useEffect(() => {
@@ -78,24 +75,30 @@ const AllGames: React.FC = () => {
 
   return (
     <>
-      <CalendarContextProvider>
-        <SortContainer
-          page={page}
+      <FilterContextProvider>
+        <FiltersContainer
           search={search}
           platformsId={platformsId}
           genresId={genresId}
           tagsId={tagsId}
           dates={dates}
         />
-        <SortPanel
+        <FiltersPanel
           search={search}
           platformsId={platformsId}
           genresId={genresId}
           tagsId={tagsId}
           dates={dates}
         />
-      </CalendarContextProvider>
-      <GamesList games={games} isLoading={isLoading} isSuccess={isSuccess} />
+      </FilterContextProvider>
+
+      <GamesList
+        games={games}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+      />
+
       {isSuccess && <Pagination currentPage={page} gamesCount={games.count} />}
     </>
   );

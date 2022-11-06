@@ -1,0 +1,42 @@
+.blur {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 100000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  max-width: 350px;
+  padding: 40px 20px 40px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: var(--radius_sm);
+}
+
+@media (max-width: 912px) and (min-width: 414px) {
+  .container {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.button {
+  width: var(--input__buttons);
+  height: var(--input__buttons);
+  font-family: VelaSans-Medium;
+}
+
+.button:hover {
+  background-color: #e7ecf1;
+}
+
+.error {
+  font-family: VelaSans-Medium;
+  color: #ff0000;
+  margin-top: 20px;
+}

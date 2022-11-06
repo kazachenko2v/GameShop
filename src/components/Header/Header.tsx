@@ -1,48 +1,51 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { Squash as Hamburger } from "hamburger-react";
 
-import { MobileDropDownMenu, HeaderMenu } from "../";
+import { HeaderMenu } from "../";
 import { PHONE, TABLET } from "../../constants";
+import { MobileDropDownMenu, ScrollerButton } from "../UI";
+import useBlockScreen from "../../hooks/useBlockScreen";
 
-import img_logo_desktop from "../../assets/images/PS_Store_logo_desktop.png";
-import img_logo_phone from "../../assets/images/PS_Store_logo_phone.png";
+import img_logo from "../../assets/images/PS_Store_logo.png";
+import img_title from "../../assets/images/PS_Store_title.png";
 import styles from "./Header.module.css";
 
 const Header: React.FC = () => {
-  const navigate = useNavigate();
-
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const isPhone = useMediaQuery({ maxWidth: PHONE });
-
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
-
-  const handleClickOnLink = (page: string) => {
-    navigate(`/${page}`, { replace: true });
-    setIsOpenMenu(false);
-  };
+  useBlockScreen(isOpenMenu);
 
   return (
     <header className={styles.container}>
+      <ScrollerButton />
       <Link className={styles.logo} to={`/`}>
         {isPhone ? (
-          <img src={img_logo_phone} alt="PS Store Logo" />
+          <img className={styles.logo_img} src={img_logo} alt="PS Store Logo" />
         ) : (
-          <img src={img_logo_desktop} alt="PS Store Logo" />
+          <>
+            <img
+              className={styles.logo_img}
+              src={img_logo}
+              alt="PS Store Logo"
+            />
+            <img
+              className={styles.logo_title}
+              src={img_title}
+              alt="PS Store Logo"
+            />
+          </>
         )}
       </Link>
-
       {isTablet ? (
         <>
           <MobileDropDownMenu
             isOpenMenu={isOpenMenu}
             setIsOpenMenu={setIsOpenMenu}
           >
-            <HeaderMenu
-              handleClickOnLink={handleClickOnLink}
-              setIsOpenMenu={setIsOpenMenu}
-            />
+            <HeaderMenu setIsOpenMenu={setIsOpenMenu} />
           </MobileDropDownMenu>
           <div className={styles.burger__container}>
             <Hamburger
@@ -56,10 +59,7 @@ const Header: React.FC = () => {
           </div>
         </>
       ) : (
-        <HeaderMenu
-          handleClickOnLink={handleClickOnLink}
-          setIsOpenMenu={setIsOpenMenu}
-        />
+        <HeaderMenu setIsOpenMenu={setIsOpenMenu} />
       )}
     </header>
   );

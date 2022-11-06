@@ -9,16 +9,16 @@ const initialState: IFilterSliceState = {
       ? getLocalStorage("page")
       : START_PAGE,
   platformsId:
-    window.location.search && getLocalStorage("Platforms")
-      ? getLocalStorage("Platforms")
+    window.location.search && getLocalStorage("platforms")
+      ? getLocalStorage("platforms")
       : [],
   genresId:
-    window.location.search && getLocalStorage("Genres")
-      ? getLocalStorage("Genres")
+    window.location.search && getLocalStorage("genres")
+      ? getLocalStorage("genres")
       : [],
   tagsId:
-    window.location.search && getLocalStorage("Tags")
-      ? getLocalStorage("Tags")
+    window.location.search && getLocalStorage("tags")
+      ? getLocalStorage("tags")
       : [],
   search:
     window.location.search && getLocalStorage("search")
@@ -54,10 +54,10 @@ export const filterSlice = createSlice({
     },
     setFilters: (state, action: PayloadAction<IFilterSliceState>) => {
       state.page = action.payload.page;
+      state.search = action.payload.search;
       state.platformsId = action.payload.platformsId;
       state.genresId = action.payload.genresId;
       state.tagsId = action.payload.tagsId;
-      state.search = action.payload.search;
       state.dates = action.payload.dates;
     },
   },

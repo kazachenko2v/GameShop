@@ -1,6 +1,7 @@
 .container {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
   padding: 16px;
   margin-bottom: 17px;
   font-family: VelaSans-Medium;
@@ -9,17 +10,23 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   user-select: none;
 }
 
-.logo img {
+.logo_img {
   height: 45px;
+}
+
+.logo_title {
+  height: 30px;
 }
 
 @media (max-width: 912px) {
   .burger__container {
     position: relative;
     z-index: 1000;
-    justify-self: end;
+    justify-self: self-start;
   }
 }

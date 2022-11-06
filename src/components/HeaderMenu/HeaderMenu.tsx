@@ -1,24 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Favorites, Search } from "../";
-import { HeaderMenuProps } from "../types";
 import { HashLink } from "react-router-hash-link";
+import { Link } from "react-router-dom";
+
+import { Favorites, User, MoneyCount } from "../";
+import { HeaderMenuProps } from "../types";
+import { useAuthListen } from "../../hooks/useGetDataFromDatabase";
 
 import styles from "./HeaderMenu.module.css";
+import cn from "classnames";
 
-const HeaderMenu: React.FC<HeaderMenuProps> = ({
-  handleClickOnLink,
-  setIsOpenMenu,
-}) => {
+const HeaderMenu: React.FC<HeaderMenuProps> = ({ setIsOpenMenu }) => {
+  const currentUser = useAuthListen();
+
   return (
-    <div className={styles.menu}>
-      <nav>
+    <div className={styles.container}>
+      <nav className={styles.nav}>
         <ul className={styles.list}>
-          <li
-            className={styles.nav__link}
-            onClick={() => handleClickOnLink("allgames")}
-          >
-            {"All Games"}
+          <li>
+            <Link
+              className={styles.nav__link}
+              to="/allgames"
+              onClick={() => setIsOpenMenu(false)}
+            >
+              All Games
+            </Link>
           </li>
           <li>
             <HashLink
@@ -26,18 +31,41 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
               to="/#genres"
               onClick={() => setIsOpenMenu(false)}
             >
-              {"Genres"}
+              Genres
             </HashLink>
           </li>
-          <li
-            className={styles.nav__link}
-            onClick={() => handleClickOnLink("favorites")}
-          >
-            <Favorites />
+          <li>
+            <Link
+              className={cn(styles.nav__link, {
+                [styles.nav__link_disabled]: !currentUser,
+              })}
+              to={currentUser ? "/library" : "/signin"}
+              onClick={() => setIsOpenMenu(false)}
+            >
+              Library
+            </Link>
           </li>
+          <li>
+            <Link
+              className={cn(styles.nav__link, {
+                [styles.nav__link_disabled]: !currentUser,
+              })}
+              to={currentUser ? "/favorites" : "/signin"}
+              onClick={() => setIsOpenMenu(false)}
+            >
+              <Favorites />
+            </Link>
+          </li>
+          {currentUser && (
+            <li
+              className={!currentUser ? styles.nav__link_disabled : undefined}
+            >
+              <MoneyCount />
+            </li>
+          )}
         </ul>
       </nav>
-      <Search setIsOpenMenu={setIsOpenMenu} />
+      <User setIsOpenMenu={setIsOpenMenu} />
     </div>
   );
 };

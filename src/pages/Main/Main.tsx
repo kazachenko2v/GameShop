@@ -43,7 +43,7 @@ const Main: React.FC = () => {
 
   const settings = {
     infinite: true,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     accessibility: true,
     dots: true,
@@ -66,6 +66,7 @@ const Main: React.FC = () => {
                   <img
                     className={styles.image}
                     src={game.background_image}
+                    alt={game.name}
                   ></img>
                   <div className={styles.title__container}>
                     <h1 className={styles.title}>{game.name}</h1>
@@ -89,7 +90,7 @@ const Main: React.FC = () => {
                   <img
                     className={styles.genres__image}
                     src={genre.image_background}
-                    alt=""
+                    alt="Genres"
                   />
                   <div className={styles.title__container}>
                     <h2 className={styles.title}>{genre.name}</h2>
