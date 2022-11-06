@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/GameShop/static/css/main.4dca87c3.css",
-    "main.js": "/GameShop/static/js/main.d16f0f06.js",
+    "main.js": "/GameShop/static/js/main.f5840627.js",
     "static/media/VelaSans-SemiBold.otf": "/GameShop/static/media/VelaSans-SemiBold.6872804a6599c78ed00d.otf",
     "static/media/VelaSans-Regular.otf": "/GameShop/static/media/VelaSans-Regular.117e8a4c3026c5b404ac.otf",
     "static/media/VelaSans-Medium.otf": "/GameShop/static/media/VelaSans-Medium.afb228c904d90fa6ad23.otf",
@@ -19,10 +19,10 @@
     "static/media/arrowUp.svg": "/GameShop/static/media/arrowUp.6e64ba4c613d229da993248f71c97ebc.svg",
     "static/media/close.svg": "/GameShop/static/media/close.4420b3dbf1589fb0c0218721402255cf.svg",
     "main.4dca87c3.css.map": "/GameShop/static/css/main.4dca87c3.css.map",
-    "main.d16f0f06.js.map": "/GameShop/static/js/main.d16f0f06.js.map"
+    "main.f5840627.js.map": "/GameShop/static/js/main.f5840627.js.map"
   },
   "entrypoints": [
     "static/css/main.4dca87c3.css",
-    "static/js/main.d16f0f06.js"
+    "static/js/main.f5840627.js"
   ]
 }
