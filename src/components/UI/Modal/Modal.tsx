@@ -14,15 +14,18 @@ const Modal: React.FC<ModalProps> = ({
   const [height, setHeight] = React.useState({
     height: "100%",
   });
+
   React.useEffect(() => {
     if (window !== null && window.visualViewport !== null) {
       const changeheight = () => {
         setHeight({ height: window.visualViewport?.height + "px" });
+        document.body.style.height = window.visualViewport?.height + "px";
       };
 
       window.addEventListener("resize", changeheight);
 
       return () => {
+        document.body.style.height = "100vh";
         window.removeEventListener("resize", changeheight);
       };
     }
