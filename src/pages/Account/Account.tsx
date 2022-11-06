@@ -1,10 +1,12 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import { GamesCardMini } from "../../components";
 import { Input, Modal } from "../../components/UI";
 import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
+import useBlockScreen from "../../hooks/useBlockScreen";
 import { updateUserField, storage, updateImage } from "../../firebase";
 
 import UserPic from "../../assets/images/non-login-user.png";
@@ -13,8 +15,6 @@ import Close from "../../assets/images/close.svg";
 
 import styles from "./Account.module.css";
 import cn from "classnames";
-
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Account: React.FC = () => {
   const data = useGetData();
@@ -26,6 +26,7 @@ const Account: React.FC = () => {
   const [rdy, setRdy] = React.useState<boolean>(true);
   const [perc, setPerc] = React.useState<number | null>(null);
   const isImageUploading = perc !== null && perc < 100;
+  useBlockScreen(isOpenModal);
 
   React.useEffect(() => {
     if (file) {
@@ -149,7 +150,6 @@ const Account: React.FC = () => {
         <Modal
           newValue={newName}
           error={error}
-          isOpen={isOpenModal}
           setIsOpen={setIsOpenModal}
           acceptHandler={acceptNewName}
         >

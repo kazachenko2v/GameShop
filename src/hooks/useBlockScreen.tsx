@@ -5,8 +5,6 @@ const useBlockScreen = (isOpenModal: boolean) => {
     const root = document.body.children[0] as HTMLElement;
     if (isOpenModal) {
       root.style.overflow = "hidden";
-    } else {
-      root.style.overflow = "";
     }
     return () => {
       root.style.overflow = "";

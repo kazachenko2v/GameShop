@@ -46,7 +46,6 @@ const MoneyCount: React.FC = () => {
         <Modal
           newValue={newMoneyCount}
           error={error}
-          isOpen={isOpenModal}
           setIsOpen={setIsOpenModal}
           acceptHandler={submitHandler}
         >

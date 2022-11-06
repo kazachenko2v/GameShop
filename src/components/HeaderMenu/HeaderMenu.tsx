@@ -11,6 +11,7 @@ import cn from "classnames";
 
 const HeaderMenu: React.FC<HeaderMenuProps> = ({ setIsOpenMenu }) => {
   const currentUser = useAuthListen();
+
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>

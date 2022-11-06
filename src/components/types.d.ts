@@ -17,7 +17,6 @@ export type ModalProps = {
   children: React.ReactNode;
   newValue: string;
   error: string;
-  isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   acceptHandler: () => void;
 };

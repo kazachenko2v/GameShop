@@ -6,6 +6,7 @@ import { Squash as Hamburger } from "hamburger-react";
 import { HeaderMenu } from "../";
 import { PHONE, TABLET } from "../../constants";
 import { MobileDropDownMenu, ScrollerButton } from "../UI";
+import useBlockScreen from "../../hooks/useBlockScreen";
 
 import img_logo from "../../assets/images/PS_Store_logo.png";
 import img_title from "../../assets/images/PS_Store_title.png";
@@ -15,6 +16,7 @@ const Header: React.FC = () => {
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const isPhone = useMediaQuery({ maxWidth: PHONE });
   const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
+  useBlockScreen(isOpenMenu);
 
   return (
     <header className={styles.container}>
