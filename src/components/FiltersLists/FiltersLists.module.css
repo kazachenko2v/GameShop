@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: solid 1px #e7ecf1;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-family: VelaSans-Medium;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.item__search {
+  flex: 1;
+  order: 1;
+}
+
+@media (max-width: 912px) {
+  .container {
+    display: block;
+    flex: 1;
+    margin-bottom: 0;
+    border: none;
+    overflow-y: auto;
+  }
+
+  .item {
+    width: 100%;
+    border: none;
+  }
+}

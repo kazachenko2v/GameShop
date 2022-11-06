@@ -2,7 +2,9 @@ import React from "react";
 import qs from "qs";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { GamesList, Pagination } from "../../components";
+
+import { GamesList } from "../../components";
+import { Pagination } from "../../components/UI";
 import { useResetPageWhenUnmount } from "../../hooks/useResetPageWhenUnmount";
 import { getFilter } from "../../redux/filter/selectors";
 import {
@@ -20,11 +22,11 @@ const GenresPage: React.FC = () => {
   const isTablet = useMediaQuery({ maxWidth: TABLET });
   const { page } = useSelector(getFilter);
   const descriptionRef = React.useRef<HTMLDivElement | null>(null);
+  const isMounted = React.useRef(false);
+
   const { data: genres, isSuccess: genresSuccess } = useGetGenreQuery(
     Number(id)
   );
-
-  const isMounted = React.useRef(false);
 
   useResetPageWhenUnmount();
 
@@ -32,6 +34,7 @@ const GenresPage: React.FC = () => {
     data: games,
     isSuccess: gamesSuccess,
     isLoading: gamesLoading,
+    isError: gamesError,
   } = useGetGamesQuery([20, `&genres=${id}&page=${page}`]);
 
   React.useEffect(() => {
@@ -50,7 +53,8 @@ const GenresPage: React.FC = () => {
         genres.description,
         "text/html"
       );
-      descriptionRef.current!.prepend(doc.body.firstChild!);
+      descriptionRef.current &&
+        descriptionRef.current.prepend(doc.body.firstChild!);
     }
   }, [genresSuccess]);
 
@@ -70,6 +74,7 @@ const GenresPage: React.FC = () => {
         games={games}
         isSuccess={gamesSuccess}
         isLoading={gamesLoading}
+        isError={gamesError}
       />
       {gamesSuccess && (
         <Pagination currentPage={page} gamesCount={games.count} />

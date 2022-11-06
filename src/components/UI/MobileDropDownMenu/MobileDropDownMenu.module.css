@@ -1,0 +1,51 @@
+.blur {
+  position: absolute;
+  z-index: 450;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.blur_enter {
+  opacity: 0;
+}
+
+.blur_enter_active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.blur_exit {
+  opacity: 1;
+}
+
+.blur_exit_active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.blur_exit_done {
+  display: none;
+}
+
+.menu_enter {
+  transform: translateX(+100%);
+}
+
+.menu_enter_active {
+  transform: translateX(0);
+  transition: transform 200ms;
+}
+
+.menu_exit {
+  transform: translateX(0);
+}
+
+.menu_exit_active {
+  transform: translateX(+100%);
+  transition: transform 200ms;
+}
+.menu_exit_done {
+  display: none;
+}

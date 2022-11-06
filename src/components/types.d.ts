@@ -3,6 +3,23 @@ import { TListId } from "../redux/filter/types";
 import { IGame } from "../redux/games/types";
 import { TFilterContext } from "../contexts/FilterContext";
 import { GamesResult } from "../../redux/games/types";
+import { DocumentData } from "firebase/firestore";
+
+export type ModalFormProps = {
+  newValue: string;
+  value: string;
+  setNewValue: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  acceptHandler: () => void;
+};
+
+export type ModalProps = {
+  children: React.ReactNode;
+  newValue: string;
+  error: string;
+  setIsOpen: (value: boolean) => void;
+  acceptHandler: () => void;
+};
 
 export type MobileDropDownMenuProps = {
   children: React.ReactNode;
@@ -10,8 +27,9 @@ export type MobileDropDownMenuProps = {
   setIsOpenMenu: (isActive: boolean) => void;
 };
 
-export type FavoriteItemProps = {
+export type IdItemProps = {
   id: number;
+  value?: string;
 };
 
 export type GameCardProps = {
@@ -28,17 +46,15 @@ export type DropdownListItemProps = {
     id: number;
     name: string;
   };
-  isActiveMenu: boolean;
+  isAciveAtStart: boolean;
   toggleItems: (id: number) => void;
-  itemsId: TListId;
 };
 
 export type DropdownListProps = {
-  isTablet: boolean;
   startItems: TListId;
   selectedItems: TListId;
-  setValue: React.Dispatch<React.SetStateAction<TFilterContext>>;
   setItemsIdtoState: React.SetStateAction<S>;
+  setItemsIdToContext: React.SetStateAction<S>;
   value: string;
   allItemConstant: {
     id: number;
@@ -46,8 +62,15 @@ export type DropdownListProps = {
   }[];
 };
 
-export type SortProps = {
-  page?: number;
+export type DatesListProps = {
+  startItems: string[];
+  selectedItems: Date[] | null;
+  setItemsIdtoState: React.SetStateAction<S>;
+  setItemsIdToContext: React.SetStateAction<S>;
+  value: string;
+};
+
+export type FiltersPanelProps = {
   search: string;
   platformsId: TListId;
   genresId: TListId;
@@ -60,12 +83,11 @@ export type DropDownProps = {
   value: string;
   isActive: boolean;
   dropDownRef: React.RefObject<HTMLDivElement>;
-  buttonOnClickHandler: () => void;
+  onButtonClickHandler: () => void;
 };
 
 export type HeaderMenuProps = {
   setIsOpenMenu: (isActive: boolean) => void;
-  handleClickOnLink: (arg: string) => void;
 };
 
 export type SeacrhProp = {
@@ -76,4 +98,6 @@ export type GamesListProp = {
   games: GamesResult;
   isLoading: boolean;
   isSuccess: boolean;
+  isError: boolean;
+  setErrorApi: any;
 };

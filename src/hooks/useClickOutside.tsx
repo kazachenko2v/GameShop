@@ -6,7 +6,7 @@ export const useClickOutside = (
   const domRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const first = (event: MouseEvent) => {
+    const outsideClickHandler = (event: MouseEvent) => {
       if (
         /* when you click outside of the dropdown menu */
         domRef.current &&
@@ -16,8 +16,9 @@ export const useClickOutside = (
       }
     };
 
-    document.body.addEventListener("click", first);
-    return () => document.body.removeEventListener("click", first);
+    document.body.addEventListener("click", outsideClickHandler);
+    return () =>
+      document.body.removeEventListener("click", outsideClickHandler);
   }, []);
 
   return domRef;

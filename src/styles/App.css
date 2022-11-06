@@ -2,11 +2,24 @@
 
 html {
   height: -webkit-fill-available;
+  scrollbar-width: thin;
+  scrollbar-color: #000 #fff;
 }
 
 body {
   height: 100vh;
   height: -webkit-fill-available;
+  position: relative;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 2px;
 }
 
 a,
@@ -18,43 +31,35 @@ button {
   --padding_big: 32px;
   --button_big: 16px 24px;
   --button_medium: 8px 12px;
+
+  --radius_sm: 8px;
+
+  --shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  --input__buttons: 25px;
 }
 
 #root {
   display: flex;
   flex-direction: column;
-  position: relative; /* dropdown menu mobile */
   height: 100vh;
   height: -webkit-fill-available;
   max-width: 1244px;
   margin: 0 auto;
-  overflow: hidden;
+}
+
+@media (max-width: 1272px) {
+  #root {
+    position: relative;
+    width: 100vw;
+    padding: 0 20px;
+  }
 }
 
 main {
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-bottom: 50px;
-}
-
-main::-webkit-scrollbar {
-  width: 5px;
-  background-color: #fff;
-}
-
-main::-webkit-scrollbar-thumb {
-  background-color: #000;
-  border-radius: 2px;
-}
-
-@media (max-width: 1272px) {
-  #root {
-    width: 100vw;
-    padding: 0 20px 0;
-  }
 }
 
 /* slick-slider */

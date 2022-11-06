@@ -1,8 +1,6 @@
 import React from "react";
 
-export const useActiveFiltersCount = (
-  arr: [string, number[], number[], number[], string[]]
-): number[] | undefined[] => {
+export const useActiveFiltersCount = (arr: any[]): number[] | undefined[] => {
   const [filtersCount, setFiltersCount] = React.useState<
     number[] | undefined[]
   >([]);
@@ -10,9 +8,9 @@ export const useActiveFiltersCount = (
   React.useEffect(() => {
     let newArr: number[] = [];
     arr
-      .map((item) => item.length)
-      .forEach((item: number) => {
-        if (item > 0) {
+      .map((item) => item?.length)
+      .forEach((item: number | undefined) => {
+        if (item && item > 0) {
           newArr.push(item);
         }
       });

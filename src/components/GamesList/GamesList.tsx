@@ -1,9 +1,11 @@
 import React from "react";
 
-import { GameCard, GameCardSkeleton } from "..";
+import { GameCard } from "..";
+import { GameCardSkeleton } from "../Skeletons";
 import { IGame } from "../../redux/games/types";
 import { PAGE_SIZE_COUNT_20 } from "../../constants";
 import { GamesListProp } from "../types";
+import { withError } from "../../HOC/withError";
 
 import styles from "./GamesList.module.css";
 
@@ -11,6 +13,8 @@ const GamesList: React.FC<GamesListProp> = ({
   games,
   isLoading,
   isSuccess,
+  isError,
+  setErrorApi,
 }) => {
   return (
     <div className={styles.conteiner}>
@@ -22,8 +26,14 @@ const GamesList: React.FC<GamesListProp> = ({
         games.results.map((item: IGame) => (
           <GameCard key={item.id} item={item} />
         ))}
+      {isSuccess && games.results.length === 0 && (
+        <h1>Sorry, no games for you...</h1>
+      )}
+      {isError && setErrorApi(isError)}
     </div>
   );
 };
 
-export default GamesList;
+const GamesListWithError = withError(GamesList);
+
+export default GamesListWithError;

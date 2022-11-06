@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.button_user {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: inherit;
+}
+
+.skeleton {
+  height: 100%;
+  width: 80px;
+}
+
+.pic_user {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.list {
+  display: none;
+  position: absolute;
+  z-index: 5000;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.list li {
+  padding: 10px;
+}
+
+.list_active {
+  display: block;
+}
+
+@media (max-width: 912px) {
+  .list {
+    top: auto;
+    bottom: 100%;
+    background-color: none;
+  }
+}

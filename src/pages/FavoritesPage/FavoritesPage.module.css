@@ -1,0 +1,11 @@
+.title_empty {
+  text-align: center;
+  margin: 50px 0;
+  font-family: VelaSans-SemiBold;
+  font-size: 28px;
+  line-height: 100%;
+}
+
+.skeleton {
+  height: 50px;
+}

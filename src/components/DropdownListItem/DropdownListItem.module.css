@@ -8,6 +8,7 @@
   background-color: #fff;
   transition: background-color 0.1s ease-in;
   border-radius: 8px;
+  user-select: none;
 }
 
 .link:hover {

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API, KEY_ID } from "../../constants";
-import { Genres, GenresResult, GamesResult, IGame } from "./types";
+import { GenresResult, GamesResult, IGame } from "./types";
 
 export const gamesApi = createApi({
   reducerPath: "gamesApi",
@@ -15,7 +15,7 @@ export const gamesApi = createApi({
         },
       }),
     }),
-    getGame: builder.query<IGame, string | undefined>({
+    getGame: builder.query<IGame, number | undefined>({
       query: (id) => ({
         url: "games/" + id,
         params: {
