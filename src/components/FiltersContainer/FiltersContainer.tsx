@@ -10,6 +10,7 @@ import {
 } from "../../contexts/FilterContext/FilterContext";
 import { arrDateToString } from "../../utils/stringToDate";
 import { useActiveFiltersCount } from "../../hooks/useActiveFiltersCount";
+import useBlockScreen from "../../hooks/useBlockScreen";
 import { FiltersLists } from "..";
 import { MobileDropDownMenu } from "../UI";
 import { TABLET } from "../../constants";
@@ -28,6 +29,8 @@ const FiltersContainer: React.FC<{
 }> = ({ platformsId, genresId, tagsId, search, dates }) => {
   const dispatch = useDispatch();
   const isTablet = useMediaQuery({ maxWidth: TABLET });
+  const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
+  useBlockScreen(isOpenMenu);
 
   const {
     searchContext,
@@ -37,8 +40,6 @@ const FiltersContainer: React.FC<{
     platformsContext,
     setContextValue,
   } = React.useContext(FilterContext) as IFilterContextInterface;
-
-  const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
 
   const acceptHandler = () => {
     setIsOpenMenu(false);

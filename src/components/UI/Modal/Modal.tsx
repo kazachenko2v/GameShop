@@ -1,4 +1,5 @@
 import React from "react";
+import Portal from "../../../HOC/Portal";
 import { ModalProps } from "../../types";
 
 import styles from "./Modal.module.css";
@@ -15,13 +16,15 @@ const Modal: React.FC<ModalProps> = ({
   });
   React.useEffect(() => {
     if (window !== null && window.visualViewport !== null) {
-      const qwe = () => {
+      const changeheight = () => {
         setHeight({ height: window.visualViewport?.height + "px" });
       };
 
-      window.visualViewport?.addEventListener("resize", qwe);
+      window.addEventListener("resize", changeheight);
 
-      return () => window.visualViewport?.removeEventListener("resize", qwe);
+      return () => {
+        window.removeEventListener("resize", changeheight);
+      };
     }
   }, [height]);
 
@@ -38,16 +41,18 @@ const Modal: React.FC<ModalProps> = ({
   }, [newValue]);
 
   return (
-    <div
-      className={styles.blur}
-      style={height}
-      onClick={() => setIsOpen(false)}
-    >
-      <div className={styles.container} onClick={(e) => e.stopPropagation()}>
-        {children}
-        {error && <p className={styles.error}>{error}</p>}
+    <Portal>
+      <div
+        className={styles.blur}
+        style={height}
+        onClick={() => setIsOpen(false)}
+      >
+        <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+          {children}
+          {error && <p className={styles.error}>{error}</p>}
+        </div>
       </div>
-    </div>
+    </Portal>
   );
 };
 
