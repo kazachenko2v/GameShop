@@ -11,6 +11,7 @@ import useBlockScreen from "../../hooks/useBlockScreen";
 import img_logo from "../../assets/images/PS_Store_logo.png";
 import img_title from "../../assets/images/PS_Store_title.png";
 import styles from "./Header.module.css";
+import Portal from "../../HOC/Portal";
 
 const Header: React.FC = () => {
   const isTablet = useMediaQuery({ maxWidth: TABLET });
@@ -41,12 +42,15 @@ const Header: React.FC = () => {
       </Link>
       {isTablet ? (
         <>
-          <MobileDropDownMenu
-            isOpenMenu={isOpenMenu}
-            setIsOpenMenu={setIsOpenMenu}
-          >
-            <HeaderMenu setIsOpenMenu={setIsOpenMenu} />
-          </MobileDropDownMenu>
+          <Portal>
+            <MobileDropDownMenu
+              isOpenMenu={isOpenMenu}
+              setIsOpenMenu={setIsOpenMenu}
+            >
+              <HeaderMenu setIsOpenMenu={setIsOpenMenu} />
+            </MobileDropDownMenu>
+          </Portal>
+
           <div className={styles.burger__container}>
             <Hamburger
               toggled={isOpenMenu}

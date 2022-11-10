@@ -3,9 +3,15 @@
   z-index: 450;
   top: 0;
   left: 0;
+  bottom: 0;
   width: 100%;
-  height: 100%;
   background-color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 414px) {
+  .blur {
+    background-color: none;
+  }
 }
 
 .blur_enter {
@@ -25,9 +31,6 @@
   opacity: 0;
   transition: opacity 200ms;
 }
-.blur_exit_done {
-  display: none;
-}
 
 .menu_enter {
   transform: translateX(+100%);
@@ -45,7 +48,4 @@
 .menu_exit_active {
   transform: translateX(+100%);
   transition: transform 200ms;
-}
-.menu_exit_done {
-  display: none;
 }

@@ -1,15 +1,8 @@
 @import url("./fonts.css");
 
 html {
-  height: -webkit-fill-available;
   scrollbar-width: thin;
   scrollbar-color: #000 #fff;
-}
-
-body {
-  height: 100vh;
-  height: -webkit-fill-available;
-  position: relative;
 }
 
 body::-webkit-scrollbar {
@@ -42,17 +35,16 @@ button {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  height: -webkit-fill-available;
   max-width: 1244px;
   margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
 }
 
 @media (max-width: 1272px) {
   #root {
-    position: relative;
     width: 100vw;
-    padding: 0 20px;
+    padding: 85px 20px 0;
   }
 }
 

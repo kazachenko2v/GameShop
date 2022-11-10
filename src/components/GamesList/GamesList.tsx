@@ -1,11 +1,11 @@
 import React from "react";
 
+import { withError } from "../../HOC/withError";
 import { GameCard } from "..";
 import { GameCardSkeleton } from "../Skeletons";
 import { IGame } from "../../redux/games/types";
 import { PAGE_SIZE_COUNT_20 } from "../../constants";
 import { GamesListProp } from "../types";
-import { withError } from "../../HOC/withError";
 
 import styles from "./GamesList.module.css";
 

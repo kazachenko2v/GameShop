@@ -1,28 +1,33 @@
-.blur {
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  z-index: 100000;
+  position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100000;
+}
+
+.blur {
+  position: fixed;
+  z-index: 100001;
+  top: 0;
+  left: 0;
+  height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.container {
+.content {
+  position: absolute;
+  z-index: 100002;
   max-width: 350px;
   padding: 40px 20px 40px;
   text-align: center;
   background-color: #fff;
   border-radius: var(--radius_sm);
-}
-
-@media (max-width: 912px) and (min-width: 414px) {
-  .container {
-    display: flex;
-    align-items: center;
-  }
 }
 
 .button {

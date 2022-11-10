@@ -23,6 +23,7 @@ const MobileDropDownMenu: React.FC<MobileDropDownMenuProps> = ({
           exitActive: styles.blur_exit_active,
           exitDone: styles.blur_exit_done,
         }}
+        unmountOnExit
         mountOnEnter
       >
         <div className={styles.blur} onClick={() => setIsOpenMenu(false)}></div>

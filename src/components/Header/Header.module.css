@@ -24,9 +24,22 @@
 }
 
 @media (max-width: 912px) {
+  .container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100001;
+    height: 80px;
+    background-color: #fff;
+    margin-bottom: 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0 0 30px 30px;
+  }
+
   .burger__container {
     position: relative;
-    z-index: 1000;
+    z-index: 10000001;
     justify-self: self-start;
   }
 }
