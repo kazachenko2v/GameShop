@@ -11,6 +11,7 @@ import {
 import { arrDateToString } from "../../utils/stringToDate";
 import { useActiveFiltersCount } from "../../hooks/useActiveFiltersCount";
 import useBlockScreen from "../../hooks/useBlockScreen";
+import Portal from "../../HOC/Portal";
 import { FiltersLists } from "..";
 import { MobileDropDownMenu } from "../UI";
 import { TABLET } from "../../constants";
@@ -116,33 +117,38 @@ const FiltersContainer: React.FC<{
           </span>
         </button>
       </div>
-      <MobileDropDownMenu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}>
-        <div className={styles.menu}>
-          <div className={styles.menu__header}>
-            <span>
-              Filters{" "}
-              {activeFiltersCountContext.length > 0
-                ? activeFiltersCountContext.length
-                : ""}
-            </span>
-            <button onClick={() => setIsOpenMenu(false)}>
-              <img src={Close} alt="Close" />
-            </button>
+      <Portal>
+        <MobileDropDownMenu
+          isOpenMenu={isOpenMenu}
+          setIsOpenMenu={setIsOpenMenu}
+        >
+          <div className={styles.menu}>
+            <div className={styles.menu__header}>
+              <span>
+                Filters{" "}
+                {activeFiltersCountContext.length > 0
+                  ? activeFiltersCountContext.length
+                  : ""}
+              </span>
+              <button onClick={() => setIsOpenMenu(false)}>
+                <img src={Close} alt="Close" />
+              </button>
+            </div>
+            <FiltersLists />
+            <div className={styles.buttons__container}>
+              <button className={styles.button} onClick={clearAll}>
+                Clear
+              </button>
+              <button
+                className={cn(styles.button, styles.button_accept)}
+                onClick={acceptHandler}
+              >
+                Accept
+              </button>
+            </div>
           </div>
-          <FiltersLists />
-          <div className={styles.buttons__container}>
-            <button className={styles.button} onClick={clearAll}>
-              Clear
-            </button>
-            <button
-              className={cn(styles.button, styles.button_accept)}
-              onClick={acceptHandler}
-            >
-              Accept
-            </button>
-          </div>
-        </div>
-      </MobileDropDownMenu>
+        </MobileDropDownMenu>
+      </Portal>
     </>
   ) : (
     <FiltersLists />
