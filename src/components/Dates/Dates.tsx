@@ -9,7 +9,6 @@ import { TFilterContext } from "../../contexts/FilterContext/FilterContext";
 import { isEqual } from "../../utils/arraysComparing";
 import { arrDateToString } from "../../utils/stringToDate";
 
-import "./calendar.css";
 import { useMediaQuery } from "react-responsive";
 import { TABLET } from "../../constants";
 import { DatesListProps } from "../types";
