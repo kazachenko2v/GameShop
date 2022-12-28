@@ -18,11 +18,12 @@
   }
 }
 
-.image {
-  object-fit: cover;
+.img_container {
+  position: relative;
   height: 4em;
   width: 7em;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .title {

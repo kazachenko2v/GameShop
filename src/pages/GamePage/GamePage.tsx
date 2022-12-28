@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
+import { ImageWithLoader } from "../../components";
 import { Modal } from "../../components/UI";
 import { useGetGameQuery } from "../../redux/games/games.api";
 import { useAuthListen, useGetData } from "../../hooks/useGetDataFromDatabase";
@@ -98,11 +99,12 @@ const GamePage: React.FC = () => {
         ) : (
           isSuccess && (
             <>
-              <img
-                className={styles.main_bgimage}
-                src={game.background_image}
-                alt={game.name}
-              />
+              <div className={styles.bgimage_container}>
+                <ImageWithLoader
+                  image={game.background_image}
+                  name={game.name}
+                />
+              </div>
               <div className={styles.main_container}>
                 <div className={styles.links_container}>
                   <button

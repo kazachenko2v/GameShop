@@ -1,0 +1,34 @@
+.slider {
+  margin-bottom: 1.5em;
+}
+
+.slide {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+}
+
+@media (max-width: 414px) {
+  .slide {
+    aspect-ratio: 1;
+  }
+}
+
+@import "../../styles/mixins.scss";
+
+.img_container {
+  @include image_container;
+}
+
+.title__container {
+  padding: var(--title_padding);
+  max-width: 100%;
+}
+
+.title {
+  @include title;
+}

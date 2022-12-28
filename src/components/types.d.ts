@@ -101,3 +101,8 @@ export type GamesListProp = {
   isError: boolean;
   setErrorApi: any;
 };
+
+export type ImageWithLoaderProp = {
+  image: string;
+  name: string;
+};

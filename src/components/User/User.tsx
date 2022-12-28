@@ -58,7 +58,7 @@ const User: React.FC<SeacrhProp> = ({ setIsOpenMenu }) => {
           <Skeleton className={styles.skeleton} />
         ) : (
           // response received
-          <span>{data?.name}</span>
+          <span className={styles.user_name}>{data?.name}</span>
         )}
         {!getLocalStorage("uid") ? (
           // user is not authorized

@@ -15,6 +15,7 @@
 .image__container {
   flex: 0 0 300px;
   position: relative;
+  padding: 5px;
 }
 
 .button__remove {

@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import { useGetGameQuery } from "../../redux/games/games.api";
 import { IdItemProps } from "../types";
 import { removeItemFromBase } from "../../firebase";
+import { ImageWithLoader } from "..";
 
 import Close from "../../assets/images/close.svg";
 import styles from "./FavoriteItem.module.css";
@@ -23,11 +24,13 @@ const FavoriteItem: React.FC<IdItemProps> = ({ id, value }) => {
         <div key={game.id} className={styles.items__container}>
           <Link to={`/${game.id}`}>
             <div className={styles.title__container}>
-              <img
-                className={styles.image}
-                src={game.background_image}
-                alt={game.name}
-              />
+              <div className={styles.image_container}>
+                <ImageWithLoader
+                  image={game.background_image}
+                  name={game.name}
+                />
+              </div>
+
               <h2 className={styles.title}>{game.name} </h2>
             </div>
           </Link>

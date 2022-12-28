@@ -23,6 +23,10 @@
   object-fit: cover;
 }
 
+.user_name {
+  font-family: VelaSans-Medium;
+}
+
 .list {
   display: none;
   position: absolute;

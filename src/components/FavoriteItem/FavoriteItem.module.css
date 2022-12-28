@@ -31,11 +31,12 @@
   align-items: center;
 }
 
-.image {
-  object-fit: cover;
+.image_container {
+  position: relative;
   height: 50px;
   width: 100px;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .title {

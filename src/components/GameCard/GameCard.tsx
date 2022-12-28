@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { ImageWithLoader } from "..";
 import { GameCardProps } from "../types";
 
 import styles from "./GameCard.module.css";
@@ -10,11 +11,9 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
     <>
       <div className={styles.item_container}>
         <Link to={"/" + item.id}>
-          <img
-            className={styles.img}
-            src={item.background_image}
-            alt={item.name}
-          />
+          <div className={styles.img_container}>
+            <ImageWithLoader image={item.background_image} name={item.name} />
+          </div>
           <p className={styles.prices}>$ 49.99</p>
           <h3 className={styles.title}>{item.name}</h3>
           <p className={styles.platform_container}>

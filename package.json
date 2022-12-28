@@ -68,6 +68,7 @@
     "@types/react-transition-group": "^4.4.4",
     "bootstrap-select-dropdown": "^0.14.6",
     "gh-pages": "^4.0.0",
+    "sass": "^1.57.1",
     "typescript": "^4.6.4"
   }
 }
